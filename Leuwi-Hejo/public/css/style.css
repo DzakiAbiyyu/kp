@@ -27,7 +27,7 @@
 }
 @keyframes typing-p {
     from {width: 0; }
-    to {width: 100%; }
+    to {width: 63ch; }
 }
 @keyframes blink-caret {
   from,to { border-color:#0300d1;}
@@ -208,7 +208,7 @@ body {
   border-right: 2px solid orange;
   animation: 
     typing-p 3s steps(40, end) forwards,  /* mulai langsung */
-    blink-caret 0.75s step-end 0s;      /* mulai langsung, kedip 4x lalu berhenti */
+    blink-caret 0.75s step-end 0s infinite;      /* mulai langsung, kedip 4x lalu berhenti */
 }
 
 .hero-buttons {

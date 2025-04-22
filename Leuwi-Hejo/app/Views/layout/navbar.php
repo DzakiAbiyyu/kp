@@ -1,6 +1,6 @@
 <!-- Navbar Start -->
 <nav class="navbar">
-    <a href="#" class="navbar-logo">leuwi <span>hejo</span></a>
+    <a href="#" class="navbar-logo">Lembah<span>Pangaduan</span></a>
     <div class="navbar-nav" id="navbarNav">
         <a href="/">Beranda</a>
         <a href="/pages/about">Tentang Kami</a>
