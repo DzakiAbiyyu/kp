@@ -43,8 +43,8 @@
                     <h5 class="card-title">CAMPING NON TENDA</h5>
                     <div class="buttons">
                         <!-- <button class="Form"><a href="/form/hargaReguler"></a>Pilih</button> -->
-                        <a href="/form/Reguler">Pilih</a>
-                        <button class="Informasi" data-url="/jendela/Reguler">Lihat-Informasi</button>
+                        <a href="/form/campingNonTenda">Pilih</a>
+                        <button class="Informasi" data-url="/Jendela/informasiCampingNonTenda">Lihat-Informasi</button>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,7 @@
                     <h5 class="card-title">CAMPING</h5>
                     <div class="buttons">
                         <!-- <button class="Form"><a href="/form/hargaReguler"></a>Pilih</button> -->
-                        <a href="/form/tenda">Pilih</a>
+                        <a href="/form/camping">Pilih</a>
                         <button class="Informasi" data-url="/jendela/Reguler">Lihat-Informasi</button>
                     </div>
                 </div>

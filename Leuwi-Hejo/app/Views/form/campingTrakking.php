@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template'); ?>
 <?php $this->section('content'); ?>
 
-<div class="formInputReguler">
+<div class="formInput">
     <form id="form-pesan" class="booking-form">
         <h4 class="mb-4">CAMPING + TRAKKING</h4>
         <div class="mb-3">

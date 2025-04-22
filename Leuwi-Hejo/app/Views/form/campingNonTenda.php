@@ -1,7 +1,7 @@
 <?= $this->extend('layout/template'); ?>
 <?php $this->section('content'); ?>
 
-<div class="formInputReguler">
+<div class="formInput">
     <form id="form-campinNonTenda" class="booking-form">
         <h4 class="mb-4">PAKET CAMPING NON TENDA</h4>
         <div class="mb-3">
@@ -45,6 +45,7 @@
                 <option value="delapan">8</option>
             </select>
         </div>
+        <input type="date" id="tanggal" name="tanggal" required>
         <button type="submit" class="btn btn-submit w-100">Kirim ke WhatsApp</button>
         <a href="/pages/pesanTiket">kembali</a>
     </form>

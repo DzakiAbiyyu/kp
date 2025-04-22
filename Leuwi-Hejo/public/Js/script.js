@@ -51,6 +51,8 @@ function initFormCampingNonTrekking(formId, fieldSettings) {
         let kendaraan = fields.jenisKendaraan.options[fields.jenisKendaraan.selectedIndex].text;
         let jumlahKendaraan = '';
 
+        let tanggal = fields.tanggal.value.trim();
+
         if (fields.jenisKendaraan.value === 'Motor') {
             let motorSelected = document.getElementById('Motor').options[document.getElementById('Motor').selectedIndex];
             jumlahKendaraan = motorSelected.textContent;
@@ -64,9 +66,9 @@ function initFormCampingNonTrekking(formId, fieldSettings) {
             return;
         }
 
-        let pesan = `Halo, saya ingin memesan paket Camping Non Trakking:\nNama: ${nama}\nNomor: ${nomor}\nJumlah Orang: ${jumlahOrang}\nJenis Kendaraan: ${kendaraan}\nJumlah Kendaraan: ${jumlahKendaraan}`;
-        // const nomorPemilik = '6282226221535';
-        const nomorPemilik = '62818109442';
+        let pesan = `Halo, saya ingin memesan paket Camping Non Trakking:\nNama: ${nama}\nNomor: ${nomor}\nJumlah Orang: ${jumlahOrang}\nJenis Kendaraan: ${kendaraan}\nJumlah Kendaraan: ${jumlahKendaraan}\nUntuk tanggal: ${tanggal}`;
+        const nomorPemilik = '6282226221535';
+        // const nomorPemilik = '62818109442';
 
 
         alert('Pesan berhasil dikirim. Anda akan diarahkan ke WhatsApp.');
@@ -113,6 +115,19 @@ function initFormCamping(formId, fieldSettings) {
         return nomorPattern.test(nomor);
     };
 
+    let perlengkapanCheckbox = fields.perlengkapanCheckbox;
+    let perlengkapanList = fields.perlengkapanList;
+    let perlengkapanError = fields.perlengkapanError;
+
+    perlengkapanCheckbox.addEventListener('change', () => {
+        if (perlengkapanCheckbox.checked) {
+            perlengkapanList.style.display = 'block';
+        } else {
+            perlengkapanList.style.display = 'none';
+        }
+    });
+
+
     // Menangani event submit form
     form.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -120,7 +135,10 @@ function initFormCamping(formId, fieldSettings) {
         let nama = fields.nama.value.trim();
         let nomor = fields.nomor.value.trim();
         let paket = fields.paketTenda ? fields.paketTenda.value : '';  
+        // console.log(paket);
         let kendaraan = fields.jenisKendaraan ? fields.jenisKendaraan.options[fields.jenisKendaraan.selectedIndex].text : '';
+        let tanggal = fields.tanggal.value.trim();
+        
 
         let jumlahKendaraan = 0; // Default ke 0 jika tidak ada pilihan
         if (fields.jenisKendaraan.value === 'Motor') {
@@ -139,10 +157,41 @@ function initFormCamping(formId, fieldSettings) {
             return;
         }
 
+        // cek perlengkapan jika dicentang
+        let selectedPackages = [];
+        let perlengkapanTerpilihValue = [];
+        let perlengkapanTerpilihText = [];
+
+        if (perlengkapanCheckbox.checked) {
+            const itemCheckboxes = perlengkapanList.querySelectorAll('input[type="checkbox"]:checked');
+
+            itemCheckboxes.forEach(cb => {
+                perlengkapanTerpilihValue.push(cb.value);
+
+                const label = document.querySelector(`label[for="${cb.value}"]`);
+                if (label) {
+                    perlengkapanTerpilihText.push(label.textContent.trim());
+                } else {
+                    perlengkapanTerpilihText.push(cb.value);
+                }
+            });
+
+            if (perlengkapanTerpilihValue.length > 0) {
+                perlengkapanError.hidden = true;
+                selectedPackages = perlengkapanTerpilihText;
+            }
+        }
+        
+
         // Menyiapkan pesan untuk WhatsApp
-        let pesan = `Halo, saya ingin memesan paket camping: \nPaket: ${paket}\nNama: ${nama}\nNomor: ${nomor}\nJenis Kendaraan: ${kendaraan}\nJumlah Kendaraan: ${jumlahKendaraan}`;
-        // const nomorPemilik = '6282226221535';
-        const nomorPemilik = '62818109442';
+        let pesan = `Halo, saya ingin memesan paket camping\nPaket  : ${paket}\nNama    : ${nama}\nNomor    : ${nomor}\nJenis Kendaraan     : ${kendaraan}\nJumlah Kendaraan    : ${jumlahKendaraan}\nUntuk Tanggal : ${tanggal}`;
+        
+        if (selectedPackages.length > 0) {
+            pesan += `\nSewa Perlengkapan   : ${selectedPackages.join(' - ')}`;
+        }
+
+        const nomorPemilik = '6282226221535';
+        // const nomorPemilik = '62818109442';
 
         // Redirect ke WhatsApp
         alert('Pesan berhasil dikirim. Anda akan diarahkan ke WhatsApp.');
@@ -150,6 +199,89 @@ function initFormCamping(formId, fieldSettings) {
         window.open(waLink, '_blank');
     });
 }
+
+function initFormTrakking(formId, fieldSettings) {
+    let form = document.getElementById(formId);
+    if (!form) return;
+
+    const fields = {};
+    for (const fieldName in fieldSettings) {
+        fields[fieldName] = document.getElementById(fieldSettings[fieldName]);
+    }
+
+    const validateNomor = (nomor) => {
+        const nomorPattern = /^(08\d{8,13}|628\d{8,13})$/;
+        return nomorPattern.test(nomor);
+    }
+
+    let perlengkapanCheckbox = fields.perlengkapanCheckbox;
+    let perlengkapanList = fields.perlengkapanList;
+    let perlengkapanError = fields.perlengkapanError;
+
+    perlengkapanCheckbox.addEventListener('change', () => {
+        if (perlengkapanCheckbox.checked) {
+            perlengkapanList.style.display = 'block';
+        } else {
+            perlengkapanList.style.display = 'none';
+        }
+    });
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        let nama = fields.nama.value.trim();
+        let nomor = fields.nomor.value.trim();
+        let namaPaket = fields.namaPaket.value;
+        let paket = fields.paket.options[fields.paket.selectedIndex].text;
+        let rute = fields.rute.options[fields.rute.selectedIndex].text;
+        let tanggal = fields.tanggal.value;
+
+        if (!validateNomor(nomor)) {
+            const errorMessage = "Nomor WhatsApp tidak valid. Masukkan format yang benar, contoh: 08xxxx atau 628xxx";
+            alert(errorMessage);
+            return;
+        }
+
+        // cek perlengkapan jika dicentang
+        let selectedPackages = [];
+        let perlengkapanTerpilihValue = [];
+        let perlengkapanTerpilihText = [];
+
+        if (perlengkapanCheckbox.checked) {
+            const itemCheckboxes = perlengkapanList.querySelectorAll('input[type="checkbox"]:checked');
+
+            itemCheckboxes.forEach(cb => {
+                perlengkapanTerpilihValue.push(cb.value);
+
+                const label = document.querySelector(`label[for="${cb.value}"]`);
+                if (label) {
+                    perlengkapanTerpilihText.push(label.textContent.trim());
+                } else {
+                    perlengkapanTerpilihText.push(cb.value);
+                }
+            });
+
+            if (perlengkapanTerpilihValue.length > 0) {
+                perlengkapanError.hidden = true;
+                selectedPackages = perlengkapanTerpilihText;
+            }
+        }
+
+        let pesan = `Halo, saya ingin memesan paket ${namaPaket}\nNama  : ${nama}\nNomor    : ${nomor}\nPaket/Pax   : ${paket}\nRute    : ${rute}\nTanggal  : ${tanggal}`;
+        if (selectedPackages.length > 0) {
+            pesan += `\nSewa Perlengkapan: ${selectedPackages.join(' - ')}`;  
+        }
+
+
+        let nomorPemilik = '6282226221535';
+
+        alert('Pesan berhasil dikirimkan. Anda akan diarahkan ke WhatsApp');
+        const waLink = `https://wa.me/${nomorPemilik}?text=${encodeURIComponent(pesan)}`;
+        window.open(waLink, '_blank');
+    });
+}
+
+
 
 function showPopup(url) {
     fetch(url)
@@ -177,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
     infoButtons.forEach(button => {
         button.addEventListener('click', function () {
             const url = button.getAttribute('data-url');
-            showPopup();
+            showPopup(url);
         });
     });
 
@@ -186,14 +318,32 @@ document.addEventListener('DOMContentLoaded', function () {
         nama: 'name',
         nomor: 'nomor',
         paketTenda: 'paketTenda',  
-        jenisKendaraan: 'jenisKendaraan'
+        jenisKendaraan: 'jenisKendaraan',
+        perlengkapanCheckbox: 'perlengkapanCheckbox',
+        perlengkapanList: 'perlengkapanList',
+        perlengkapanError: 'perlengkapanError',
+        tanggal: 'tanggal'
     });
 
     initFormCampingNonTrekking('form-campinNonTenda', {
         nama: 'name',
         nomor: 'nomor',
         jenisKendaraan: 'jenisKendaraan',
-        jumlah: 'jumlah'
+        jumlah: 'jumlah',
+        tanggal: 'tanggal'
     });
+
+    initFormTrakking('form-trakking', {
+        nama: 'name',
+        nomor: 'nomor',
+        namaPaket: 'hiddenInput',
+        paket: 'paket',
+        rute: 'rute',
+        perlengkapanCheckbox: 'perlengkapanCheckbox',
+        perlengkapanList: 'perlengkapanList',
+        perlengkapanError: 'perlengkapanError',
+        tanggal: 'tanggal'
+    });
+
 
 });

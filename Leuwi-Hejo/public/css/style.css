@@ -561,6 +561,8 @@ hr {
     color: var(--color-secondary);
     font-weight: bold;
     margin-bottom: 30px;
+    /* animation: typing ; */
+    animation: typing 4s steps(53, end) forwards;
 }
 
 
@@ -762,12 +764,13 @@ th {
 /* pesan tiket End */
 
 /* Menyesuaikan tinggi div form agar tidak tertutup navbar */
-.formInputReguler {
+.formInput {
     min-height: 100vh;
     padding-top: 80px; /* sesuaikan dengan tinggi navbar-mu */
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .booking-form {
@@ -787,10 +790,10 @@ th {
     margin-bottom: 25px;
 }
 
-.booking-form input,
-.booking-form select {
+.booking-form #name {
     width: 100%;
-    padding: 12px 15px;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
     border-radius: 15px;
     border: 1px solid #ccc;
     margin-bottom: 15px;
@@ -799,6 +802,160 @@ th {
     transition: 0.3s;
 }
 
+.booking-form #nomor {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.booking-form #jumlah {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.booking-form #jenisKendaraan {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.booking-form #Motor {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.booking-form #Mobil {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.booking-form #paket {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.booking-form #rute {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.booking-form #tanggal {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+.booking-form #paketTenda {
+    width: 100%;
+    background-color: rgb(96, 75, 75);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s;
+}
+
+
+.form-check.satu {
+    display: flex;
+    padding: 10px 15px;
+    gap: 10px;
+    background-color: #6a5353;
+    border-radius: 15px;
+    /* padding: 10px; */
+    margin-bottom: 15px;
+    align-items:center;
+    justify-content: space-between;
+    color: black;
+    
+}
+
+#perlengkapanList {
+    background-color: blue;
+    padding: 10px;
+}
+
+.container-perlengkapan {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 kolom */
+    gap: 10px;
+    background-color: red;
+}   
+
+.container-perlengkapan .form-check {
+    display: flex;
+    gap: 10px;
+}
+
+
+/* .booking-form input, */
+/* .booking-form select { */
+    /* width: 100%; */
+    /* padding: 12px 15px; */
+    /* border-radius: 15px; */
+    /* border: 1px solid #ccc; */
+    /* margin-bottom: 15px; */
+    /* font-size: 1rem; */
+    /* outline: none; */
+    /* transition: 0.3s; */
+/* } */
+/*  */
 .booking-form input:focus,
 .booking-form select:focus {
     border-color: #66bb6a;
