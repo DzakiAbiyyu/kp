@@ -6,8 +6,9 @@
 
 <main class="hero">
     <div class="hero-text">
-        <h1>Rasakan Kedamaian di Tengah Alam Bogor</h1>
-        <p>Ajak keluarga dan temanmu, ciptakan momen indah bersama alam.</p>
+        <h1><?= esc($konten['title'] ?? 'Judul Default'); ?></h1>
+        <p><?= esc($konten['body'] ?? 'Deskripsi Default'); ?></p>
+
         <div class="hero-buttons">
             <a href="/pages/galery" class="btn">Galeri</a>
             <a href="/pages/pesanTiket" class="btn btn-primary">Pesan Tiket</a>

@@ -1,16 +1,22 @@
 <?php
 
 namespace App\Controllers;
+use App\Models\ContentModel;
 
 class Pages extends BaseController
 {
     public function index()
-    {
-        $data = [
-            'title' => 'Home | Leuwi Hejo'
-        ];
-        echo view('pages/home', $data);
-    }
+{
+    $ContentModel = new ContentModel();
+    $konten = $ContentModel->where('slug', 'home_hero')->first();
+
+    $data = [
+        'title' => 'Home | Leuwi Hejo',
+        'konten' => $konten
+    ];
+
+    return view('pages/home', $data);
+}
 
     public function about()
     {
