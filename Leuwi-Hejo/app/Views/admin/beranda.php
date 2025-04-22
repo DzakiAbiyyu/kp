@@ -8,12 +8,35 @@
                       style="text-decoration: none;">Dashboard</a></li>
               <li class="breadcrumb-item active">Beranda</li>
           </ol>
-          <!-- <div class="card mb-4">
+          <div class="card mb-4">
               <div class="card-body">
-                  Page ini berisi tentang manajemne konten untuk beranda mulai dari mengganti backgroundnya, mengganti
-                  gambar ataupun harga harga yang tertera dalam konten eranda
+                  <h2>Kelola Konten Halaman Beranda</h2>
+                  <?php if (session()->getFlashdata('success')) : ?>
+                      <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
+                  <?php endif; ?>
+                  <table class="table table-bordered mt-3">
+                      <thead class="bg-primary">
+                          <tr>
+                              <th class="text-center">Judul</th>
+                              <th class="text-center">Deskripsi</th>
+                              <th class="text-center">Aksi</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <?php foreach ($konten as $k) : ?>
+                              <tr>
+                                  <td class="text-center"><?= esc($k['title']); ?></td>
+                                  <td class="text-center"><?= esc($k['body']); ?></td>
+                                  <td class="text-center">
+                                      <a href="/admin/beranda/edit/<?= esc($k['slug']); ?>"><i class="fa-solid fa-pen-to-square fa-xl"></i></a>
+                                  </td>
+                              </tr>
+                          <?php endforeach; ?>
+                      </tbody>
+                  </table>
               </div>
-          </div> -->
+          </div>
+
 
       </div>
   </main>

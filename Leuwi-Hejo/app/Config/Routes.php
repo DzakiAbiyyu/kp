@@ -26,8 +26,12 @@ $routes->get('/form/(:segment)', 'form::load/$1');
 
 // admin
 $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+    // beranda
     $routes->get('/', 'Dashboard::index');
     $routes->get('beranda', 'Beranda::index');
+    $routes->get('beranda/edit/(:segment)', 'Beranda::edit/$1');
+    $routes->post('beranda/update/(:segment)', 'Beranda::update/$1');
+    // tentang kami
     $routes->get('tentang_kami', 'Beranda::tentang_kami');
     $routes->get('galery', 'Beranda::galery');
     $routes->get('produk_paket', 'Beranda::produk_paket');
