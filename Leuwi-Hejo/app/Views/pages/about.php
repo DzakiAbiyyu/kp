@@ -8,16 +8,42 @@
 </header>
 
 <section class="tentangKami-section tentangKami-intro">
-    <div class="tentangKami-container">
-        <h2>Siapa Kami?</h2>
-        <p>Kami adalah komunitas pecinta alam yang berdedikasi untuk menghadirkan pengalaman wisata yang mendalam,
-            berkelanjutan, dan berdampak positif.</p>
+    <div class="tentangKami-container siapa-kami">
+        <h2><?= esc($konten['title']); ?></h2>
+        <p><?= esc($konten['body']); ?></p>
+        <!-- <p>Kami adalah komunitas pecinta alam yang berdedikasi untuk menghadirkan pengalaman wisata yang mendalam,
+            berkelanjutan, dan berdampak positif.</p> -->
+    </div>
+    <hr>
+</section>
+
+<section class="unix-tentang-kami">
+    <div class="unix-container">
+        <div class="unix-row">
+            <!-- Visi -->
+            <div class="unix-col unix-visi">
+                <h2 class="unix-title">Visi</h2>
+                <p>
+                    Menjadi platform lelang terpercaya yang memberikan akses mudah dan transparan bagi semua pihak.
+                </p>
+            </div>
+
+            <!-- Misi -->
+            <div class="unix-col unix-misi">
+                <h2 class="unix-title">Misi</h2>
+                <ul>
+                    <li>Menyediakan layanan lelang online yang aman dan mudah digunakan.</li>
+                    <li>Meningkatkan keterlibatan masyarakat dalam proses lelang secara digital.</li>
+                    <li>Menjamin transparansi dan keadilan dalam setiap transaksi lelang.</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <hr>
 </section>
 
 <section class="tentangKami-section tentangKami-visiMisi">
-    <div class="tentangKami-container">
+    <div class="tentangKami-container Latar-Belakang">
         <h2>Latar Belakang</h2>
         <div class="tentangKami-grid">
             <div class="tentangKami-box">

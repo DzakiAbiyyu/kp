@@ -19,7 +19,7 @@ class Beranda extends BaseController
     public function index()
     {
         $data = [
-            'konten' => $this->ContentModel->findAll(),
+            'konten' => $this->ContentModel->where('slug', 'home_hero')->findAll(),
         ];
 
         return view('admin/beranda', $data);
@@ -35,14 +35,14 @@ class Beranda extends BaseController
     }
 
     public function update($slug)
-{
-    $this->ContentModel->where('slug', $slug)->set([
-        'title' => $this->request->getPost('judul'),
-        'body'  => $this->request->getPost('body'),
-    ])->update();
+    {
+        $this->ContentModel->where('slug', $slug)->set([
+            'title' => $this->request->getPost('judul'),
+            'body'  => $this->request->getPost('body'),
+        ])->update();
 
-    return redirect()->to('/admin/beranda')->with('success', 'Konten berhasil diperbarui!');
-}
+        return redirect()->to('/admin/beranda')->with('success', 'Konten berhasil diperbarui!');
+    }
 
 
 

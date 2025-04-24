@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 
 :root {
     /* Warna utama */
@@ -40,11 +42,11 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateX(-20px);
   } 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 @keyframes fadeInUp {
@@ -75,6 +77,7 @@
 }
 
 html, body {
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column; /* Menyusun elemen secara kolom */
@@ -108,7 +111,12 @@ body {
 .navbar-logo {
     font-size: 24px;
     color: white;
-    font-style: italic;
+    /* font-style: italic; */
+    font-family: "Poppins", sans-serif;
+}
+.navbar-logo span {
+    color: var(--color-text-secondary);
+    /* color: red; */
 }
 
 .navbar-nav {
@@ -161,7 +169,10 @@ body {
 /* Navbar End */
 
 /* Main Start */
+
 .hero {
+  margin-top: 60px;
+  /* width: 100vw; */
   height: 100vh;
   background: url('gambar-kamu.jpg') no-repeat center center/cover;
   position: relative;
@@ -185,13 +196,12 @@ body {
 }
 
 .hero-text h1 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 10px;
   color: var(--color-text-main);
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-  /* letter-spacing: 0.1em; */
   animation: 
     typing 3.5s steps(40, end);
 }
@@ -207,8 +217,8 @@ body {
   letter-spacing: 0.05em;
   border-right: 2px solid orange;
   animation: 
-    typing-p 3s steps(40, end) forwards,  /* mulai langsung */
-    blink-caret 0.75s step-end 0s infinite;      /* mulai langsung, kedip 4x lalu berhenti */
+    typing-p 3s steps(40, end) forwards,  
+    blink-caret 0.75s step-end 0s infinite;      
 }
 
 .hero-buttons {
@@ -292,6 +302,49 @@ hr {
 .tentangKami-container {
     max-width: 1200px;
     margin: 0 auto;
+    /* padding: 50px 20px; */
+    background-color: red;
+}
+.unix-tentang-kami {
+    padding: 50px 20px;
+    background-color: #142f2e;
+}
+.unix-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    /* display: flex; */
+    background-color: red;
+}
+.unix-row {
+    display: flex;
+    /* flex-wrap: wrap; */
+    justify-content: space-around;
+    gap: 30px;
+}
+.unix-col {
+    flex: 1;
+    max-width: 300px;
+    animation: fadeIn 1s ease-out forwards;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+.unix-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: var(--color-text-main);
+
+}
+.unix-visi p, 
+.unix-misi ul {
+    font-size: 13px;
+    color: var(--color-text-main);
+}
+.unix-misi ul {
+    padding-left: 20px;
+}
+.unix-misi li {
+    margin-bottom: 10px;
 }
 .tentangKami-section h2 {
     font-size: 2rem;
@@ -305,10 +358,17 @@ hr {
 }
 .tentangKami-box {
     flex: 1;
-    min-width: 250px;
-    background-color: var(--color-card);
-    padding: 20px;
+    /* min-width: 250px; */
+    /* background-color: var(--color-card); */
+    /* background-color: red; */
+    /* padding: 20px; */
     border-radius: 10px;
+}
+.Latar-Belakang {
+    padding: 50px 20px;
+}
+.siapa-kami {
+    padding: 50px 20px;
 }
 .tentangKami-box h3 {
     color: var(--color-accent);
@@ -561,8 +621,8 @@ hr {
     color: var(--color-secondary);
     font-weight: bold;
     margin-bottom: 30px;
-    /* animation: typing ; */
-    animation: typing 4s steps(53, end) forwards;
+    transform: X(-30px);
+    animation: fadeIn 1s linear forwards;
 }
 
 
@@ -1063,7 +1123,7 @@ th {
     .navbar-nav {
         position: absolute;
         /* opacity: 0.7; */
-        background-color: rgb(137, 106, 106);
+        background-color: rgb(84, 78, 78);
         display: flex;
         flex-direction: column;
         font-weight: bold;
@@ -1092,47 +1152,18 @@ th {
         transform-origin: 0 0;
         transform: scaleX(0.2);
     }  
-    .gambar p {
-        gap: 2px;
-    }
 
-    .gambar p span {
-        font-size: 30px;
-        text-shadow: 5px -5px 1px rgba(0, 0, 0, 0.7);
-    }
-
-    .deskripsi .deskripsi-dua {
-        display: block;
-    }
-
-    .deskripsi-dua .library {
+    .hero {
         display: flex;
-        flex-flow: row nowrap;
-        /* flex-direction: row; */
-        /* flex-wrap: wrap; */
-        overflow: scroll;
+        align-items: center;
         justify-content: center;
-        gap: 10px;
-        /* padding: 20px; */
-        overflow-x: auto;
-        overflow-y: hidden;
+        width: 100%;
+        /* min-height: 400px; */
+        background: #e0f7fa; /* contoh background */
+        padding: 40px 20px;
+        text-align: center;
     }
 
-    .deskripsi-dua .library img {
-        width: 45%;           /* Ukuran gambar agar muat berdua di satu baris */
-        max-width: 100%;
-    }
-
-    /* galery start */
-    .container-galery h2 {
-        font-size: 1.3rem;                
-    }
-    .container-galery .gallery {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    }
-    .container-galery .gallery img {
-        height: auto;
-    }
     /* galery end */
 
     /* pesan tiket Start */
@@ -1196,43 +1227,10 @@ th {
         justify-content: flex-end; /* Rata kanan */
     }
 
-    .gambar p {
-        gap: 10px;
-    }
-    .gambar p span {
-        font-size: 20px;
-        text-shadow: 3px -3px 1px rgba(0, 0, 0, 0.7);
-    }
-
-    .deskripsi .deskripsi-dua {
-        display: block;
-    }
-
-    .deskripsi-dua .library {
-        display: flex;
-        flex-flow: row nowrap;
-        /* flex-direction: row; */
-        /* flex-wrap: wrap; */
-        overflow: scroll;
-        justify-content: center;
-        gap: 10px;
-        /* padding: 20px; */
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
-
-    .deskripsi-dua .library img {
-        width: 45%;           /* Ukuran gambar agar muat berdua di satu baris */
-        max-width: 100%;
-    }
-
-
     /* galery start */
-    .container-galery .gallery {
-        grid-template-columns: repeat(auto-fill, minmax( auto, 1fr));
-    }
-    .container-galery .gallery img {
-        height: auto;
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr );
     }
     /* galery end */
 }

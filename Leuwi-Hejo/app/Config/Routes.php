@@ -32,7 +32,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->get('beranda/edit/(:segment)', 'Beranda::edit/$1');
     $routes->post('beranda/update/(:segment)', 'Beranda::update/$1');
     // tentang kami
-    $routes->get('tentang_kami', 'Beranda::tentang_kami');
+    $routes->get('tentang_kami', 'TentangKami::index');
     $routes->get('galery', 'Beranda::galery');
     $routes->get('produk_paket', 'Beranda::produk_paket');
 });

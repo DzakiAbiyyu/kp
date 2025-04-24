@@ -66,7 +66,15 @@ function initFormCampingNonTrekking(formId, fieldSettings) {
             return;
         }
 
-        let pesan = `Halo, saya ingin memesan paket Camping Non Trakking:\nNama: ${nama}\nNomor: ${nomor}\nJumlah Orang: ${jumlahOrang}\nJenis Kendaraan: ${kendaraan}\nJumlah Kendaraan: ${jumlahKendaraan}\nUntuk tanggal: ${tanggal}`;
+        // let pesan = `Halo, saya ingin memesan paket Camping Non Trakking:\n*Nama*   : ${nama}\nNomor    : ${nomor}\nJumlah Orang    : ${jumlahOrang}\nJenis Kendaraan   : ${kendaraan}\nJumlah Kendaraan   : ${jumlahKendaraan}\nUntuk tanggal : ${tanggal}`;
+       let pesan =`Halo, saya ingin memesan paket Camping Non Trakking:
+        Nama\t\t: ${nama}
+        Nomor\t\t: ${nomor}
+        Jumlah Orang\t: ${jumlahOrang}
+        Jenis Kendaraan\t: ${kendaraan}
+        Jumlah Kendaraan\t: ${jumlahKendaraan}
+        Untuk tanggal\t: ${tanggal};
+        `;
         const nomorPemilik = '6282226221535';
         // const nomorPemilik = '62818109442';
 
