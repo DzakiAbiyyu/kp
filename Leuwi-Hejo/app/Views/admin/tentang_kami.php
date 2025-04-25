@@ -12,7 +12,7 @@
               <div class="card-body">
                   <h2>Siapa Kami</h2>
                   <?php if (session()->getFlashdata('success')) : ?>
-                      <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
+                  <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
                   <?php endif; ?>
                   <table class="table table-bordered mt-3">
                       <thead class="bg-primary">
@@ -24,14 +24,14 @@
                       </thead>
                       <tbody>
                           <?php foreach ($konten as $k) : ?>
-                              <tr>
-                                  <td class="text-center"><?= esc($k['title']); ?></td>
-                                  <td class="text-center"><?= esc($k['body']); ?></td>
-                                  <td class="text-center">
-                                      <a href="/admin/beranda/edit/<?= esc($k['slug']); ?>"><i
-                                              class="fa-solid fa-pen-to-square fa-xl"></i></a>
-                                  </td>
-                              </tr>
+                          <tr>
+                              <td class="text-center"><?= esc($k['title']); ?></td>
+                              <td class="text-center"><?= esc($k['body']); ?></td>
+                              <td class="text-center">
+                                  <a href="/admin/tentang_kami/edit/<?= esc($k['slug']); ?>"><i
+                                          class="fa-solid fa-pen-to-square fa-xl"></i></a>
+                              </td>
+                          </tr>
                           <?php endforeach; ?>
                       </tbody>
                   </table>
