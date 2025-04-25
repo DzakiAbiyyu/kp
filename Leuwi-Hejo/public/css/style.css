@@ -825,7 +825,7 @@ th {
 
 /* Menyesuaikan tinggi div form agar tidak tertutup navbar */
 .formInput {
-    min-height: 100vh;
+    /* min-height: 100vh; */
     padding-top: 80px; /* sesuaikan dengan tinggi navbar-mu */
     display: flex;
     justify-content: center;
