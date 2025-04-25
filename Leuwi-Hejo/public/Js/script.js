@@ -47,6 +47,7 @@ function initFormCampingNonTrekking(formId, fieldSettings) {
         let nama = fields.nama.value.trim();
         let nomor = fields.nomor.value.trim();
         let jumlahOrang = fields.jumlah.value;
+        let namaPaket = fields.namaPaket.value;
         let kendaraan = fields.jenisKendaraan.options[fields.jenisKendaraan.selectedIndex].text;
         let jumlahKendaraan = '';
         let tanggal = fields.tanggal.value.trim();
@@ -65,13 +66,7 @@ function initFormCampingNonTrekking(formId, fieldSettings) {
         }
 
         // let pesan = `Halo, saya ingin memesan paket Camping Non Trakking:\n*Nama*   : ${nama}\nNomor    : ${nomor}\nJumlah Orang    : ${jumlahOrang}\nJenis Kendaraan   : ${kendaraan}\nJumlah Kendaraan   : ${jumlahKendaraan}\nUntuk tanggal : ${tanggal}`;
-       let pesan =`Halo, saya ingin memesan paket Camping Non Trakking:
-        Nama\t\t: ${nama}
-        Nomor\t\t: ${nomor}
-        Jumlah Orang\t: ${jumlahOrang}
-        Jenis Kendaraan\t: ${kendaraan}
-        Jumlah Kendaraan\t: ${jumlahKendaraan}
-        Untuk tanggal\t: ${tanggal};
+       let pesan =`Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Jumlah Orang*\t\t: ${jumlahOrang}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Untuk tanggal*\t\t: ${tanggal}
         `;
         const nomorPemilik = '6282226221535';
         // const nomorPemilik = '62818109442';
@@ -273,9 +268,9 @@ function initFormTrakking(formId, fieldSettings) {
             }
         }
 
-        let pesan = `Halo, saya ingin memesan paket ${namaPaket}\nNama  : ${nama}\nNomor    : ${nomor}\nPaket/Pax   : ${paket}\nRute    : ${rute}\nTanggal  : ${tanggal}`;
+        let pesan = `Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Paket/Pax*\t\t: ${paket}\n*Rute*\t\t\t: ${rute}\n*Tanggal*\t\t\t: ${tanggal}`;
         if (selectedPackages.length > 0) {
-            pesan += `\nSewa Perlengkapan: ${selectedPackages.join(' - ')}`;  
+            pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;  
         }
 
 
@@ -379,7 +374,7 @@ function initFormCampingTrakking (formId, fieldSettings){
 
         // Menyiapkan pesan untuk WhatsApp
         // let pesan = `Halo, saya ingin memesan paket\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t: ${nama}\n*Nomor*\t\t: ${nomor}\n*Kapsitas Tenda*\t: ${paketTenda}\n*Jenis Kendaraan *\t:${kendaraan}\n*Jumlah Kendaraan*\t:${jumlahKendaraan}\n*Rute*\t\t:${rute}\n*paket/Pax\t\t:*${paket}\n*tanggal\t\t:*${tanggal}`;
-        let pesan = `Halo, saya ingin memesan paket\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Kapsitas Tenda*\t\t: ${paketTenda}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Rute*\t\t\t: ${rute}\n*paket/Pax*\t\t: ${paket}\n*tanggal*\t\t\t: ${tanggal}`;
+        let pesan = `Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Kapsitas Tenda*\t\t: ${paketTenda}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Rute*\t\t\t: ${rute}\n*paket/Pax*\t\t: ${paket}\n*tanggal*\t\t\t: ${tanggal}`;
 
         if (selectedPackages.length > 0) {
             pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`; 
@@ -441,8 +436,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initFormCampingNonTrekking('form-campinNonTenda', {
         nama: 'name',
         nomor: 'nomor',
-        jenisKendaraan: 'jenisKendaraan',
         jumlah: 'jumlah',
+        namaPaket: 'hiddenInput',
+        jenisKendaraan: 'jenisKendaraan',
         tanggal: 'tanggal'
     });
 
