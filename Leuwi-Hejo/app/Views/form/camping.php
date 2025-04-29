@@ -21,7 +21,7 @@
                 <option value="Tenda kapasitas 6 orang">Tenda kapasitas 6 orang</option>
             </select>
             <select class="form-select" id="jenisKendaraan" required>
-                <option value="" selected disabled>Motor/Mobil</option>
+                <option value="" selected disabled>Pilih Transportasi</option>
                 <option value="Motor">Motor</option>
                 <option value="Mobil">Mobil</option>
             </select>
@@ -37,7 +37,7 @@
                 <option value="delapan">8</option>
             </select>
             <select class="form-select" id="Mobil" hidden disabled required>
-                <option value="" selected hidden>Pilih Berapa Motor</option>
+                <option value="" selected hidden>Pilih Berapa Mobil</option>
                 <option value="satu">1</option>
                 <option value="dua">2</option>
                 <option value="tiga">3</option>
