@@ -9,9 +9,8 @@
 
 <section class="tentangKami-section tentangKami-intro">
     <div class="tentangKami-container">
-        <h2>Siapa Kami?</h2>
-        <p>Kami adalah komunitas pecinta alam yang berdedikasi untuk menghadirkan pengalaman wisata yang mendalam,
-            berkelanjutan, dan berdampak positif.</p>
+        <h2><?= esc($konten['title'] ?? 'Judul Default'); ?></h2>
+        <p><?= esc($konten['body'] ?? 'Deskripsi Default'); ?></p>
     </div>
     <hr>
 </section>

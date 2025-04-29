@@ -11,6 +11,11 @@ $routes->get('/pages/about', 'pages::about');
 $routes->get('/pages/galery', 'Pages::galery');
 $routes->get('/pages/pesanTiket', 'Pages::pesanTiket');
 
+// authentication
+$routes->get('/login', 'Login::index');
+
+
+
 
 // Jendela 
 $routes->get('/jendela/Reguler', 'Jendela::Reguler');
@@ -31,7 +36,7 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->get('beranda/edit/(:segment)', 'Beranda::edit/$1');
     $routes->post('beranda/update/(:segment)', 'Beranda::update/$1');
     // tentang kami
-    $routes->get('tentang_kami', 'Beranda::tentang_kami');
-    $routes->get('galery', 'Beranda::galery');
-    $routes->get('produk_paket', 'Beranda::produk_paket');
+    $routes->get('tentang_kami', 'TentangKami::index');
+    $routes->get('tentang_kami/edit/(:segment)', 'TentangKami::edit/$1');
+    $routes->post('tentang_kami/update/(:segment)', 'TentangKami::update/$1');
 });
