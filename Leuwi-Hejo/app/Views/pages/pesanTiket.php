@@ -38,6 +38,18 @@
     <div class="container-paket">
         <h2>Paket</h2>
         <div class="container-card">
+
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reguler</h5>
+                    <div class="buttons">
+                        <!-- <button class="Form"><a href="/form/hargaReguler"></a>Pilih</button> -->
+                        <a href="/form/reguler">Pilih</a>
+                        <button class="Informasi" data-url="/Jendela/informasiCampingNonTenda">Lihat-Informasi</button>
+                    </div>
+                </div>
+            </div>
+
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">CAMPING NON TENDA</h5>

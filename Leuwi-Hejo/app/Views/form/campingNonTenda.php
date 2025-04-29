@@ -18,7 +18,7 @@
         <input type="hidden" id="hiddenInput" name="namaPaket" value="Camping Non Trakking">
         <div class="mb-3">
             <select class="form-select" id="jenisKendaraan" required>
-                <option value="" selected disabled>Motor/Mobil</option>
+                <option value="" selected disabled>Pilih Transportasi</option>
                 <option value="Motor">Motor</option>
                 <option value="Mobil">Mobil</option>
             </select>

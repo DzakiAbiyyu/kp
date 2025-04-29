@@ -6,6 +6,110 @@ document.querySelector('#hamburger-menu').onclick = () => {
    navbarNav.classList.toggle('active'); 
 }
 
+function initFormReguler(formId, fieldSettings) {
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    const fields = {};
+    // const fields = {};
+    for (const fieldName in fieldSettings) {
+        fields[fieldName] = document.getElementById(fieldSettings[fieldName]);
+    }
+
+    if (fields.jenisKendaraan) {
+        fields.jenisKendaraan.addEventListener('change', function () {
+            let motor = document.getElementById('Motor');
+            let mobil = document.getElementById('Mobil');
+            let selectedOption = this.options[this.selectedIndex];
+            let text = selectedOption.text;
+
+            if (text === 'Motor') {
+                motor.hidden = false;
+                motor.disabled = false;
+                mobil.hidden = true;
+                mobil.disabled = true;
+            } else if (text === 'Mobil') {
+                mobil.hidden = false;
+                mobil.disabled = false;
+                motor.hidden = true;
+                motor.disabled = true;
+            }
+        });
+    }
+
+    let perlengkapanCheckbox = fields.perlengkapanCheckbox;
+    let perlengkapanList = fields.perlengkapanList;
+    let perlengkapanError = fields.perlengkapanError;
+
+    perlengkapanCheckbox.addEventListener('change', () => {
+        if (perlengkapanCheckbox.checked) {
+            perlengkapanList.style.display = 'block';
+        } else {
+            perlengkapanList.style.display = 'none';
+        }
+    });
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        let nama = fields.nama.value.trim();
+        let nomor = fields.nomor.value.trim();
+        let jumlahOrang = fields.jumlah.value;
+        let namaPaket = fields.namaPaket.value;
+        let lahan = fields.lahan.value;
+        let textLahan = fields.lahan.options[fields.jenisKendaraan.selectedIndex].text;
+        let kendaraan = fields.jenisKendaraan.options[fields.jenisKendaraan.selectedIndex].text;
+        let jumlahKendaraan = '';
+        let tanggal = fields.tanggal.value.trim();
+
+        if (fields.jenisKendaraan.value === 'Motor') {
+            let motorSelected = document.getElementById('Motor').options[document.getElementById('Motor').selectedIndex];
+            jumlahKendaraan = motorSelected.textContent;
+        } else if (fields.jenisKendaraan.value === 'Mobil') {
+            let mobilSelected = document.getElementById('Mobil').options[document.getElementById('Mobil').selectedIndex];
+            jumlahKendaraan = mobilSelected.textContent;
+        }
+
+        // cek perlengkapan jika dicentang
+        let selectedPackages = [];
+        let perlengkapanTerpilihValue = [];
+        let perlengkapanTerpilihText = [];
+
+        if (perlengkapanCheckbox.checked) {
+            const itemCheckboxes = perlengkapanList.querySelectorAll('input[type="checkbox"]:checked');
+
+            itemCheckboxes.forEach(cb => {
+                perlengkapanTerpilihValue.push(cb.value);
+
+                const label = document.querySelector(`label[for="${cb.value}"]`);
+                if (label) {
+                    perlengkapanTerpilihText.push(label.textContent.trim());
+                } else {
+                    perlengkapanTerpilihText.push(cb.value);
+                }
+            });
+
+            if (perlengkapanTerpilihValue.length > 0) {
+                perlengkapanError.hidden = true;
+                selectedPackages = perlengkapanTerpilihText;
+            }
+        }
+        
+
+        let pesan= `Halo, Saya ingin memesan paket\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Jumlah Orang*\t\t: ${jumlahOrang}\n*Lahan*\t\t\t: ${textLahan}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Untuk tanggal*\t\t: ${tanggal}`; 
+        if (selectedPackages.length > 0) {
+            pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;
+        }
+
+        const nomorPemilik = '6282226221535';
+
+        alert('Pesan berhasil dikirim. Anda akan diarahkan ke WhatsApp.');
+        const waLink = `https://wa.me/${nomorPemilik}?text=${encodeURIComponent(pesan)}`;
+        window.open(waLink, '_blank');
+
+    });
+}
+
 function initFormCampingNonTrekking(formId, fieldSettings) {
     const form = document.getElementById(formId);
     if (!form) return;
@@ -47,6 +151,7 @@ function initFormCampingNonTrekking(formId, fieldSettings) {
         let nama = fields.nama.value.trim();
         let nomor = fields.nomor.value.trim();
         let jumlahOrang = fields.jumlah.value;
+        let namaPaket = fields.namaPaket.value;
         let kendaraan = fields.jenisKendaraan.options[fields.jenisKendaraan.selectedIndex].text;
         let jumlahKendaraan = '';
         let tanggal = fields.tanggal.value.trim();
@@ -65,13 +170,7 @@ function initFormCampingNonTrekking(formId, fieldSettings) {
         }
 
         // let pesan = `Halo, saya ingin memesan paket Camping Non Trakking:\n*Nama*   : ${nama}\nNomor    : ${nomor}\nJumlah Orang    : ${jumlahOrang}\nJenis Kendaraan   : ${kendaraan}\nJumlah Kendaraan   : ${jumlahKendaraan}\nUntuk tanggal : ${tanggal}`;
-       let pesan =`Halo, saya ingin memesan paket Camping Non Trakking:
-        Nama\t\t: ${nama}
-        Nomor\t\t: ${nomor}
-        Jumlah Orang\t: ${jumlahOrang}
-        Jenis Kendaraan\t: ${kendaraan}
-        Jumlah Kendaraan\t: ${jumlahKendaraan}
-        Untuk tanggal\t: ${tanggal};
+       let pesan =`Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Jumlah Orang*\t\t: ${jumlahOrang}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Untuk tanggal*\t\t: ${tanggal}
         `;
         const nomorPemilik = '6282226221535';
         // const nomorPemilik = '62818109442';
@@ -273,9 +372,9 @@ function initFormTrakking(formId, fieldSettings) {
             }
         }
 
-        let pesan = `Halo, saya ingin memesan paket ${namaPaket}\nNama  : ${nama}\nNomor    : ${nomor}\nPaket/Pax   : ${paket}\nRute    : ${rute}\nTanggal  : ${tanggal}`;
+        let pesan = `Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Paket/Pax*\t\t: ${paket}\n*Rute*\t\t\t: ${rute}\n*Tanggal*\t\t\t: ${tanggal}`;
         if (selectedPackages.length > 0) {
-            pesan += `\nSewa Perlengkapan: ${selectedPackages.join(' - ')}`;  
+            pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;  
         }
 
 
@@ -379,7 +478,7 @@ function initFormCampingTrakking (formId, fieldSettings){
 
         // Menyiapkan pesan untuk WhatsApp
         // let pesan = `Halo, saya ingin memesan paket\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t: ${nama}\n*Nomor*\t\t: ${nomor}\n*Kapsitas Tenda*\t: ${paketTenda}\n*Jenis Kendaraan *\t:${kendaraan}\n*Jumlah Kendaraan*\t:${jumlahKendaraan}\n*Rute*\t\t:${rute}\n*paket/Pax\t\t:*${paket}\n*tanggal\t\t:*${tanggal}`;
-        let pesan = `Halo, saya ingin memesan paket\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Kapsitas Tenda*\t\t: ${paketTenda}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Rute*\t\t\t: ${rute}\n*paket/Pax*\t\t: ${paket}\n*tanggal*\t\t\t: ${tanggal}`;
+        let pesan = `Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Kapsitas Tenda*\t\t: ${paketTenda}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Rute*\t\t\t: ${rute}\n*paket/Pax*\t\t: ${paket}\n*tanggal*\t\t\t: ${tanggal}`;
 
         if (selectedPackages.length > 0) {
             pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`; 
@@ -441,8 +540,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initFormCampingNonTrekking('form-campinNonTenda', {
         nama: 'name',
         nomor: 'nomor',
-        jenisKendaraan: 'jenisKendaraan',
         jumlah: 'jumlah',
+        namaPaket: 'hiddenInput',
+        jenisKendaraan: 'jenisKendaraan',
         tanggal: 'tanggal'
     });
 
@@ -466,6 +566,19 @@ document.addEventListener('DOMContentLoaded', function () {
         jenisKendaraan: 'jenisKendaraan',
         paket: 'paket',
         rute: 'rute',
+        perlengkapanCheckbox: 'perlengkapanCheckbox',
+        perlengkapanList: 'perlengkapanList',
+        perlengkapanError: 'perlengkapanError',
+        tanggal: 'tanggal'
+    });
+
+    initFormReguler('form-sewa-lahan', {
+        nama: 'name',
+        nomor: 'nomor',
+        jumlah: 'jumlah',
+        namaPaket: 'hiddenInput',
+        lahan :'Lahan',
+        jenisKendaraan: 'jenisKendaraan',
         perlengkapanCheckbox: 'perlengkapanCheckbox',
         perlengkapanList: 'perlengkapanList',
         perlengkapanError: 'perlengkapanError',

@@ -9,7 +9,7 @@ class form extends BaseController
         $data = [
             'title' => 'Home | Form Pesan'
         ];
-        $allowedViews = ['camping', 'campingNonTenda', 'campingTrakking', 'perlengkapanCamping', 'trekking',]; // sesuaikan view yang kamu izinkan
+        $allowedViews = ['reguler', 'camping', 'campingNonTenda', 'campingTrakking', 'perlengkapanCamping', 'trekking',]; // sesuaikan view yang kamu izinkan
 
         if (in_array($viewName, $allowedViews)) {
             return view('form/' . $viewName, $data);
