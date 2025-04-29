@@ -12,24 +12,6 @@ document.querySelector('#hamburger-menu').onclick = () => {
 
 
 
-    function showPopup(url) {
-        fetch(url)
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById('popupBodyInformasi').innerHTML = data;
-                // document.getElementById('popupBodyForm').innerHTML = data;
-                document.getElementById('infoModalInformasi').style.display = 'flex';
-                // document.getElementById('infoModalForm').style.display = 'block';
-
-
-            })
-            .catch(error => console.error('Error:', error));
-    }
-
-    function closePopup() {
-        document.getElementById('infoModalInformasi').style.display = 'none';
-        // document.getElementById('infoModalForm').style.display = 'none';
-    }
 
 document.addEventListener('DOMContentLoaded', function () {
     const infoButtons = document.querySelectorAll('.Informasi');

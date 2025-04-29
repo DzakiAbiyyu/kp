@@ -19,7 +19,11 @@ class Beranda extends BaseController
     public function index()
     {
         $data = [
+<<<<<<< HEAD
             'konten' => $this->ContentModel->where('slug', 'home_hero')->findAll()
+=======
+            'konten' => $this->ContentModel->where('slug', 'home_hero')->findAll(),
+>>>>>>> 2f5f680020df4e91a8ae7f82e79136d0bd0ff7af
         ];
 
         return view('admin/beranda', $data);

@@ -18,10 +18,11 @@ $routes->get('/login', 'Login::index');
 
 
 // Jendela 
-$routes->get('/jendela/Reguler', 'Jendela::Reguler');
-$routes->get('/jendela/trakking', 'Jendela::trakking');
-$routes->get('/jendela/curug', 'Jendela::curug');
-$routes->get('/jendela/paketCombo', 'Jendela::paketCombo');
+$routes->get('/Jendela/(:segment)', 'Jendela::load/$1');
+// $routes->get('/jendela/Reguler', 'jendela::Reguler');
+// $routes->get('/jendela/trakking', 'Jendela::trakking');
+// $routes->get('/jendela/curug', 'Jendela::curug');
+// $routes->get('/jendela/paketCombo', 'Jendela::paketCombo');
 
 
 // PopUP

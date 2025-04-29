@@ -4,23 +4,17 @@ namespace App\Controllers;
 
 class Jendela extends BaseController
 {
-    public function Reguler()
+    public function load($viewName)
     {
-        return view('Jendela/informasiReguler');
-    }
+        $data = [
+            'title' => 'Home | Form Pesan'
+        ];
+        $allowedViews = ['informasiCamping', 'informasiCampingNonTenda', 'campingTrakking', 'informasiPerlengkapan', 'informasiTrakking']; // sesuaikan view yang kamu izinkan
 
-    public function trakking()
-    {
-        return view('Jendela/informasiTrekking');
-    }
+        if (in_array($viewName, $allowedViews)) {
+            return view('Jendela/' . $viewName, $data);
+        }
 
-    public function curug()
-    {
-        return view('Jendela/informasiCurug');
-    }
-
-    public function paketCombo()
-    {
-        return view('Jendela/informasiPaketCombo');
+        throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
     }
 }

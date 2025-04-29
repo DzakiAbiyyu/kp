@@ -2,8 +2,8 @@
 <?php $this->section('content'); ?>
 
 <div class="formInput">
-    <form id="form-trakking" class="booking-form">
-        <h4 class="mb-4">TREKKING LEMBAH PANGADUAN</h4>
+    <form id="form-camping" class="booking-form">
+        <h4 class="mb-4">CAMPING</h4>
         <div class="mb-3">
             <input type="text" class="form-control" id="name" placeholder="Nama Lengkap" required minlength="5"
                 maxlength="20">
@@ -12,26 +12,43 @@
             <input type="tel" class="form-control" id="nomor" placeholder="Nomor WhatsApp" pattern="[0-9]{10,13}"
                 title="Masukkan nomor antara 10-13 digit angka">
         </div>
-        <!-- <div class="mb-3"> -->
-        <!-- <input type="number" class="form-control" id="jumlah" placeholder="Jumlah Orang" required min="1" max="20"> -->
-        <!-- </div> -->
-        <input type="hidden" id="hiddenInput" name="namaPaket" value="Trekking Lembah Pangaduan">
+        <input type="hidden" id="hiddenInput" name="namaPaket" value="Camping">
         <div class="mb-3">
-            <select class="form-select" id="paket" required>
-                <option value="" selected disabled>Paket / Pax</option>
-                <option value="Dua Orang">2 Orang</option>
-                <option value="5 Orang">5 Orang</option>
-                <option value="5 > Orang">5 > Orang</option>
+            <select class="form-select" id="paketTenda" required>
+                <option value="" selected disabled>Pilih kapasitas</option>
+                <option value="Tenda kapsitas 2 orang">Tenda kapsitas 2 orang</option>
+                <option value="Tenda kapasitas 4 orang">Tenda kapasitas 4 orang</option>
+                <option value="Tenda kapasitas 6 orang">Tenda kapasitas 6 orang</option>
             </select>
-            <select class="form-select" id="rute" required>
-                <option value="" selected disabled>Rute</option>
-                <option value="Trekking curug leuwi hejo">Trekking curug leuwi hejo</option>
-                <option value="Trekking curug putri kencana">Trekking curug putri kencana</option>
-                <option value="Trekking leuwi asih">Trekking leuwi asih</option>
-                <option value="Trekking bukit paniisan">Trekking bukit paniisan</option>
-                <option value="Trekking bukit 3G">Trekking bukit 3G</option>
+            <select class="form-select" id="jenisKendaraan" required>
+                <option value="" selected disabled>Motor/Mobil</option>
+                <option value="Motor">Motor</option>
+                <option value="Mobil">Mobil</option>
+            </select>
+            <select class="form-select" id="Motor" hidden disabled required>
+                <option value="" selected hidden>Pilih Berapa Motor</option>
+                <option value="satu">1</option>
+                <option value="dua">2</option>
+                <option value="tiga">3</option>
+                <option value="empat">4</option>
+                <option value="lima">5</option>
+                <option value="enam">6</option>
+                <option value="tujuh">7</option>
+                <option value="delapan">8</option>
+            </select>
+            <select class="form-select" id="Mobil" hidden disabled required>
+                <option value="" selected hidden>Pilih Berapa Motor</option>
+                <option value="satu">1</option>
+                <option value="dua">2</option>
+                <option value="tiga">3</option>
+                <option value="empat">4</option>
+                <option value="lima">5</option>
+                <option value="enam">6</option>
+                <option value="tujuh">7</option>
+                <option value="delapan">8</option>
             </select>
         </div>
+
         <!-- Perlengkapan Tenda (dibungkus satu div) -->
         <div class="mb-3 special-input">
             <div class="form-check satu">
@@ -77,6 +94,8 @@
                 </div>
             </div>
         </div>
+
+
         <input type="date" id="tanggal" name="tanggal" required>
         <button type="submit" class="btn btn-submit w-100">Kirim ke WhatsApp</button>
         <a href="/pages/pesanTiket">kembali</a>
