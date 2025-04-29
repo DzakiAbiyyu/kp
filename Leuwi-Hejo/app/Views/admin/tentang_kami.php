@@ -10,15 +10,11 @@
           </ol>
           <div class="card mb-4">
               <div class="card-body">
-<<<<<<< HEAD
+
                   <h2>Kelola Konten Halaman Beranda</h2>
                   <?php if (session()->getFlashdata('success')) : ?>
                       <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
-=======
-                  <h2>Siapa Kami</h2>
-                  <?php if (session()->getFlashdata('success')) : ?>
-                  <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
->>>>>>> 2f5f680020df4e91a8ae7f82e79136d0bd0ff7af
+
                   <?php endif; ?>
                   <table class="table table-bordered mt-3">
                       <thead class="bg-primary">
@@ -30,7 +26,7 @@
                       </thead>
                       <tbody>
                           <?php foreach ($konten as $k) : ?>
-<<<<<<< HEAD
+
                               <tr>
                                   <td class="text-center"><?= esc($k['title']); ?></td>
                                   <td class="text-center"><?= esc($k['body']); ?></td>
@@ -41,21 +37,8 @@
                           <?php endforeach; ?>
                       </tbody>
                   </table>
-=======
-                          <tr>
-                              <td class="text-center"><?= esc($k['title']); ?></td>
-                              <td class="text-center"><?= esc($k['body']); ?></td>
-                              <td class="text-center">
-                                  <a href="/admin/tentang_kami/edit/<?= esc($k['slug']); ?>"><i
-                                          class="fa-solid fa-pen-to-square fa-xl"></i></a>
-                              </td>
-                          </tr>
-                          <?php endforeach; ?>
-                      </tbody>
-                  </table>
 
 
->>>>>>> 2f5f680020df4e91a8ae7f82e79136d0bd0ff7af
               </div>
           </div>
       </div>
