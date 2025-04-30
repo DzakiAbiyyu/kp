@@ -20,6 +20,7 @@ class Pages extends BaseController
         $konten = $ContentModel->where('slug', 'home_hero')->first();
 
 
+
         $data = [
             'title' => 'Home | Leuwi Hejo',
             'konten' => $konten
@@ -31,10 +32,11 @@ class Pages extends BaseController
     public function about()
     {
         $ContentModel = new ContentModel();
-        $tentang_kami = $ContentModel->where('slug', 'siapa_kami')->first();
+
+        $konten = $ContentModel->where('slug', 'siapa_kami')->first();
         $data = [
             'title' => 'About | Leuwi Hejo',
-            'konten' => $tentang_kami
+            'konten' => $konten
 
         ];
         echo view('pages/about', $data);

@@ -11,6 +11,11 @@ $routes->get('/pages/about', 'pages::about');
 $routes->get('/pages/galery', 'Pages::galery');
 $routes->get('/pages/pesanTiket', 'Pages::pesanTiket');
 
+// authentication
+$routes->get('/login', 'Login::index');
+
+
+
 
 // Jendela 
 $routes->get('/Jendela/(:segment)', 'Jendela::load/$1');
