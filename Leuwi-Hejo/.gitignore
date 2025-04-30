@@ -1,0 +1,24 @@
+# Composer vendor directory
+# /vendor
+
+# CI4 writable directory (should not be versioned)
+/writable/*
+
+# Except index.html (important for folder structure)
+/writable/index.html
+
+# Environment file
+# .env
+
+# PHPUnit cache
+.phpunit.result.cache
+
+# IDE and OS files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.log
+*.DS_Store
+*.vscode/
+.idea/
