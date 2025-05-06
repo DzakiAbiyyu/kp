@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\ContentModel;
+use App\Models\GambarModel;
 
 class Pages extends BaseController
 {
@@ -18,12 +19,16 @@ class Pages extends BaseController
     {
         $ContentModel = new ContentModel();
         $konten = $ContentModel->where('slug', 'home_hero')->first();
-
+        // Ambil gambar berdasarkan slug yang relevan
+        $slug = 'hero_background';  // Ganti dengan slug sesuai kebutuhan
+        $gambarModel = new \App\Models\GambarModel();
+        $gambarList = $gambarModel->where('slug', $slug)->findAll();
 
 
         $data = [
             'title' => 'Home | Leuwi Hejo',
-            'konten' => $konten
+            'konten' => $konten,
+            'gambarList' => $gambarList,
         ];
 
         return view('pages/home', $data);

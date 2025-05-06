@@ -1,5 +1,5 @@
 <?= $this->extend('layout/template'); ?>
-<?php $this->section('content'); ?>
+<?= $this->section('content'); ?>
 <div class="container-tiket">
     <h1>Lembah Pangaduan</h1>
 
@@ -8,34 +8,12 @@
         <p>Dapatkan diskon 10% untuk pembelian online sebelum tanggal 30 April 2025!</p>
     </div>
 
-
-    <div class="section">
-        <h2>Harga Tiket</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Kategori</th>
-                    <th>Harga</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Dewasa</td>
-                    <td>Rp 100.000</td>
-                </tr>
-                <tr>
-                    <td>Anak-anak</td>
-                    <td>Rp 50.000</td>
-                </tr>
-                <tr>
-                    <td>Rombongan (min 10 orang)</td>
-                    <td>Rp 80.000 per orang</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="informasi-paket">
+        <!-- tampilannya akan di include di sini  -->
     </div>
 
-    <div class="container-paket">
+
+    <div class=" container-paket">
         <h2>Paket</h2>
         <div class="container-card">
 
@@ -144,4 +122,4 @@
     </div>
 </div>
 
-<?php $this->endSection('content'); ?>
+<?= $this->endSection('content'); ?>

@@ -1,104 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
+<style>
+</style>
+<?= $this->extend('layout/template'); ?>
+<?= $this->section('content'); ?>
+<!-- informasiCamping.php -->
+<div class="informasi-camping">
+    <h2>Informasi Paket</h2>
+    <p>Berikut adalah daftar paket camping yang tersedia:</p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi Camping</title>
-    <style>
-        h2 {
-            color: #2d6a4f;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th,
-        td {
-            border: 2px solid #2d6a4f;
-            /* Hijau daun untuk border */
-            padding: 12px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #2d6a4f;
-            /* Hijau daun */
-            color: white;
-            font-size: 1.2rem;
-        }
-
-        td {
-            background-color: #eef6f1;
-            /* Warna hijau muda */
-            color: #333;
-            font-size: 1rem;
-        }
-
-        tr:nth-child(even) {
-            background-color: #e1efe6;
-            /* Warna berbeda untuk selang-seling */
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Informasi Tentang Paket -->
-    <div class="container-InformasiPaket">
-        <h2>Simpelnya:</h2>
-        <table>
+    <div class="tabel-camping-container">
+        <table class="tabel-camping">
             <thead>
                 <tr>
-                    <th>Aspek</th>
-                    <th>Camping</th>
-                    <th>Glamping</th>
-                    <th>Campervan</th>
+                    <th>No</th>
+                    <th>Nama Paket</th>
+                    <th>Fasilitas</th>
+                    <th>Harga</th>
+                    <th>Keterangan</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Tenda</td>
-                    <td>Manual, sederhana</td>
-                    <td>Mewah, sudah terpasang</td>
-                    <td>Di dalam mobil khusus</td>
+                    <td>1</td>
+                    <td>Paket Reguler</td>
+                    <td>Tenda, Matras, Makan 3x</td>
+                    <td>Rp 250.000</td>
+                    <td>Cocok untuk pemula</td>
                 </tr>
                 <tr>
-                    <td>Tidur</td>
-                    <td>Matras/sleeping bag</td>
-                    <td>Kasur empuk, selimut tebal</td>
-                    <td>Kasur lipat di campervan</td>
+                    <td>2</td>
+                    <td>Paket Non-Tenda</td>
+                    <td>Matras, Makan 2x</td>
+                    <td>Rp 180.000</td>
+                    <td>Tanpa penyewaan tenda</td>
                 </tr>
                 <tr>
-                    <td>Makan</td>
-                    <td>Masak sendiri</td>
-                    <td>Disiapin/dipesan</td>
-                    <td>Bisa masak di dalam campervan</td>
+                    <td>3</td>
+                    <td>Paket Premium</td>
+                    <td>Tenda Premium, Sleeping Bag, Makan 4x, Guide</td>
+                    <td>Rp 400.000</td>
+                    <td>Untuk pengalaman eksklusif</td>
                 </tr>
                 <tr>
-                    <td>Kamar Mandi</td>
-                    <td>Umum / outdoor</td>
-                    <td>Pribadi, lengkap</td>
-                    <td>Bisa umum atau toilet portable</td>
-                </tr>
-                <tr>
-                    <td>Harga</td>
-                    <td>Lebih murah</td>
-                    <td>Lebih mahal</td>
-                    <td>Sedang, tergantung fasilitas</td>
-                </tr>
-                <tr>
-                    <td>Nuansa</td>
-                    <td>Survival banget</td>
-                    <td>Santai dan nyaman</td>
-                    <td>Fleksibel, bisa berpindah tempat</td>
+                    <td>4</td>
+                    <td>Paket Trekking</td>
+                    <td>Tenda, Trekking Guide, Makan 2x</td>
+                    <td>Rp 300.000</td>
+                    <td>Termasuk pendakian ringan</td>
                 </tr>
             </tbody>
         </table>
     </div>
-</body>
-
-</html>
+</div>
+<?= $this->endSection('content'); ?>

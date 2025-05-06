@@ -4,8 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi Trakking</title>
+    <title>Informasi Camping</title>
     <style>
+        .container-InformasiPaket {
+            margin-bottom: 40px;
+            /* atau sesuai kebutuhan */
+            background-color: red;
+        }
+
         h2 {
             color: #2d6a4f;
             font-size: 1.8rem;

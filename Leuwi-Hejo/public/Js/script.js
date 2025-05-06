@@ -6,6 +6,55 @@ document.querySelector('#hamburger-menu').onclick = () => {
    navbarNav.classList.toggle('active'); 
 }
 
+// slider
+// let images = [
+//     '/img/satujpg',
+//     '/img/dua.jpg',
+//     '/img/tiga.jpg'
+//   ];
+  
+//   let currentIndex = 0;
+//   const hero = document.getElementById('hero');
+  
+//   // Set image awal
+//   hero.style.setProperty('--bg-before', `url('${images[currentIndex]}')`);
+//   currentIndex = (currentIndex + 1) % images.length;
+//   hero.style.setProperty('--bg-after', `url('${images[currentIndex]}')`);
+  
+//   // Tambahkan style agar pseudo-element bisa akses var
+//   const style = document.createElement('style');
+//   style.innerHTML = `
+//   .hero::before {
+//     background-image: var(--bg-before);
+//   }
+//   .hero::after {
+//     background-image: var(--bg-after);
+//   }
+//   `;
+//   document.head.appendChild(style);
+  
+//   let isBeforeActive = true;
+  
+//   function changeBackground() {
+//     currentIndex = (currentIndex + 1) % images.length;
+//     const nextImage = images[currentIndex];
+  
+//     if (isBeforeActive) {
+//       hero.style.setProperty('--bg-after', `url('${nextImage}')`);
+//       hero.classList.add('fade-to-after');
+//       hero.classList.remove('fade-to-before');
+//     } else {
+//       hero.style.setProperty('--bg-before', `url('${nextImage}')`);
+//       hero.classList.add('fade-to-before');
+//       hero.classList.remove('fade-to-after');
+//     }
+  
+//     isBeforeActive = !isBeforeActive;
+//   }
+  
+//   setInterval(changeBackground, 2000);
+// end slider  
+
 function initFormReguler(formId, fieldSettings) {
     const form = document.getElementById(formId);
     if (!form) return;

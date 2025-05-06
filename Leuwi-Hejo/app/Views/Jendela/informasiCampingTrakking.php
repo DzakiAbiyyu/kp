@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Informasi Camping + Trakking</title>
+    <title>Informasi Camping</title>
     <style>
         h2 {
             color: #2d6a4f;
