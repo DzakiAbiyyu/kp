@@ -84,7 +84,8 @@ html, body {
 }
 
 body {
-    background-color: var(--color-bg);
+    background-color: var(--color-bg-dark);
+    /* position: fixed; */
     color: var(--color-text);
     font-family: 'Segoe UI', sans-serif;
 }
@@ -1152,14 +1153,23 @@ hr {
 .footer {
     /* background-color: #333; */
     /* background-color: rgba(0,0,0,0.3); */
-    /* background-color: var(--color-bg-dark); */
-    position: fixed;
+    background-color: var(--color-bg-dark);
+    /* position: fixed; */
     color: white;
     text-align: center;
     padding: 20px 0;
     /* position: absolute; */
     bottom: 0;
     width: 100%;
+
+}
+.footer.fixed {
+    position: fixed;
+    z-index: 100;
+    background-color: rgba(0,0,0,0);
+    
+
+
 }
 
 .footer-content {
