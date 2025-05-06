@@ -22,7 +22,7 @@
 
 </head>
 
-<?= $this->section('content'); ?>
+<?= $this->renderSection('content'); ?>
 
 <body class="bg-gradient-primary">
 

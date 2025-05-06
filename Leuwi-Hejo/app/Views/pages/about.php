@@ -8,11 +8,6 @@
 </header>
 
 <section class="tentangKami-section tentangKami-intro">
-<<<<<<< HEAD
-    <div class="tentangKami-container">
-        <h2><?= esc($konten['title'] ?? 'Judul Default'); ?></h2>
-        <p><?= esc($konten['body'] ?? 'Deskripsi Default'); ?></p>
-=======
     <div class="tentangKami-container siapa-kami">
         <h2><?= esc($konten['title']); ?></h2>
         <p><?= esc($konten['body']); ?></p>
@@ -43,7 +38,6 @@
                 </ul>
             </div>
         </div>
->>>>>>> 2f5f680020df4e91a8ae7f82e79136d0bd0ff7af
     </div>
     <hr>
 </section>
