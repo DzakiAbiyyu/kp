@@ -39,6 +39,29 @@
     0%, 100% { border-color: transparent; }
     50% { border-color: orange; }
 }
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -246,7 +269,6 @@ body {
   /* transition: opacity 2s ease-in-out; */
   /* background-image: linear-gradient(to top, rgb(18, 18, 159), rgba(0, 0, 0, 0.532), transparent,var(--bg-before));  */
   /* background-image: var(--bg-before); */
-  background-image: var(--bg-before); /* Default, akan diatur lewat JS */
   transition: opacity 1.5s ease-in-out;
 
   /* transition: all 500ms; */
@@ -282,30 +304,41 @@ body {
   position: relative;
 }
 
+/* .hero-text .judul, .deskripsi { */
+    /* transition: color 0.5s ease, font-family 0.5s ease; */
+/* } */
+
 .hero-text h1 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: var(--color-text-main);
-  display: inline-block;
-  overflow: hidden;
-  white-space: nowrap;
-  animation: 
-    typing 3.5s steps(40, end);
+    text-transform:capitalize;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    /* color: var(--color-text-main); */
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: 
+      typing 3.5s steps(40, end);
+    transition: color 0.5s ease;
 }
 
+
 .hero-text p {
-  /* background-color: red;   */
-  margin: 0 auto;
-  font-size: 1.2rem;
-  color: var(--color-text-secondary);
-  display: block;
-  overflow: hidden;
-  white-space: nowrap;
-  letter-spacing: 0.05em;
-  border-right: 2px solid orange;
-  animation: 
-    typing-p 3s steps(40, end) forwards,  
-    blink-caret 0.75s step-end 0s infinite;      
+    /* background-color: red;   */
+    text-transform:capitalize;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    /* color: #5a4034; */
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+    border-right: 2px solid orange;
+    animation: 
+      typing-p 3s steps(40, end) forwards,  
+      blink-caret 0.75s step-end 0s infinite; 
+    transition: color 0.5s ease;
+    
+
 }
 
 .hero-buttons {
@@ -313,33 +346,43 @@ body {
 }
 
 .btn {
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 0 10px;
-  border: 2px solid white;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s, color 0.3s;
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: 2px solid white;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.btn-gallery {
+    animation: fadeInLeft 1s ease forwards;
+    transition: all 500ms;
+}
+
+.btn-pesan-tiket {
+    animation: fadeInRight 1s ease forwards;
+    transition: all 500ms;
 }
 
 .btn:hover {
-  background-color: white;
-  color: black;
-  transition: all 500ms;
+    background-color: white;
+    color: black;
+    transition: all 500ms;
 }
 
-.btn-primary {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
+.btn-pesan-tiket {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
 }
 
-.btn-primary:hover {
-  /* background-color: #45a049; */
-  background-color: white;
-  /* transition: all 500ms; */
-  /* transition: opacity 2s  ; */
+.btn-pesan-tiket:hover {
+    /* background-color: #45a049; */
+    background-color: white;
+    /* transition: all 500ms; */
+    /* transition: opacity 2s  ; */
 
 }
   
@@ -411,7 +454,9 @@ hr {
     display: flex;
     /* flex-wrap: wrap; */
     justify-content: space-around;
+    background-color: red;
     gap: 30px;
+    /* font-size: 20px; */
 }
 .unix-col {
     flex: 1;
@@ -457,42 +502,71 @@ hr {
     border-radius: 10px;
 }
 .Latar-Belakang {
-    padding: 50px 20px;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+}
+
+.Latar-Belakang h2 {
+    font-size: 25px;
+}
+
+.Latar-Belakang p {
+    font-size: 13px;
 }
 .siapa-kami {
-    padding: 50px 20px;
+    /* padding: 10px auto; */
+    /* background-color: red; */
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+
 }
+
+.siapa-kami h2 {
+    font-size: 25px;
+}
+.siapa-kami p {
+    font-size: 13px;
+}
+
 .tentangKami-box h3 {
     color: var(--color-accent);
 }
 /* Card Paket */
 
 .tentangKami-tim .tentangKami-cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
 }
 .tentangKami-card {
-  background-color: var(--color-card);
-  padding: 20px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--color-card);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .tentangKami-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
 }
 .tentangKami-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 15px;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
 .tentangKami-card h4 {
-  margin-bottom: 5px;
-  color: var(--color-heading);
+    margin-bottom: 5px;
+    color: var(--color-heading);
 }
 .tentangKami-footerLayout {
     display: flex;
@@ -707,17 +781,22 @@ hr {
 
 
 .container-tiket{
-    margin-top: 75px;
-    padding: 20px;
+    margin-top: 60px;
+    background-color: #142f2e;
+
+    /* padding: 20px; */
 }
 
 
 /* Judul utama */
 .container-tiket h1 {
+    /* width: 100%; */
     text-align: center;
     color: var(--color-secondary);
+    background-color: var(--color-card);
     font-weight: bold;
-    margin-bottom: 30px;
+    padding: 20px 0;
+    /* margin-bottom: 30px; */
     transform: X(-30px);
     animation: fadeIn 1s linear forwards;
 }
@@ -725,21 +804,22 @@ hr {
 
 .container-tiket .container-paket {
     /* display: grid; */
-    /* margin-top: 30px; */
+    margin: 30px 20px;
     /* flex-direction: row; */
     display: grid;
     grid-template-rows: repeat(2, auto);
     border: 2px solid #2d6a4f;    
     border-radius: 20px;
     overflow: hidden;
-    
-    width: 100%;
+    /* width: 100%; */
     /* background-color: red; */
 }
 
 .container-tiket .container-paket h2{
     text-align: center;
     margin-top: 5px;
+    color: var(--color-secondary);
+
     /* background-color: red; */
     /* font-weight: bold; */
     /* width: 100%; */
@@ -749,6 +829,7 @@ hr {
 
 .container-tiket .container-paket .container-card {
     /* background-color: #ec137c; */
+    
     display: flex;
     flex-flow: row nowrap;
     /* width: auto; */
@@ -859,8 +940,9 @@ hr {
     
     /* Garis hijau di setiap bagian */
     .section {
-        margin-top: 30px;
-        margin-bottom: 30px;
+        /* margin-top: 30px; */
+        /* margin-bottom: 30px; */
+        margin: 30px 20px;
         padding: 10px;
         /* border-bottom: 3px solid #2d6a4f; */
         background-color: var(--color-card-bg);
@@ -902,6 +984,7 @@ hr {
         background-color: #0077b6; /* Biru air */
     }
     /* form paket start*/
+
 /* pesan tiket End */
 
 /* Menyesuaikan tinggi div form agar tidak tertutup navbar */
@@ -1182,15 +1265,22 @@ hr {
 }
 
 .social-media a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
-    transition: color 0.3s;
+    padding: 10px;
 }
 
-.social-media a:hover {
-    color: #927c7c;
+
+
+
+.social-media a i {
+    color: var(--color-card-bg);
+    font-size: 2rem;
 }
+
+.social-media a i:hover {
+    color: var(--color-bg-dark);
+    font-size: 2rem;
+}
+
 /* Footer End*/
 
 /* Media query */
@@ -1346,7 +1436,14 @@ hr {
         justify-content: flex-end; /* Rata kanan */
     }
 
-    /* galery start */
+    /* Tentang Kami Start */
+    .tentangKami-tim .tentangKami-cards {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+      
+    /* Tentang Kami End */
+
+    /* Galery Start */
     .gallery {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));

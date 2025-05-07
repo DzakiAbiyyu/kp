@@ -13,7 +13,7 @@
     </div>
 
 
-    <div class=" container-paket">
+    <div class="container-paket">
         <h2>Paket</h2>
         <div class="container-card">
 

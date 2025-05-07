@@ -9,10 +9,12 @@
    <footer class="footer <?= $isHome ? 'fixed' : '' ?>">
        <div class="footer-content">
            <p>&copy; <?= date('Y'); ?> Leuwi Hejo. Semua hak dilindungi</p>
-           <div class="sosial-media">
-               <a href="#" target="_blank"><i class="bi bi-facebook" style="font-size: 2rem;"></i></a>
-               <a href="#" target="_blank">Instagram</a>
-               <a href="#" target="_blank">Twitter</a>
+           <div class="social-media">
+               <a href="#" target="_blank">
+                   <i class="fa-solid fa-house"><i class="bi bi-facebook"></i></i>
+               </a>
+               <a href="#" target="_blank"><i class="bi bi-instagram"></i></i></a>
+               <a href="#" target="_blank"><i class="bi bi-twitter"></i></a>
            </div>
        </div>
    </footer>

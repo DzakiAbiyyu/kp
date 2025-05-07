@@ -42,7 +42,7 @@
     <hr>
 </section>
 
-<section class="tentangKami-section tentangKami-visiMisi">
+<section class="tentangKami-section">
     <div class="tentangKami-container Latar-Belakang">
         <h2>Latar Belakang</h2>
         <div class="tentangKami-grid">
