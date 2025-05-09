@@ -37,6 +37,12 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->get('beranda', 'Beranda::index');
     $routes->get('beranda/edit/(:segment)', 'Beranda::edit/$1');
     $routes->post('beranda/update/(:segment)', 'Beranda::update/$1');
+
+    $routes->get('beranda/edit-gambar/(:segment)', 'Beranda::editGambar/$1');
+    $routes->post('beranda/update-gambar/(:segment)', 'Beranda::updateGambar/$1');
+    $routes->post('beranda/hapus-gambar/(:segment)', 'Beranda::hapusGambar/$1');
+
+
     // tentang kami
     $routes->get('tentang_kami', 'TentangKami::index');
     $routes->get('tentang_kami/edit/(:segment)', 'TentangKami::edit/$1');

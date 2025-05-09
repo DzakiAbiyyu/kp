@@ -37,6 +37,32 @@
               </div>
           </div>
 
+          <div class="card mb-4">
+              <div class="card-body">
+                  <h2 class="mb-4">Kelola Background Halaman Beranda</h2>
+                  <?php if (session()->getFlashdata('success')) : ?>
+                      <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
+                  <?php endif; ?>
+                  <div class="row">
+                      <?php foreach ($gambar as $g) : ?>
+                          <div class="col-md-4 mb-3">
+                              <img src="<?= base_url($g['gambar']) ?>" alt="Background" class="img-fluid rounded" style="width: 100%; max-height:200px; object-fit:containt;">
+                              <div class="card-body text-center">
+                                  <a href="<?= base_url('admin/beranda/edit-gambar/' . $g['slug']) ?>">
+                                      <i class="fa-solid fa-pen-to-square fa-xl"></i>
+                                  </a>
+                                  <form action="<?= base_url('admin/beranda/hapus-gambar/' . $g['slug']) ?>" method="post" onsubmit="return confirm('Yakin ingin menghapus gambar ini?');" style="display:inline;">
+                                      <?= csrf_field() ?>
+                                      <button type="submit" class="btn  btn-sm"><i class="fa-solid fa-trash fa-xl " style="color: red;"></i></button>
+                                  </form>
+                              </div>
+                          </div>
+                      <?php endforeach; ?>
+                  </div>
+              </div>
+
+          </div>
+
 
       </div>
   </main>
