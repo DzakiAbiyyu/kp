@@ -6,56 +6,101 @@ document.querySelector('#hamburger-menu').onclick = () => {
    navbarNav.classList.toggle('active'); 
 }
 
-// slider
-// let images = [
-//     '/img/satujpg',
-//     '/img/dua.jpg',
-//     '/img/tiga.jpg'
-//   ];
-  
-//   let currentIndex = 0;
-//   const hero = document.getElementById('hero');
-  
-//   // Set image awal
-//   hero.style.setProperty('--bg-before', `url('${images[currentIndex]}')`);
-//   currentIndex = (currentIndex + 1) % images.length;
-//   hero.style.setProperty('--bg-after', `url('${images[currentIndex]}')`);
-  
-//   // Tambahkan style agar pseudo-element bisa akses var
-//   const style = document.createElement('style');
-//   style.innerHTML = `
-//   .hero::before {
-//     background-image: var(--bg-before);
-//   }
-//   .hero::after {
-//     background-image: var(--bg-after);
-//   }
-//   `;
-//   document.head.appendChild(style);
-  
-//   let isBeforeActive = true;
-  
-//   function changeBackground() {
-//     currentIndex = (currentIndex + 1) % images.length;
-//     const nextImage = images[currentIndex];
-  
-//     if (isBeforeActive) {
-//       hero.style.setProperty('--bg-after', `url('${nextImage}')`);
-//       hero.classList.add('fade-to-after');
-//       hero.classList.remove('fade-to-before');
-//     } else {
-//       hero.style.setProperty('--bg-before', `url('${nextImage}')`);
-//       hero.classList.add('fade-to-before');
-//       hero.classList.remove('fade-to-after');
-//     }
-  
-//     isBeforeActive = !isBeforeActive;
-//   }
-  
-//   setInterval(changeBackground, 2000);
-// end slider  
+function form(formId, fieldSettings) {
+    const form = document.getElementById(formId);
+    if (!form) return;
 
-// const nomorPemilik = '6282226221535';
+    const fields = {};
+
+    for (const fieldId in fieldSettings) {
+        fields[fieldName] = document.getElementById(fieldSettings[fieldName]);
+    }
+
+    if (fields.jenisKendaraan) {
+        fields.jenisKendaraan.addEventListener('change', function () {
+            let motor = document.getElementById('Motor');
+            let mobil = document.getElementById('Mobil');
+            let selectedOption = this.options[this.selectedIndex];
+            let text = selectedOption.text;
+
+            if (text === 'Motor') {
+                motor.hidden = false;
+                motor.disabled = false;
+                mobil.hidden = true;
+                mobil.disabled = true;
+            } else if (text === 'Mobil') {
+                mobil.hidden = false;
+                mobil.disabled = false;
+                motor.hidden = true;
+                motor.disabled = true;
+            }
+        });
+    }
+
+    let perlengkapanCheckbox = fields.perlengkapanCheckbox;
+    let perlengkapanList = fields.perlengkapanList;
+    let perlengkapanError = fields.perlengkapanError;
+
+    perlengkapanCheckbox.addEventListener('change', () => {
+        if (perlengkapanCheckbox.checked) {
+            perlengkapanList.style.display = 'block';
+        } else {
+            perlengkapanList.style.display = 'none';
+        }
+    });
+
+    form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let nama = fields.nama.value.trim();
+        let nomor = fields.nomor.value.trim();
+        let lahan = fields.lahan.value;
+        let textLahan = fields.lahan.options[fields.jenisKendaraan.selectedIndex].text;
+        let kendaraan = fields.jenisKendaraan.options[fields.jenisKendaraan.selectedIndex].text;
+        let jumlahKendaraan = '';
+        let tanggal = fields.tanggal.value.trim();
+
+
+
+        if (fields.jenisKendaraan.value === 'Motor') {
+            let motorSelected = document.getElementById('Motor').options[document.getElementById('Motor').selectedIndex];
+            jumlahKendaraan = motorSelected.textContent;
+        } else if (fields.jenisKendaraan.value === 'Mobil') {
+            let mobilSelected = document.getElementById('Mobil').options[document.getElementById('Mobil').selectedIndex];
+            jumlahKendaraan = mobilSelected.textContent;
+        }
+
+        // cek perlengkapan jika dicentang
+        let selectedPackages = [];
+        let perlengkapanTerpilihValue = [];
+        let perlengkapanTerpilihText = [];  
+        if (perlengkapanCheckbox.checked) {
+            const itemCheckboxes = perlengkapanList.querySelectorAll('input[type="checkbox"]:checked'); 
+            itemCheckboxes.forEach(cb => {
+                perlengkapanTerpilihValue.push(cb.value);   
+                const label = document.querySelector(`label[for="${cb.value}"]`);
+                if (label) {
+                    perlengkapanTerpilihText.push(label.textContent.trim());
+                } else {
+                    perlengkapanTerpilihText.push(cb.value);
+                }
+            }); 
+            if (perlengkapanTerpilihValue.length > 0) {
+                perlengkapanError.hidden = true;
+                selectedPackages = perlengkapanTerpilihText;
+            }
+        }
+        
+        let pesan = `Halo, saya ingin memesan paket\n`;
+        if (paketReguler.length > 0) {
+            pesan += `*Paket Reguker*\t\t: ${paketReguler}\n`;
+        }
+      
+
+    });
+
+
+}
 
 
 function initFormReguler(formId, fieldSettings) {
