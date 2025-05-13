@@ -46,6 +46,9 @@ abstract class BaseController extends Controller
     /**
      * @return void
      */
+    protected $media;
+
+
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         // Do Not Edit This Line
@@ -53,6 +56,14 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
 
+        // Load model
+        $mediaModel = new \App\Models\MediaSosialModel();
+
+        // Ambil data media
+        $this->media = $mediaModel->findAll();
+
+
         // E.g.: $this->session = service('session');
+        \Config\Services::renderer()->setVar('media', $this->media);
     }
 }

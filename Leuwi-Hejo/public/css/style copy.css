@@ -1008,7 +1008,6 @@ hr {
 /* } */
 
 .formInput {
-    /* width: 50%; */
     /* min-height: 100vh; */
     padding-top: 80px; /* sesuaikan dengan tinggi navbar-mu */
     display: flex;
@@ -1027,7 +1026,7 @@ hr {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.booking-form .select2 {
+.booking-form #Lahan {
     width: 100%;
     /* background-color: rgb(96, 75, 75); */
     padding: 10px 15px;
@@ -1037,6 +1036,10 @@ hr {
     font-size: 1rem;
     outline: none;
     transition: 0.3s;
+}
+
+option {
+    width: 100%;
 }
 
 .booking-form h4 {
@@ -1524,7 +1527,7 @@ hr {
     }
 
     /* form Input Start*/
-
+    
     /* form Input End*/
 }
 

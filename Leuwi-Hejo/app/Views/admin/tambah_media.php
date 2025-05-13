@@ -12,13 +12,14 @@
         </div>
 
         <div class="mb-3">
-            <label for="url" class="form-label">Link URL</label>
-            <input type="url" name="url" id="url" class="form-control" required>
+            <label for="link" class="form-label">Link URL</label>
+            <input type="url" name="link" id="link" class="form-control" required>
         </div>
 
         <div class="mb-3">
-            <label for="ikon" class="form-label">Class Icon Font Awesome</label>
-            <input type="text" name="ikon" id="ikon" class="form-control" placeholder="misal: fa-brands fa-facebook" required>
+            <label for="icon" class="form-label">Class Icon Font Awesome</label>
+            <input type="text" name="icon" id="icon" class="form-control" placeholder="misal: fa-brands fa-facebook"
+                required>
         </div>
 
         <div class="mb-3">

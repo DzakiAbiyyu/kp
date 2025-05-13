@@ -10,10 +10,11 @@
        <div class="footer-content">
            <p>&copy; <?= date('Y'); ?> Leuwi Hejo. Semua hak dilindungi</p>
            <div class="social-media">
-               <a href="#" target="_blank"><i class="fa-solid fa-house"><i class="bi bi-facebook"></i></a>
-               <a href="#" target="_blank"><i class="bi bi-youtube"></i></a>
-               <a href="#" target="_blank"><i class="bi bi-instagram"></i></i></a>
-               <a href="#" target="_blank"><i class="bi bi-twitter"></i></a>
+               <?php foreach ($media as $m) : ?>
+               <a href="<?= esc($m['link']) ?>" target="_blank"><i class="fa-brands fa-<?= esc($m['icon']) ?>"></i></a>
+               <?php endforeach; ?>
+
+
            </div>
        </div>
    </footer>

@@ -164,7 +164,7 @@ class Beranda extends BaseController
 
     public function tambahMedia()
     {
-        return view('admin/beranda/tambah_media');
+        return view('admin/tambah_media');
     }
 
     public function simpanMedia()
@@ -181,12 +181,12 @@ class Beranda extends BaseController
 
         $mediaModel->save([
             'nama' => $this->request->getPost('nama'),
-            'url' => $this->request->getPost('url'),
-            'ikon' => $this->request->getPost('ikon'),
+            'link' => $this->request->getPost('link'),
+            'icon' => $this->request->getPost('icon'),
             'gambar' => $gambarName ? 'uploads/media/' . $gambarName : null
         ]);
 
-        return redirect()->to('/admin/beranda')->with('success', 'Media sosial berhasil ditambahkan.');
+        return redirect()->to('/admin/beranda')->with('success_media', 'Media sosial berhasil ditambahkan.');
     }
 
     public function editMedia($id)
@@ -198,7 +198,7 @@ class Beranda extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Media sosial tidak ditemukan.');
         }
 
-        return view('admin/beranda/edit_media', ['media' => $media]);
+        return view('admin/edit_media', ['media' => $media]);
     }
 
     public function updateMedia($id)
@@ -223,12 +223,12 @@ class Beranda extends BaseController
 
         $mediaModel->update($id, [
             'nama' => $this->request->getPost('nama'),
-            'url' => $this->request->getPost('url'),
-            'ikon' => $this->request->getPost('ikon'),
+            'link' => $this->request->getPost('link'),
+            'icon' => $this->request->getPost('icon'),
             'gambar' => $gambarName,
         ]);
 
-        return redirect()->to('/admin/beranda')->with('success', 'Media sosial berhasil diperbarui.');
+        return redirect()->to('/admin/beranda')->with('success_media', 'Media sosial berhasil diperbarui.');
     }
 
     public function hapusMedia($id)

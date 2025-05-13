@@ -22,6 +22,7 @@
                 <option value="">Camping 1</option>
                 <option value="">Camping 2</option>
                 <option value="">Camping 3</option>
+                <!-- <span class="select-arrow">▼</span> -->
             </select>
             <select class="form-select" id="jenisKendaraan" required>
                 <option value="" selected disabled>Pilih Transportasi</option>
@@ -104,5 +105,12 @@
         <a href="/pages/pesanTiket">kembali</a>
     </form>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#Lahan').select2({
+            dropdownParent: $('#form-sewa-lahan') // agar dropdown tidak tertutup elemen lain
+        });
+    });
+</script>
 
 <?php $this->endSection('content'); ?>

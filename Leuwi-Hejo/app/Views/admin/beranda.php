@@ -5,7 +5,8 @@
     <div class="container-fluid px-4">
         <h1 class="mt-4">Manajemen Beranda</h1>
         <ol class="breadcrumb mb-4">
-            <li class="breadcrumb-item"><a href="<?= base_url('admin/'); ?>" class="text-decoration-none">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="<?= base_url('admin/'); ?>" class="text-decoration-none">Dashboard</a>
+            </li>
             <li class="breadcrumb-item active">Beranda</li>
         </ol>
 
@@ -32,7 +33,8 @@
                                 <td class="text-center"><?= esc($k['title']); ?></td>
                                 <td class="text-center"><?= esc($k['body']); ?></td>
                                 <td class="text-center">
-                                    <a href="/admin/beranda/edit/<?= esc($k['slug']); ?>" class="btn btn-outline-primary btn-sm">
+                                    <a href="/admin/beranda/edit/<?= esc($k['slug']); ?>"
+                                        class="btn btn-outline-primary btn-sm">
                                         <i class="fa-solid fa-pen-to-square fa-xl"></i>
                                     </a>
                                 </td>
@@ -55,13 +57,18 @@
                 <div class="row d-flex">
                     <?php foreach ($gambar as $g) : ?>
                         <div class="col-md-4 mb-3">
-                            <div class="card shadow-sm rounded" style="background: #f8f9fa; border: 1px solid #ddd; transition: all 0.3s ease;">
-                                <img src="<?= base_url($g['gambar']) ?>" alt="Background" class="card-img-top rounded-top" style="width: 100%; height: 200px; object-fit: cover;">
+                            <div class="card shadow-sm rounded"
+                                style="background: #f8f9fa; border: 1px solid #ddd; transition: all 0.3s ease;">
+                                <img src="<?= base_url($g['gambar']) ?>" alt="Background" class="card-img-top rounded-top"
+                                    style="width: 100%; height: 200px; object-fit: cover;">
                                 <div class="card-body text-center">
-                                    <a href="<?= base_url('admin/beranda/edit-gambar/' . $g['id']) ?>" class="btn btn-outline-primary btn-sm me-2">
+                                    <a href="<?= base_url('admin/beranda/edit-gambar/' . $g['id']) ?>"
+                                        class="btn btn-outline-primary btn-sm me-2">
                                         <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                     </a>
-                                    <form action="<?= base_url('admin/beranda/hapus-gambar/' . $g['id']) ?>" method="post" onsubmit="return confirm('Yakin ingin menghapus gambar ini?');" style="display:inline;">
+                                    <form action="<?= base_url('admin/beranda/hapus-gambar/' . $g['id']) ?>" method="post"
+                                        onsubmit="return confirm('Yakin ingin menghapus gambar ini?');"
+                                        style="display:inline;">
                                         <?= csrf_field() ?>
                                         <button type="submit" class="btn btn-outline-danger btn-sm">
                                             <i class="fa-solid fa-trash fa-lg"></i>
@@ -75,8 +82,10 @@
                     <!-- Card untuk Tambah Gambar -->
                     <div class="col-md-4 mb-3">
                         <a href="<?= base_url('admin/beranda/tambah-gambar') ?>" class="text-decoration-none">
-                            <div class="card shadow-sm rounded" style="background: #f8f9fa; border: 1px solid #ddd; cursor: pointer; transition: all 0.3s ease;">
-                                <div class="rounded-top d-flex justify-content-center align-items-center" style="height: 200px; background-color: #e9ecef;">
+                            <div class="card shadow-sm rounded"
+                                style="background: #f8f9fa; border: 1px solid #ddd; cursor: pointer; transition: all 0.3s ease;">
+                                <div class="rounded-top d-flex justify-content-center align-items-center"
+                                    style="height: 200px; background-color: #e9ecef;">
                                     <i class="fa-solid fa-plus fa-3x text-primary"></i>
                                 </div>
                             </div>
@@ -91,18 +100,26 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h2 class="mb-4">Kelola Media Sosial</h2>
+                <?php if (session()->getFlashdata('success_media')) : ?>
+                    <div class="alert alert-success"><?= session()->getFlashdata('success_media'); ?></div>
+                <?php endif; ?>
+
                 <div class="row">
                     <?php foreach ($media as $m) : ?>
                         <div class="col-md-3 mb-3">
                             <div class="card text-center shadow-sm">
                                 <div class="card-body">
-                                    <i class="<?= esc($m['icon']) ?> fa-2x text-primary mb-2"></i>
+                                    <i class="fa-brands fa-<?= esc($m['icon']) ?> fa-2x text-primary mb-2"></i>
                                     <h5 class="card-title"><?= esc($m['nama']) ?></h5>
-                                    <p><a href="<?= esc($m['link']) ?>" target="_blank" class="btn btn-sm btn-outline-primary">Lihat</a></p>
-                                    <a href="<?= base_url('admin/beranda/edit-media/' . $m['id']) ?>" class="btn btn-sm btn-outline-success me-1"><i class="fa-solid fa-pen"></i></a>
-                                    <form action="<?= base_url('admin/beranda/hapus-media/' . $m['id']) ?>" method="post" style="display:inline;" onsubmit="return confirm('Yakin?');">
+                                    <p><a href="<?= esc($m['link']) ?>" target="_blank"
+                                            class="btn btn-sm btn-outline-primary">Lihat</a></p>
+                                    <a href="<?= base_url('admin/beranda/edit-media/' . $m['id']) ?>"
+                                        class="btn btn-sm btn-outline-success me-1"><i class="fa-solid fa-pen"></i></a>
+                                    <form action="<?= base_url('admin/beranda/hapus-media/' . $m['id']) ?>" method="post"
+                                        style="display:inline;" onsubmit="return confirm('Yakin?');">
                                         <?= csrf_field() ?>
-                                        <button class="btn btn-sm btn-outline-danger"><i class="fa-solid fa-trash"></i></button>
+                                        <button class="btn btn-sm btn-outline-danger"><i
+                                                class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </div>
                             </div>
@@ -111,7 +128,8 @@
                     <div class="col-md-3 mb-3">
                         <a href="<?= base_url('admin/beranda/tambah-media') ?>" class="text-decoration-none">
                             <div class="card shadow-sm text-center" style="cursor: pointer; background-color: #f1f3f5;">
-                                <div class="card-body d-flex align-items-center justify-content-center" style="height: 150px;">
+                                <div class="card-body d-flex align-items-center justify-content-center"
+                                    style="height: 150px;">
                                     <i class="fa-solid fa-plus fa-2x text-primary"></i>
                                 </div>
                             </div>

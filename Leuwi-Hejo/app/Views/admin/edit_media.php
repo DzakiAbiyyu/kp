@@ -3,30 +3,32 @@
 <?= $this->section('content'); ?>
 <main class="container py-4">
     <h2>Edit Media Sosial</h2>
-    <form action="<?= base_url('admin/beranda/update-media/' . $media['id']) ?>" method="post" enctype="multipart/form-data">
+    <form action="<?= base_url('admin/beranda/update-media/' . $media['id']) ?>" method="post"
+        enctype="multipart/form-data">
         <?= csrf_field() ?>
 
         <div class="mb-3">
             <label for="nama" class="form-label">Nama Media</label>
-            <input type="text" name="nama" id="nama" class="form-control" value="<?= esc($media['nama']) ?>" required>
+            <input type="text" name="nama" id="nama" class="form-control" value="<?= esc($media['nama']) ?>" readonly>
         </div>
 
         <div class="mb-3">
-            <label for="url" class="form-label">Link URL</label>
-            <input type="url" name="url" id="url" class="form-control" value="<?= esc($media['url']) ?>" required>
+            <label for="link" class="form-label">Link URL</label>
+            <input type="url" name="link" id="link" class="form-control" value="<?= esc($media['link']) ?>" required>
         </div>
 
         <div class="mb-3">
-            <label for="ikon" class="form-label">Class Icon Font Awesome</label>
-            <input type="text" name="ikon" id="ikon" class="form-control" value="<?= esc($media['ikon']) ?>" required>
+            <label for="icon" class="form-label">Class Icon Font Awesome</label>
+            <input type="text" name="icon" id="icon" class="form-control" value="<?= esc($media['icon']) ?>" readonly>
         </div>
 
         <div class="mb-3">
-            <label for="gambar" class="form-label">Ganti Gambar (opsional)</label>
+            <label class="form-label">Gambar Saat Ini</label>
             <?php if ($media['gambar']) : ?>
                 <div><img src="<?= base_url($media['gambar']) ?>" alt="" width="100" class="mb-2"></div>
             <?php endif; ?>
-            <input type="file" name="gambar" id="gambar" class="form-control">
+            <!-- Gambar tidak bisa diganti -->
+            <input type="file" class="form-control" disabled>
         </div>
 
         <button type="submit" class="btn btn-success">Perbarui</button>
