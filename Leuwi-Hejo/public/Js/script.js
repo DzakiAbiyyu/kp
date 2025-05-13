@@ -2,9 +2,19 @@ const daftar = document.querySelector('#Daftar-none');
 
 const navbarNav = document.querySelector('.navbar-nav');
 
-document.querySelector('#hamburger-menu').onclick = () => {
+const navbar = document.querySelector('.navbar');
+window.addEventListener('scroll', function() {
+    if (this.window.scrollY > 50 ) {
+        navbar.classList.add('solid')
+    } else {
+        navbar.classList.remove('solid');
+    }
+});
+
+document.querySelector('#hamburger-menu').addEventListener('click', function(e) {
+    e.preventDefault();
    navbarNav.classList.toggle('active'); 
-}
+});
 
 // slider
 // let images = [

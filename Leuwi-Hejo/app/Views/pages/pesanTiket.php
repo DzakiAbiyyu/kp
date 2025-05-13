@@ -8,9 +8,8 @@
         <p>Dapatkan diskon 10% untuk pembelian online sebelum tanggal 30 April 2025!</p>
     </div>
 
-    <div class="informasi-paket">
-        <!-- tampilannya akan di include di sini  -->
-    </div>
+    <!-- <div class="informasi-paket"> -->
+    <!-- </div> -->
 
 
     <div class="container-paket">
@@ -56,7 +55,7 @@
                     <div class="buttons">
                         <!-- <button class="Form"><a href="/form/hargaReguler"></a>Pilih</button> -->
                         <a href="/form/camping">Pilih</a>
-                        <button class="Informasi" data-url="/jendela/Reguler">Lihat-Informasi</button>
+                        <button class="Informasi" data-url="/Jendela/informasiCamping">Lihat-Informasi</button>
                     </div>
                 </div>
             </div>

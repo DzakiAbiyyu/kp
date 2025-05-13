@@ -169,16 +169,13 @@ body {
     align-items: center;
     padding: 10px 20px;
     height: 60px;
-    /* margin-bottom: 10px; */
-    /* background-color: rgba(0,0,0,0.3); */
-    /* background-color: var(--color-bg-dark); */
     color: white;
-    /* border-bottom: 1px solid #a61313; */
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 9999;
+    transition: background-color 0.4s ease-in-out;
 }
 
 .navbar-logo {
@@ -238,6 +235,11 @@ body {
 
 #hamburger-menu:hover {
     color: #927c7c;
+}
+
+.solid {
+    /* background-color: var(--color-bg-dark); */
+    background-color: #393E46;
 }
 /* Navbar End */
 
@@ -611,7 +613,7 @@ hr {
 }
 /* Tentang Kami End */
 
-/* Galeri Start */
+/* Galery Start */
 /* Header Galeri */
 .header-galery {
   background-color: var(--color-card);
@@ -642,7 +644,7 @@ hr {
 /* Paragraf deskripsi */
 .container-galery p.description {
   color: var(--color-text-secondary);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   line-height: 1.7;
   margin-bottom: 40px;
 }
@@ -691,16 +693,21 @@ hr {
 
 /* pesan tiket Start */
 
+.informasi-paket {
+    margin: 30px 20px;
+}
+
 /* PopUp Start*/
 
 /* === POPUP INFORMASI === */
 .popup-containerInformasi {
+
   position: fixed;
   z-index: 9999;
   inset: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  /* background: rgba(0, 0, 0, 0.6); */
   backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
@@ -709,7 +716,15 @@ hr {
 }
   
 .popup-containerInformasi .popup-content {
-  background: #ffffff;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('../img/LandScapeSawah.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  /* background-attachment: fixed; */
+  background-size: cover;
+
+
+  /* background: #ffffff; */
   border-radius: 16px;
   padding: 30px;
   width: 90%;
@@ -791,7 +806,8 @@ hr {
 .container-tiket h1 {
     /* width: 100%; */
     text-align: center;
-    color: var(--color-secondary);
+    /* font-size: 3rem; */
+    color: #948979;
     background-color: var(--color-card);
     font-weight: bold;
     padding: 20px 0;
@@ -815,15 +831,13 @@ hr {
 }
 
 .container-tiket .container-paket h2{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
     text-align: center;
     margin-top: 5px;
-    color: var(--color-secondary);
-
-    /* background-color: red; */
-    /* font-weight: bold; */
-    /* width: 100%; */
+    color: #DFD0B8;
     height: 30px;
-    /* margin-top: 30px; */
 }
 
 .container-tiket .container-paket .container-card {
@@ -887,9 +901,12 @@ hr {
 
 
 .container-tiket .container-paket .container-card .card  .card-body h5 {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 1rem;
-    background: #99adb8;
+    text-transform: uppercase;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+    font-family: 'Roboto Condensed', sans-serif;
+    /* letter-spacing: 1px; */
+    font-size: 1.2rem;
+    /* background: #99adb8; */
     padding: 5px;
     border-radius: 5px;
     margin: 20px auto;
@@ -906,83 +923,81 @@ hr {
 }
 
 .container-tiket .container-paket .container-card .card li {
-    /* background-color: red; */
-     /* Teks hijau abu-abu untuk pilihan */
-     font-size: 1rem;
-    }
-    
-    .container-tiket .container-paket .container-card .card button {
-        /* margin-top: 50px; */
-        background-color: #2d6a4f;
-    }
-    
-    .container-tiket .container-paket .container-card .card a {
-        text-decoration: none;
-        color: white;
-        background-color: #2d6a4f;
-        /* width: 10px; */
-        font-weight: 100;
-        padding: 5px;
-        font-size: 15px;
-        border-radius: 3px;
-    }
+/* background-color: red; */
+ /* Teks hijau abu-abu untuk pilihan */
+    font-size: 1rem;
+}
 
-    .container-tiket .container-paket .container-card .card a:hover {
-        background-color: #0077b6; /* Biru air */
-    }
-    
-    .container-tiket .container-paket .container-card .card button:hover {
-        background-color: #0077b6; /* Biru air */
-    }
-    
-    
-    
-    /* Garis hijau di setiap bagian */
-    .section {
-        /* margin-top: 30px; */
-        /* margin-bottom: 30px; */
-        margin: 30px 20px;
-        padding: 10px;
-        /* border-bottom: 3px solid #2d6a4f; */
-        background-color: var(--color-card-bg);
-        border-radius: 12px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.88);
-        animation: fadeInUp 0.8s ease forwards;
-        opacity: 0;
-    }
-    
-    /* Text styling untuk informasi promo */
-    .section h2 {
-        /* color: #2d6a4f; */
-        color: #2d6a4f; /* Hijau daun untuk judul section */
-        font-weight: bold;
-        background-color: white;
-    }
-    
-    .container-tiket .buttons{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        /* background-color: red; */
-        gap: 20px;
-        /* width: 20px */
-        height: 50px;
-    }
-    
-    .container-tiket button {
-        background-color: #2d6a4f;
-        padding: 10px 20px;
-        border-radius: 10px;
-        color: white;
-        text-decoration: none;
-        transition: background-color 0.3s;
-        cursor: pointer;
-    }
-    
-    .container-tiket button:hover {
-        background-color: #0077b6; /* Biru air */
-    }
-    /* form paket start*/
+.container-tiket .container-paket .container-card .card button {
+    /* margin-top: 50px; */
+    background-color: #2d6a4f;
+}
+
+.container-tiket .container-paket .container-card .card a {
+    text-decoration: none;
+    color: white;
+    background-color: #2d6a4f;
+    /* width: 10px; */
+    font-weight: 100;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 3px;
+}
+.container-tiket .container-paket .container-card .card a:hover {
+    background-color: #0077b6; /* Biru air */
+}
+
+.container-tiket .container-paket .container-card .card button:hover {
+    background-color: #0077b6; /* Biru air */
+}
+
+/* Garis hijau di setiap bagian */
+.section {
+    /* margin-top: 30px; */
+    /* margin-bottom: 30px; */
+    margin: 30px 20px;
+    padding: 10px;
+    /* border-bottom: 3px solid #2d6a4f; */
+    /* background-color: var(--color-card-bg); */
+    background-color: #DFD0B8;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.88);
+    animation: fadeInUp 0.8s ease forwards;
+    opacity: 0;
+}
+
+/* Text styling untuk informasi promo */
+.section h2 {
+    /* color: #2d6a4f; */
+    color: #2d6a4f; /* Hijau daun untuk judul section */
+    font-weight: bold;
+    /* background-color: white; */
+}
+
+.container-tiket .buttons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: red; */
+    gap: 20px;
+    /* width: 20px */
+    height: 50px;
+}
+
+.container-tiket button {
+    background-color: #2d6a4f;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+.container-tiket button:hover {
+    background-color: #0077b6; /* Biru air */
+}
+/* form paket start*/
 
 /* pesan tiket End */
 
@@ -1276,7 +1291,7 @@ hr {
 }
 
 .social-media a i:hover {
-    color: var(--color-bg-dark);
+    color: #948979;
     font-size: 2rem;
 }
 
@@ -1304,12 +1319,10 @@ hr {
     #hamburger-menu {
         display: inline-block; /* Tampilkan menu hamburger */
     }
-
     .navbar .navbar-extra a {
         display: none;
         opacity: 0.5;
     }
-
     .navbar-nav .Daftar-none, .Masuk-none {
         display: block;
     }
@@ -1317,11 +1330,11 @@ hr {
         right: 0;
         /* display: flex; */
     }
-
     .navbar-nav {
         position: absolute;
         /* opacity: 0.7; */
-        background-color: rgb(84, 78, 78);
+        /* background-color: rgb(84, 78, 78); */
+
         display: flex;
         flex-direction: column;
         font-weight: bold;
@@ -1331,7 +1344,6 @@ hr {
         height: 100vh;
         transition: 0.3s;
     }
-
     .navbar .navbar-nav a {
         color: #ffffff;
         display: block;
@@ -1339,18 +1351,14 @@ hr {
         padding: 0.5rem;
         font-size: 2rem;
     }
-
     .navbar .navbar-nav a::after {
         transform-origin: 0 0;
-
     }
-
     .navbar .navbar-nav a:hover::after {
         color: #714545;
         transform-origin: 0 0;
         transform: scaleX(0.2);
     }  
-
     .hero {
         display: flex;
         align-items: center;
@@ -1361,7 +1369,6 @@ hr {
         padding: 40px 20px;
         text-align: center;
     }
-
     .gallery {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -1373,15 +1380,11 @@ hr {
         overflow-y: auto;
         /* width: 600px; */
         height: 500px;
-
     }
-      
-
+    
     /* galery end */
-
     /* pesan tiket Start */
     /* pesan tiket end */
-
     /* tentang kami start */
     .container-card {
         display: grid;
@@ -1389,9 +1392,7 @@ hr {
         overflow-x: scroll;
         overflow-y: hidden;
     }
-
     /* tentang kami end */
-
     /* popup content start*/
     /* .popup-containerForm .popup-content { */
         /* width: 90vw; */
@@ -1399,9 +1400,6 @@ hr {
         /* padding: 20px; */
     /* } */
     /* popup content end*/
-
-
-
     
 }
 
@@ -1416,15 +1414,14 @@ hr {
         /* justify-content: center; */
         /* background-color: blue; */
     }
-
     .navbar > a {
         /* background-color: red; */
         width: 100%;
     }
-
     .navbar-nav {
         position: absolute;
-        background-color: rgb(137, 106, 106);
+        /* background-color: rgb(137, 106, 106); */
+        /* background-color: #393E46; */
         display: flex;
         flex-direction: column;
         top: 100%;
@@ -1434,17 +1431,15 @@ hr {
         transition: 0.3s;
         /* background-color: red; */
     }
-
     .navbar-extra {
         width: 100%; /* Lebar penuh untuk tombol */
         justify-content: flex-end; /* Rata kanan */
     }
-
     /* Tentang Kami Start */
     .tentangKami-tim .tentangKami-cards {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
-      
+    
     /* Tentang Kami End */
 
     /* Galery Start */
@@ -1459,7 +1454,67 @@ hr {
         overflow-y: auto;
         /* width: 600px; */
         height: 300px;
-
+    }
+    .container-galery p.description {
+      font-size: 1.5rem;
+      /* color: var(--color-text-secondary); */
+      /* line-height: 1.7; */
+      /* margin-bottom: 40px; */
     }
     /* galery end */
+
+    /* Pesan Tiket start */
+    .container-tiket h1 {
+        font-size: 2.5rem;
+    }
+
+    .container-tiket .container-paket h2 {
+        /* font-family: 'Inter', sans-serif; */
+        /* font-family: 'Playfair Display', serif; */
+        letter-spacing: 1px;
+        font-weight: 700;
+        font-family: 'Raleway', sans-serif;
+        text-transform: uppercase;
+        font-size: 2rem;
+    }
+
+
+    .container-tiket .container-paket .container-card .card  .card-body h5 {
+        letter-spacing: 1px;
+
+        /* font-family: 'Inter', sans-serif; */
+        /* background-color: red; */
+        text-transform: uppercase;
+        font-size: 2rem;
+        color: #DFD0B8;
+    }
+
+
+    .section {
+        /* margin-top: 30px; */
+        /* margin-bottom: 30px; */
+        margin: 30px 20px;
+        padding: 10px;
+        /* border-bottom: 3px solid #2d6a4f; */
+        /* background-color: var(--color-card-bg); */
+        background-color: #DFD0B8;
+        border-radius: 12px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.88);
+        animation: fadeInUp 0.8s ease forwards;
+        opacity: 0;
+    }
+
+    /* Text styling untuk informasi promo */
+    .section h2 {
+        /* color: #2d6a4f; */
+        color: #2d6a4f; /* Hijau daun untuk judul section */
+        font-weight: bold;
+        font-size: 2rem;
+        /* background-color: white; */
+    }
+
+    .section p {
+        font-size: 1.5rem;
+    }
+
 }
