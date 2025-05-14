@@ -12,8 +12,8 @@ $routes->get('/pages/galery', 'Pages::galery');
 $routes->get('/pages/pesanTiket', 'Pages::pesanTiket');
 
 // authentication
-$routes->get('/login', 'Auth::index');
-$routes->get('/register', 'Auth::register');
+// $routes->get('/login', 'Auth::index');
+// $routes->get('/register', 'Auth::register');
 
 
 

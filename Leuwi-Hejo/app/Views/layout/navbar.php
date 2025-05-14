@@ -6,13 +6,16 @@
         <a href="/pages/about">Tentang Kami</a>
         <a href="/pages/galery">Galeri</a>
         <a href="/pages/pesanTiket">Produk & Paket</a>
-        <a href="" id="Daftar-none" class="hidden">Daftar</a>
-        <a href="" id="Masuk-none" class="hidden">Masuk</a>
+
         <!-- Tombol Masuk dan Daftar ditambahkan di sini untuk tampilan mobile -->
     </div>
     <div class="navbar-extra">
-        <a href="" id="Daftar">Daftar</a>
-        <a href="" id="Masuk">Masuk</a>
+        <?php if (logged_in()) : ?>
+            <a href="<?= site_url('/logout') ?>">Logout</a>
+        <?php else : ?>
+            <a href="<?= site_url('/register') ?>">Daftar</a>
+            <a href="<?= site_url('/login') ?>">Masuk</a>
+        <?php endif ?>
         <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
     </div>
 </nav>
