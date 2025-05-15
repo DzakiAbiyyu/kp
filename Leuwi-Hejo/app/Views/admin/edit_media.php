@@ -9,7 +9,7 @@
 
         <div class="mb-3">
             <label for="nama" class="form-label">Nama Media</label>
-            <input type="text" name="nama" id="nama" class="form-control" value="<?= esc($media['nama']) ?>" readonly>
+            <input type="text" name="nama" id="nama" class="form-control" style="background-color:beige;" value="<?= esc($media['nama']) ?>" readonly>
         </div>
 
         <div class="mb-3">
@@ -19,7 +19,7 @@
 
         <div class="mb-3">
             <label for="icon" class="form-label">Class Icon Font Awesome</label>
-            <input type="text" name="icon" id="icon" class="form-control" value="<?= esc($media['icon']) ?>" readonly>
+            <input type="text" name="icon" id="icon" class="form-control" style="background-color:beige;" value="<?= esc($media['icon']) ?>" readonly>
         </div>
 
         <div class="mb-3">

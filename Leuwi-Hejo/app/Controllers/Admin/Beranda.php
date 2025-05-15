@@ -243,7 +243,7 @@ class Beranda extends BaseController
             $mediaModel->delete($id);
         }
 
-        return redirect()->to('/admin/beranda')->with('success', 'Media sosial berhasil dihapus.');
+        return redirect()->to('/admin/beranda')->with('success_media', 'Media sosial berhasil dihapus.');
     }
 
 
