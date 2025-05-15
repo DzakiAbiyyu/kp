@@ -15,6 +15,7 @@ class CreateAuthTables extends Migration
             'username'         => ['type' => 'varchar', 'constraint' => 30, 'null' => true],
             'password_hash'    => ['type' => 'varchar', 'constraint' => 255],
             'reset_hash'       => ['type' => 'varchar', 'constraint' => 255, 'null' => true],
+            'image'            => ['type' => 'varchar', 'constraint' => 255, 'default' => 'default.svg'],
             'reset_at'         => ['type' => 'datetime', 'null' => true],
             'reset_expires'    => ['type' => 'datetime', 'null' => true],
             'activate_hash'    => ['type' => 'varchar', 'constraint' => 255, 'null' => true],

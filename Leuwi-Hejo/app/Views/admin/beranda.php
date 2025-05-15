@@ -18,7 +18,7 @@
                 <?php if (session()->getFlashdata('success_content')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('success_content'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup">x</button>
                     </div>
                 <?php endif; ?>
 
@@ -56,9 +56,10 @@
                 <?php if (session()->getFlashdata('success_background')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('success_background'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="alert" aria-label="Tutup" data-bs-theme="dark"></button>
                     </div>
                 <?php endif; ?>
+
 
                 <div class="row d-flex">
                     <?php foreach ($gambar as $g) : ?>
