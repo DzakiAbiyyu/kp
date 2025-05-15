@@ -18,10 +18,11 @@
         <form action="<?= base_url('admin/beranda/tambah-gambar') ?>" method="post" enctype="multipart/form-data">
             <?= csrf_field() ?>
 
-            <div class="mb-3">
-                <label for="gambar" class="form-label">Pilih Gambar (Hanya .jpg)</label>
-                <input type="file" name="gambar" id="gambar" class="form-control" accept=".jpg,.jpeg" required>
+            <div class="form-group mb-3">
+                <label for="gambar">Pilih Gambar <span class="text-muted">(Hanya .jpg)</span></label>
+                <input type="file" name="gambar" id="gambar" class="form-control-file" accept=".jpg,.jpeg" required>
             </div>
+
 
             <button type="submit" class="btn btn-primary">Upload Gambar</button>
             <a href="<?= base_url('admin/beranda') ?>" class="btn btn-secondary">Kembali</a>

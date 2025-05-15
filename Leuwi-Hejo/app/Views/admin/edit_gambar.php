@@ -30,10 +30,11 @@
                             <img src="<?= base_url($gambar['gambar']) ?>" alt="Background" class="img-thumbnail" style="max-width: 100%; height: auto;">
                         </div>
 
-                        <div class="mb-3">
-                            <label for="gambar" class="form-label">Upload Gambar Baru <span class="text-muted">(JPG/JPEG)</span>:</label>
-                            <input type="file" name="gambar" id="gambar" class="form-control" accept=".jpg,.jpeg" required>
+                        <div class="form-group">
+                            <label for="gambar">Upload Gambar Baru <span class="text-muted">(JPG/JPEG)</span>:</label>
+                            <input type="file" name="gambar" id="gambar" class="form-control-file" accept=".jpg,.jpeg" required>
                         </div>
+
 
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-primary btn-custom">Update Gambar</button>

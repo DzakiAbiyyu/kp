@@ -18,7 +18,9 @@
                 <?php if (session()->getFlashdata('success_content')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('success_content'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup">x</button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 <?php endif; ?>
 
@@ -56,9 +58,12 @@
                 <?php if (session()->getFlashdata('success_background')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('success_background'); ?>
-                        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="alert" aria-label="Tutup" data-bs-theme="dark"></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 <?php endif; ?>
+
 
 
                 <div class="row d-flex">
@@ -76,8 +81,8 @@
 
                                     <button type="button"
                                         class="btn btn-sm btn-outline-danger btn-confirm-delete"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal"
+                                        data-toggle="modal"
+                                        data-target="#confirmDeleteModal"
                                         data-id="<?= $g['id'] ?>"
                                         data-name="<?= esc($g['slug']) ?>"
                                         data-url="<?= base_url('admin/beranda/hapus-gambar/' . $g['id']) ?>"
@@ -113,10 +118,15 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h2 class="mb-4">Kelola Media Sosial</h2>
+
+
+
                 <?php if (session()->getFlashdata('success_media')) : ?>
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <?= session()->getFlashdata('success_media'); ?>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                 <?php endif; ?>
 
@@ -133,14 +143,15 @@
                                         class="btn btn-sm btn-outline-success me-1"><i class="fa-solid fa-pen"></i></a>
                                     <button type="button"
                                         class="btn btn-sm btn-outline-danger btn-confirm-delete"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal"
+                                        data-toggle="modal"
+                                        data-target="#confirmDeleteModal"
                                         data-id="<?= $m['id'] ?>"
                                         data-name="<?= esc($m['nama']) ?>"
                                         data-url="<?= base_url('admin/beranda/hapus-media/' . $m['id']) ?>"
                                         data-type="Media Sosial">
-                                        <i class="fa-solid fa-trash"></i>
+                                        <i class="fa fa-trash"></i>
                                     </button>
+
                                 </div>
                             </div>
                         </div>
@@ -162,26 +173,33 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content border-danger">
+
                 <div class="modal-header bg-danger text-white">
                     <h5 class="modal-title" id="confirmDeleteLabel">Konfirmasi Hapus</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
+
                 <div class="modal-body">
                     Anda yakin ingin menghapus <strong id="itemType"></strong>: <span id="itemName"></span>?
                 </div>
+
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                     <form method="post" id="deleteForm">
                         <?= csrf_field() ?>
                         <button type="submit" class="btn btn-danger">Hapus</button>
                     </form>
                 </div>
+
             </div>
         </div>
     </div>
+
 
 
 
