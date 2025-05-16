@@ -131,7 +131,7 @@
                 <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Custom Components:</h6> -->
-                        <a class="collapse-item" href="">Datar Pengguna</a>
+                        <a class="collapse-item" href="<?= base_url('admin/daftar_user') ?>">Daftar Pengguna</a>
                         <a class="collapse-item" href="">Tambah Pengguna</a>
                         <a class="collapse-item" href="">Manajemen Role</a>
                         <a class="collapse-item" href="">Aktivitas Pengguna</a>

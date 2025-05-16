@@ -181,18 +181,6 @@ class AuthController extends Controller
             $users = $users->withGroup($this->config->defaultUserGroup);
         }
 
-        if (! $users->save($user)) {
-            return redirect()->back()->withInput()->with('errors', $users->errors());
-        }
-
-
-        // Ambil ID user yang baru saja dibuat
-        $userId = $users->getInsertID();
-
-        // Tambahkan ke grup default, misalnya "user" atau "penyewa"
-        $groupModel = new \Myth\Auth\Models\GroupModel();
-        $groupModel->addUserToGroup($userId, 'user'); // ganti 'user' sesuai grup kamu
-
 
         if ($this->config->requireActivation !== null) {
             $activator = service('activator');

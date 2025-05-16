@@ -65,4 +65,5 @@ $routes->group('admin', [
 
     // user
     $routes->get('profile', 'UserController::profile', ['filter' => 'login']);
+    $routes->get('daftar_user', 'UserController::index', ['filter' => 'login']);
 });
