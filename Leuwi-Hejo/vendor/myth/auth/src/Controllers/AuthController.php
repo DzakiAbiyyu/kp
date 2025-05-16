@@ -180,6 +180,10 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('errors', $users->errors());
         }
 
+        if (! $users->save($user)) {
+            return redirect()->back()->withInput()->with('errors', $users->errors());
+        }
+
         if ($this->config->requireActivation !== null) {
             $activator = service('activator');
             $sent      = $activator->send($user);

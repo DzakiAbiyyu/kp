@@ -22,10 +22,11 @@
                 required>
         </div>
 
-        <div class="mb-3">
-            <label for="gambar" class="form-label">Gambar (opsional)</label>
-            <input type="file" name="gambar" id="gambar" class="form-control">
+        <div class="form-group mb-3">
+            <label for="gambar">Gambar <small class="text-muted">(opsional)</small></label>
+            <input type="file" name="gambar" id="gambar" class="form-control-file">
         </div>
+
 
         <button type="submit" class="btn btn-primary">Simpan</button>
         <a href="<?= base_url('admin/beranda') ?>" class="btn btn-secondary">Kembali</a>

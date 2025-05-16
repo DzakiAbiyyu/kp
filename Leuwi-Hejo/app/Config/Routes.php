@@ -12,8 +12,8 @@ $routes->get('/pages/galery', 'Pages::galery');
 $routes->get('/pages/pesanTiket', 'Pages::pesanTiket');
 
 // authentication
-$routes->get('/login', 'Auth::index');
-$routes->get('/register', 'Auth::register');
+// $routes->get('/login', 'Auth::index');
+// $routes->get('/register', 'Auth::register');
 
 
 
@@ -31,9 +31,12 @@ $routes->get('/form/(:segment)', 'form::load/$1');
 
 
 // admin
-$routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+$routes->group('admin', [
+    'namespace' => 'App\Controllers\Admin',
+    'filter' => 'role:admin,super_admin'
+], function ($routes) {
     // beranda
-    $routes->get('/', 'Dashboard::index');
+    $routes->get('/', 'Dashboard::index',);
     $routes->get('beranda', 'Beranda::index');
     $routes->get('beranda/edit/(:segment)', 'Beranda::edit/$1');
     $routes->post('beranda/update/(:segment)', 'Beranda::update/$1');
@@ -59,4 +62,8 @@ $routes->group('admin', ['namespace' => 'App\Controllers\Admin'], function ($rou
     $routes->get('tentang_kami', 'TentangKami::index');
     $routes->get('tentang_kami/edit/(:segment)', 'TentangKami::edit/$1');
     $routes->post('tentang_kami/update/(:segment)', 'TentangKami::update/$1');
+
+    // user
+    $routes->get('profile', 'UserController::profile', ['filter' => 'login']);
+    $routes->get('daftar_user', 'UserController::index', ['filter' => 'login']);
 });

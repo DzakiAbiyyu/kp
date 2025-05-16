@@ -62,8 +62,10 @@ abstract class BaseController extends Controller
         // Ambil data media
         $this->media = $mediaModel->findAll();
 
-
         // E.g.: $this->session = service('session');
         \Config\Services::renderer()->setVar('media', $this->media);
+
+
+        helper('auth'); // Tambahkan ini
     }
 }

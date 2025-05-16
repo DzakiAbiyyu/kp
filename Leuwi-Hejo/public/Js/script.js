@@ -4,8 +4,8 @@ const navbarNav = document.querySelector('.navbar-nav');
 const hamburgerMenu = document.getElementById('hamburger-menu');
 
 const navbar = document.querySelector('.navbar');
-window.addEventListener('scroll', function() {
-    if (this.window.scrollY > 50 ) {
+window.addEventListener('scroll', function () {
+    if (this.window.scrollY > 50) {
         navbar.classList.add('solid')
         hamburgerMenu.style.color = 'white';
     } else {
@@ -13,9 +13,9 @@ window.addEventListener('scroll', function() {
     }
 });
 
-document.querySelector('#hamburger-menu').addEventListener('click', function(e) {
+document.querySelector('#hamburger-menu').addEventListener('click', function (e) {
     e.preventDefault();
-   navbarNav.classList.toggle('active'); 
+    navbarNav.classList.toggle('active');
 });
 
 // slider
@@ -24,15 +24,15 @@ document.querySelector('#hamburger-menu').addEventListener('click', function(e) 
 //     '/img/dua.jpg',
 //     '/img/tiga.jpg'
 //   ];
-  
+
 //   let currentIndex = 0;
 //   const hero = document.getElementById('hero');
-  
+
 //   // Set image awal
 //   hero.style.setProperty('--bg-before', `url('${images[currentIndex]}')`);
 //   currentIndex = (currentIndex + 1) % images.length;
 //   hero.style.setProperty('--bg-after', `url('${images[currentIndex]}')`);
-  
+
 //   // Tambahkan style agar pseudo-element bisa akses var
 //   const style = document.createElement('style');
 //   style.innerHTML = `
@@ -44,13 +44,13 @@ document.querySelector('#hamburger-menu').addEventListener('click', function(e) 
 //   }
 //   `;
 //   document.head.appendChild(style);
-  
+
 //   let isBeforeActive = true;
-  
+
 //   function changeBackground() {
 //     currentIndex = (currentIndex + 1) % images.length;
 //     const nextImage = images[currentIndex];
-  
+
 //     if (isBeforeActive) {
 //       hero.style.setProperty('--bg-after', `url('${nextImage}')`);
 //       hero.classList.add('fade-to-after');
@@ -60,10 +60,10 @@ document.querySelector('#hamburger-menu').addEventListener('click', function(e) 
 //       hero.classList.add('fade-to-before');
 //       hero.classList.remove('fade-to-after');
 //     }
-  
+
 //     isBeforeActive = !isBeforeActive;
 //   }
-  
+
 //   setInterval(changeBackground, 2000);
 // end slider  
 
@@ -112,7 +112,7 @@ function initFormReguler(formId, fieldSettings) {
         }
     });
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         event.preventDefault();
 
         let nama = fields.nama.value.trim();
@@ -157,9 +157,9 @@ function initFormReguler(formId, fieldSettings) {
                 selectedPackages = perlengkapanTerpilihText;
             }
         }
-        
 
-        let pesan= `Halo, Saya ingin memesan paket\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Jumlah Orang*\t\t: ${jumlahOrang}\n*Lahan*\t\t\t: ${textLahan}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Untuk tanggal*\t\t: ${tanggal}`; 
+
+        let pesan = `Halo, Saya ingin memesan paket\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Jumlah Orang*\t\t: ${jumlahOrang}\n*Lahan*\t\t\t: ${textLahan}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Untuk tanggal*\t\t: ${tanggal}`;
         if (selectedPackages.length > 0) {
             pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;
         }
@@ -234,7 +234,7 @@ function initFormCampingNonTrekking(formId, fieldSettings) {
         }
 
         // let pesan = `Halo, saya ingin memesan paket Camping Non Trakking:\n*Nama*   : ${nama}\nNomor    : ${nomor}\nJumlah Orang    : ${jumlahOrang}\nJenis Kendaraan   : ${kendaraan}\nJumlah Kendaraan   : ${jumlahKendaraan}\nUntuk tanggal : ${tanggal}`;
-       let pesan =`Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Jumlah Orang*\t\t: ${jumlahOrang}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Untuk tanggal*\t\t: ${tanggal}
+        let pesan = `Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Jumlah Orang*\t\t: ${jumlahOrang}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Untuk tanggal*\t\t: ${tanggal}
         `;
         const nomorPemilik = '6282226221535';
         // const nomorPemilik = '62818109442';
@@ -304,10 +304,10 @@ function initFormCamping(formId, fieldSettings) {
         let nama = fields.nama.value.trim();
         let nomor = fields.nomor.value.trim();
         let namaPaket = fields.namaPaket.value;
-        let paket = fields.paketTenda ? fields.paketTenda.value : '';  
+        let paket = fields.paketTenda ? fields.paketTenda.value : '';
         let kendaraan = fields.jenisKendaraan ? fields.jenisKendaraan.options[fields.jenisKendaraan.selectedIndex].text : '';
         let tanggal = fields.tanggal.value.trim();
-        
+
 
         let jumlahKendaraan = 0; // Default ke 0 jika tidak ada pilihan
         if (fields.jenisKendaraan.value === 'Motor') {
@@ -350,11 +350,11 @@ function initFormCamping(formId, fieldSettings) {
                 selectedPackages = perlengkapanTerpilihText;
             }
         }
-        
+
 
         // Menyiapkan pesan untuk WhatsApp
         let pesan = `Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*kapasitas Tenda*\t\t: ${paket}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Tanggal*\t\t\t: ${tanggal}`;
-        
+
         if (selectedPackages.length > 0) {
             pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;
         }
@@ -438,7 +438,7 @@ function initFormTrakking(formId, fieldSettings) {
 
         let pesan = `Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Paket/Pax*\t\t: ${paket}\n*Rute*\t\t\t: ${rute}\n*Tanggal*\t\t\t: ${tanggal}`;
         if (selectedPackages.length > 0) {
-            pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;  
+            pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;
         }
 
 
@@ -450,7 +450,7 @@ function initFormTrakking(formId, fieldSettings) {
     });
 }
 
-function initFormCampingTrakking (formId, fieldSettings){
+function initFormCampingTrakking(formId, fieldSettings) {
     let form = document.getElementById(formId);
     if (!form) return;
 
@@ -486,9 +486,9 @@ function initFormCampingTrakking (formId, fieldSettings){
     let perlengkapanError = fields.perlengkapanError;
 
     perlengkapanCheckbox.addEventListener('change', () => {
-        if(perlengkapanCheckbox.checked) {
+        if (perlengkapanCheckbox.checked) {
             perlengkapanList.style.display = 'block';
-        }  else {
+        } else {
             perlengkapanList.style.display = 'none';
         }
     });
@@ -545,7 +545,7 @@ function initFormCampingTrakking (formId, fieldSettings){
         let pesan = `Halo, saya ingin memesan paket :\n*Nama Paket*\t\t: ${namaPaket}\n*Nama*\t\t\t: ${nama}\n*Nomor*\t\t\t: ${nomor}\n*Kapsitas Tenda*\t\t: ${paketTenda}\n*Jenis Kendaraan*\t\t: ${kendaraan}\n*Jumlah Kendaraan*\t: ${jumlahKendaraan}\n*Rute*\t\t\t: ${rute}\n*paket/Pax*\t\t: ${paket}\n*tanggal*\t\t\t: ${tanggal}`;
 
         if (selectedPackages.length > 0) {
-            pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`; 
+            pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;
         }
 
         let nomorPemilik = '6282226221535';
@@ -593,7 +593,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nama: 'name',
         nomor: 'nomor',
         namaPaket: 'hiddenInput',
-        paketTenda: 'paketTenda',  
+        paketTenda: 'paketTenda',
         jenisKendaraan: 'jenisKendaraan',
         perlengkapanCheckbox: 'perlengkapanCheckbox',
         perlengkapanList: 'perlengkapanList',
@@ -623,7 +623,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     initFormCampingTrakking('form-camping-trakking', {
-        nama : 'name',
+        nama: 'name',
         nomor: 'nomor',
         namaPaket: 'hiddenInput',
         paketTenda: 'paketTenda',
@@ -641,7 +641,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nomor: 'nomor',
         jumlah: 'jumlah',
         namaPaket: 'hiddenInput',
-        lahan :'Lahan',
+        lahan: 'Lahan',
         jenisKendaraan: 'jenisKendaraan',
         perlengkapanCheckbox: 'perlengkapanCheckbox',
         perlengkapanList: 'perlengkapanList',
