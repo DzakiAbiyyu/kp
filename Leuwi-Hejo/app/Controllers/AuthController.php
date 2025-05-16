@@ -130,6 +130,11 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
 
+
+
+
+
+
         return $this->_render($this->config->views['register'], ['config' => $this->config]);
     }
 
@@ -179,6 +184,15 @@ class AuthController extends Controller
         if (! $users->save($user)) {
             return redirect()->back()->withInput()->with('errors', $users->errors());
         }
+
+
+        // Ambil ID user yang baru saja dibuat
+        $userId = $users->getInsertID();
+
+        // Tambahkan ke grup default, misalnya "user" atau "penyewa"
+        $groupModel = new \Myth\Auth\Models\GroupModel();
+        $groupModel->addUserToGroup($userId, 'user'); // ganti 'user' sesuai grup kamu
+
 
         if ($this->config->requireActivation !== null) {
             $activator = service('activator');
