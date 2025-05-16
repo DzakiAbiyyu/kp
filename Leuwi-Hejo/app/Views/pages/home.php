@@ -8,13 +8,20 @@
     <div class="hero-text">
         <div class="hero-text">
             <h1 class="judul"><?= esc($konten['title'] ?? 'Judul Default'); ?></h1>
+            <!-- H1 Maksimal 50 karakter -->
             <p class="deskripsi"><?= esc($konten['body'] ?? 'Deskripsi Default'); ?></p>
+            <!-- P Maksimal 50 karakter -->
 
-            <div class="hero-buttons">
-                <a href="/pages/galery" class="btn btn-gallery">Galeri</a>
-                <a href="/pages/pesanTiket" class="btn btn-pesan-tiket">Pesan Tiket</a>
-            </div>
+            <!-- <div class="hero-buttons"> -->
+            <!-- <a href="/pages/galery" class="btn btn-gallery">Galeri</a> -->
+            <!-- <a href="/pages/pesanTiket" class="btn btn-pesan-tiket">Pesan Tiket</a> -->
+            <!-- </div> -->
         </div>
+        <div class="hero-buttons">
+            <a href="/pages/galery" class="btn btn-gallery">Galeri</a>
+            <a href="/pages/pesanTiket" class="btn btn-pesan-tiket">Pesan Tiket</a>
+        </div>
+
 
     </div>
 </main>
