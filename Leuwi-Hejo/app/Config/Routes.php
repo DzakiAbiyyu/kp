@@ -64,6 +64,17 @@ $routes->group('admin', [
     $routes->post('tentang_kami/update/(:segment)', 'TentangKami::update/$1');
 
     // user
+    $routes->get('user-panel', 'UserController::userPanel');
     $routes->get('profile', 'UserController::profile', ['filter' => 'login']);
+    $routes->post('profile/update-image', 'UserController::updateImage', ['filter' => 'login']);
+    $routes->post('profile/remove-image', 'UserController::removeImage', ['filter' => 'login']);
     $routes->get('daftar_user', 'UserController::index', ['filter' => 'login']);
+    $routes->get('users/add', 'UserController::create');
+    $routes->post('users/save', 'UserController::save');
+    $routes->get('users/manage-roles', 'UserController::manageRoles');
+    $routes->post('users/update-role', 'UserController::updateRole');
+    $routes->post('users/toggle-status', 'UserController::toggleStatus');
+    $routes->get('users/role-logs', 'UserController::roleLogs');
+    $routes->get('notifications', 'UserController::getNotifications');
+    $routes->post('notifications/mark-read', 'UserController::markNotificationsRead');
 });

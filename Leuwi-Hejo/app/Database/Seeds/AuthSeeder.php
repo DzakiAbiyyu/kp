@@ -20,6 +20,10 @@ class AuthSeeder extends Seeder
             [
                 'name' => 'user',
                 'description' => 'Regular user'
+            ],
+            [
+                'super_admin',
+                'description' => 'the boss'
             ]
         ]);
 

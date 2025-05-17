@@ -11,12 +11,12 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-bordered" id="tabel-user" width="100%" cellspacing="0">
+                <thead class="text-center">
                     <tr>
                         <th>No</th>
                         <th>Foto</th>
@@ -27,7 +27,7 @@
                         <th>Terdaftar</th>
                     </tr>
                 </thead>
-                <tfoot>
+                <tfoot class="text-center">
                     <tr>
                         <th>No</th>
                         <th>Foto</th>
@@ -38,7 +38,7 @@
                         <th>Terdaftar</th>
                     </tr>
                 </tfoot>
-                <tbody>
+                <tbody class="text-center">
                     <?php foreach ($users as $i => $user) : ?>
                         <tr>
                             <td><?= $i + 1 ?></td>
@@ -100,5 +100,7 @@
         </div>
     </div>
 </div>
+
+
 
 <?= $this->endSection(); ?>

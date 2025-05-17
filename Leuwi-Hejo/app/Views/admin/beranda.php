@@ -24,29 +24,31 @@
                 </div>
             <?php endif; ?>
 
-            <table class="table table-bordered mt-3">
-                <thead class="bg-primary text-white">
-                    <tr>
-                        <th class="text-center">Judul</th>
-                        <th class="text-center">Deskripsi</th>
-                        <th class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($konten as $k) : ?>
+            <div class="table-responsive">
+                <table class="table" width="100%" cellspacing="0">
+                    <thead class="bg-gradient-primary">
                         <tr>
-                            <td class="text-center"><?= esc($k['title']); ?></td>
-                            <td class="text-center"><?= esc($k['body']); ?></td>
-                            <td class="text-center">
-                                <a href="/admin/beranda/edit/<?= esc($k['slug']); ?>"
-                                    class="btn btn-outline-primary btn-sm">
-                                    <i class="fa-solid fa-pen-to-square fa-xl"></i>
-                                </a>
-                            </td>
+                            <th class="text-center">Judul</th>
+                            <th class="text-center">Deskripsi</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($konten as $k) : ?>
+                            <tr>
+                                <td class="text-center"><?= esc($k['title']); ?></td>
+                                <td class="text-center"><?= esc($k['body']); ?></td>
+                                <td class="text-center">
+                                    <a href="/admin/beranda/edit/<?= esc($k['slug']); ?>"
+                                        class="btn btn-outline-primary btn-sm">
+                                        <i class="fa-solid fa-pen-to-square fa-xl"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
