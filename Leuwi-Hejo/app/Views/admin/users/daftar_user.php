@@ -5,8 +5,8 @@
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Tables</h1>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank"
-        href="https://datatables.net">official DataTables documentation</a>.</p>
+    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+        DataTables documentation</a>.</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
@@ -45,8 +45,8 @@
 
                             <!-- Foto Profil -->
                             <td>
-                                <img src="<?= base_url('uploads/profile/' . ($user->image)) ?>"
-                                    alt="Foto" width="40" height="40" class="rounded-circle">
+                                <img src="<?= base_url('uploads/profile/' . ($user->image)) ?>" alt="Foto" width="40"
+                                    height="40" class="rounded-circle">
                             </td>
 
                             <!-- Username -->
@@ -57,7 +57,13 @@
 
                             <!-- Grup -->
                             <td>
-                                <?php foreach ($user->groups as $group): ?>
+                                <?php
+                                $groupCount = count($user->groups);
+                                $maxShown = 2; // jumlah maksimal grup yang ditampilkan
+                                $shownGroups = array_slice($user->groups, 0, $maxShown);
+                                ?>
+
+                                <?php foreach ($shownGroups as $group): ?>
                                     <?php
                                     switch ($group) {
                                         case 'admin':
