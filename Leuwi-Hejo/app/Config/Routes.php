@@ -33,7 +33,7 @@ $routes->get('/form/(:segment)', 'form::load/$1');
 // admin
 $routes->group('admin', [
     'namespace' => 'App\Controllers\Admin',
-    'filter' => 'role:admin,super_admin'
+    // 'filter' => 'role:admin,super_admin'
 ], function ($routes) {
     // beranda
     $routes->get('/', 'Dashboard::index',);

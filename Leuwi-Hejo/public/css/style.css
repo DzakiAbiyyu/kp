@@ -227,9 +227,16 @@ body {
     gap: 20px;
 }
 
-.hidden {
-    display: none;
+/* Sembunyikan daftar & masuk di mobile */
+#Daftar-none,
+#Masuk-none, #Logout-none{
+  display: none;
 }
+
+
+/* .hidden { */
+    /* display: none; */
+/* } */
 
 .navbar-extra a {
     color: white;
@@ -1352,7 +1359,7 @@ hr {
       opacity: 1;
       padding: 2rem 0;
     }
-    #Daftar, #Masuk {
+    #Daftar, #Masuk, #Logout {
       display: none;
     }
     #Daftar-none,
