@@ -5,18 +5,18 @@
 <!-- Page Heading -->
 <h1 class="h3 mb-2 text-gray-800">Tables</h1>
 <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank"
-        href="https://datatables.net">official DataTables documentation</a>.</p>
+    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
+        DataTables documentation</a>.</p>
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+        <h6 class="m-0 font-weight-bold text-primary">Data User</h6>
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
+            <table class="table table-bordered" id="tabel-user" width="100%" cellspacing="0">
+                <thead class="text-center">
                     <tr>
                         <th>No</th>
                         <th>Foto</th>
@@ -27,7 +27,7 @@
                         <th>Terdaftar</th>
                     </tr>
                 </thead>
-                <tfoot>
+                <tfoot class="text-center">
                     <tr>
                         <th>No</th>
                         <th>Foto</th>
@@ -38,15 +38,15 @@
                         <th>Terdaftar</th>
                     </tr>
                 </tfoot>
-                <tbody>
+                <tbody class="text-center">
                     <?php foreach ($users as $i => $user) : ?>
                         <tr>
                             <td><?= $i + 1 ?></td>
 
                             <!-- Foto Profil -->
                             <td>
-                                <img src="<?= base_url('uploads/profile/' . ($user->image)) ?>"
-                                    alt="Foto" width="40" height="40" class="rounded-circle">
+                                <img src="<?= base_url('uploads/profile/' . ($user->image)) ?>" alt="Foto" width="40"
+                                    height="40" class="rounded-circle">
                             </td>
 
                             <!-- Username -->
@@ -57,7 +57,13 @@
 
                             <!-- Grup -->
                             <td>
-                                <?php foreach ($user->groups as $group): ?>
+                                <?php
+                                $groupCount = count($user->groups);
+                                $maxShown = 2; // jumlah maksimal grup yang ditampilkan
+                                $shownGroups = array_slice($user->groups, 0, $maxShown);
+                                ?>
+
+                                <?php foreach ($shownGroups as $group): ?>
                                     <?php
                                     switch ($group) {
                                         case 'admin':
@@ -94,5 +100,7 @@
         </div>
     </div>
 </div>
+
+
 
 <?= $this->endSection(); ?>

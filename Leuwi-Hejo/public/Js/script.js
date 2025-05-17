@@ -1,11 +1,13 @@
 const daftar = document.querySelector('#Daftar-none');
 
 const navbarNav = document.querySelector('.navbar-nav');
+const hamburgerMenu = document.getElementById('hamburger-menu');
 
 const navbar = document.querySelector('.navbar');
 window.addEventListener('scroll', function () {
     if (this.window.scrollY > 50) {
         navbar.classList.add('solid')
+        hamburgerMenu.style.color = 'white';
     } else {
         navbar.classList.remove('solid');
     }
@@ -66,7 +68,6 @@ document.querySelector('#hamburger-menu').addEventListener('click', function (e)
 // end slider  
 
 // const nomorPemilik = '6282226221535';
-
 
 function initFormReguler(formId, fieldSettings) {
     const form = document.getElementById(formId);
@@ -171,6 +172,7 @@ function initFormReguler(formId, fieldSettings) {
 
     });
 }
+
 
 function initFormCampingNonTrekking(formId, fieldSettings) {
     const form = document.getElementById(formId);
@@ -646,6 +648,4 @@ document.addEventListener('DOMContentLoaded', function () {
         perlengkapanError: 'perlengkapanError',
         tanggal: 'tanggal'
     });
-
-
 });

@@ -105,12 +105,4 @@
         <a href="/pages/pesanTiket">kembali</a>
     </form>
 </div>
-<script>
-    $(document).ready(function() {
-        $('#Lahan').select2({
-            dropdownParent: $('#form-sewa-lahan') // agar dropdown tidak tertutup elemen lain
-        });
-    });
-</script>
-
 <?php $this->endSection('content'); ?>

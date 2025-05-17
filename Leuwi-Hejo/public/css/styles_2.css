@@ -1,62 +1,11 @@
-.btn-custom {
-    background-color: #007bff; /* Warna latar belakang normal */
-    color: white; /* Warna teks */
-    border: none; /* Menghilangkan border */
-    padding: 10px 20px; /* Padding */
-    border-radius: 5px; /* Membuat sudut tombol melengkung */
-    transition: background-color 0.3s ease; /* Transisi halus saat hover */
-}
-
-.btn-custom:hover {
-    background-color: #0056b3; /* Warna latar belakang saat di-hover */
-    cursor: pointer; /* Menampilkan pointer saat hover */
-}
-
-/* Card untuk Background */
-.card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Tabel */
-.table {
-    font-size: 0.95rem;
-    border-radius: 8px;
-}
-
-.table th {
-    background-color: #007bff;
-    color: white;
-}
-
-.table td {
+table#tabel-user th,
+table#tabel-user td {
+    vertical-align: middle !important;
     text-align: center;
 }
 
-/* Tombol Action */
-.btn-outline-primary, .btn-outline-danger {
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-}
-
-.btn-outline-primary:hover {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
-}
-
-.btn-outline-danger:hover {
-    background-color: #dc3545;
-    color: white;
-    border-color: #dc3545;
-}
-
-/* Hover Effect pada Card Tambah Gambar */
-.card:hover {
+#tabel-user tbody tr:hover {
+    background-color: #f1f1f1;
     cursor: pointer;
-    transform: translateY(-10px);
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: 0.2s;
 }

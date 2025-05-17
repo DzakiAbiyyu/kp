@@ -70,6 +70,32 @@
             </div>
             <div class="tentangKami-card">
                 <img src="/img/1.JPG" alt="Anggota Tim">
+                <h4>Raka</h4>
+                <p>Tour Guide & Fotografer</p>
+            </div>
+            <div class="tentangKami-card">
+                <img src="/img/1.JPG" alt="Anggota Tim">
+                <h4>Raka</h4>
+                <p>Tour Guide & Fotografer</p>
+            </div>
+
+            <div class="tentangKami-card">
+                <img src="/img/1.JPG" alt="Anggota Tim">
+                <h4>Raka</h4>
+                <p>Tour Guide & Fotografer</p>
+            </div>
+            <div class="tentangKami-card">
+                <img src="/img/1.JPG" alt="Anggota Tim">
+                <h4>Raka</h4>
+                <p>Tour Guide & Fotografer</p>
+            </div>
+            <div class="tentangKami-card">
+                <img src="/img/1.JPG" alt="Anggota Tim">
+                <h4>Raka</h4>
+                <p>Tour Guide & Fotografer</p>
+            </div>
+            <div class="tentangKami-card">
+                <img src="/img/1.JPG" alt="Anggota Tim">
                 <h4>Nisa</h4>
                 <p>Koordinator Wisata</p>
             </div>

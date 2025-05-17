@@ -32,7 +32,7 @@ class Pages extends BaseController
         // menampilkan icon berdasaran database
 
         $data = [
-            'title' => 'Home | Leuwi Hejo',
+            'title' => 'Wisata Alam Lembah Pangaduan - Tiket & Paket Liburan',
             'konten' => $konten,
             'gambarList' => $gambarList,
             'media' => $media
