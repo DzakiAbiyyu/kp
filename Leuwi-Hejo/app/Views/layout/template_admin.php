@@ -37,7 +37,7 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
-
+    
 </head>
 
 <body id="page-top">
@@ -152,10 +152,31 @@
             <!-- profile user -->
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('admin/profile') ?>">
-                    <i class="fas fa-fw fa-chart-area"></i>
+                    <i class="fas fa-id-badge"></i>
                     <span>Profile</span>
                 </a>
             </li>
+
+
+            <?php
+            $db = \Config\Database::connect();
+            $unread = $db->table('user_notifications')
+                ->where('user_id', user()->id)
+                ->where('is_read', false)
+                ->countAllResults();
+            ?>
+
+            <li class="nav-item <?= service('uri')->getSegment(2) == 'notifications' ? 'active' : '' ?>">
+                <a class="nav-link d-flex justify-content-between align-items-center" href="<?= base_url('admin/notifications') ?>">
+                    <div>
+                        <i class="fas fa-bell"></i> <span>Notifikasi</span>
+                    </div>
+                    <?php if ($unread > 0): ?>
+                        <span class="badge badge-danger badge-pill"><?= $unread ?></span>
+                    <?php endif; ?>
+                </a>
+            </li>
+
 
 
 
@@ -197,6 +218,14 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('logout') ?>" onclick="return confirm('Yakin ingin logout?')">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
 
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
@@ -267,25 +296,28 @@
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <span class="badge badge-danger badge-counter">0</span>
+                                <i class="fas fa-bell fa-fw position-relative">
+                                    <span class="badge badge-danger badge-counter">0</span>
+                                </i>
                             </a>
 
-                            <!-- Dropdown - Alerts -->
+                            <!-- Dropdown Notifikasi -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">Alerts Center</h6>
+                                aria-labelledby="alertsDropdown" style="max-height: 400px; overflow-y: auto; min-width: 330px;">
+                                <h6 class="dropdown-header bg-primary text-white">Notifikasi Terbaru</h6>
 
-                                <!-- Container notifikasi dinamis -->
+                                <!-- Tempat Notifikasi Dinamis -->
                                 <div id="notification-container">
-                                    <div class="text-center text-muted small">Memuat notifikasi...</div>
+                                    <div class="text-center text-muted small py-3">Memuat notifikasi...</div>
                                 </div>
 
-                                <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('admin/users/role-logs') ?>">
+                                <a class="dropdown-item text-center small text-gray-500" href="<?= base_url('admin/notifications') ?>">
                                     Lihat Semua Notifikasi
                                 </a>
                             </div>
                         </li>
+
+
 
 
                         <!-- Nav Item - Messages -->
@@ -438,6 +470,31 @@
         </div>
     </div>
 
+    <!-- Modal Konfirmasi Hapus -->
+    <div class="modal fade" id="modalHapusUser" tabindex="-1" role="dialog" aria-labelledby="modalHapusUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content shadow">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="modalHapusUserLabel"><i class="fas fa-exclamation-triangle"></i> Konfirmasi Hapus</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formHapusUser" method="get">
+                    <div class="modal-body">
+                        <p class="mb-0">Apakah kamu yakin ingin menghapus <strong id="namaUserHapus"></strong>?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-danger">Ya, Hapus</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
     <!-- Bootstrap core JavaScript-->
     <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> -->
     <!-- jQuery (wajib untuk Bootstrap 4) -->
@@ -539,53 +596,22 @@
             });
         });
     </script>
+
     <script>
-        function loadNotifications() {
-            $.getJSON("<?= base_url('admin/notifications') ?>", function(data) {
-                const container = $('#notification-container');
-                const badge = $('.badge-counter');
-                container.empty();
+        $('#tabel-user').on('click', '.btn-hapus-user', function() {
+            const userId = $(this).data('id');
+            const userName = $(this).data('nama');
 
-                if (data.notifications.length === 0) {
-                    container.html('<div class="text-center small text-gray-500">Tidak ada notifikasi</div>');
-                } else {
-                    data.notifications.forEach(function(n) {
-                        const notifHtml = `
-                    <a class="dropdown-item d-flex align-items-center" href="#">
-                        <div class="mr-3">
-                            <div class="icon-circle bg-${n.type}">
-                                <i class="${n.icon} text-white"></i>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="small text-gray-500">${n.created_at}</div>
-                            <span class="font-weight-bold text-truncate d-block" style="max-width: 250px;">
-                                ${n.title}
-                            </span>
-                            <span class="small text-truncate d-block" style="max-width: 250px;">
-                                ${n.message}
-                            </span>
-                        </div>
-                    </a>
-                `;
-                        container.append(notifHtml);
-                    });
-                }
-
-                badge.text(data.unread > 0 ? data.unread : '');
-            });
-        }
-
-        $(document).ready(function() {
-            loadNotifications();
-
-            $('.dropdown-toggle[data-toggle="dropdown"]').on('click', function() {
-                $.post("<?= base_url('admin/notifications/mark-read') ?>", function() {
-                    $('.badge-counter').text('');
-                });
-            });
+            $('#namaUserHapus').text(userName);
+            $('#formHapusUser').attr('action', `<?= base_url('admin/users/delete/') ?>${userId}`);
+            $('#modalHapusUser').modal('show');
         });
     </script>
+
+    <script>
+        const baseUrl = "<?= base_url() ?>";
+    </script>
+    <script src="<?= base_url('js/notification.js') ?>"></script>
 
 
 </body>

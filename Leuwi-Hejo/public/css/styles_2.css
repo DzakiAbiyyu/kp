@@ -9,3 +9,113 @@ table#tabel-user td {
     cursor: pointer;
     transition: 0.2s;
 }
+
+.unread-notification {
+    background-color: #f0f4ff !important;
+    border-left: 4px solid #4e73df;
+    font-weight: 500;
+}
+
+.unread-notification h6,
+.unread-notification p {
+    color: #1b1e21 !important;
+}
+
+.list-group-item:hover {
+    background-color: #eef1f7;
+}
+
+.notification-dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    background-color: #dc3545;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    z-index: 10;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.6);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.notification-dot.pulse-dot {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 10px;
+    height: 10px;
+    background-color: #dc3545;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite ease-in-out;
+    border: 1px solid white;
+    z-index: 10;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Biar lebih jelas visualnya */
+.dropdown-item.bg-light:hover {
+    background-color: #e2e6ea !important;
+}
+
+
+.notif-unread {
+    background-color: #dee2e6 !important;
+    border-left: 4px solid #007bff;
+}
+
+
+.dot {
+    width: 10px;
+    height: 10px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

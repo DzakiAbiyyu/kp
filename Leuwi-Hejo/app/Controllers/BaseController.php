@@ -35,7 +35,7 @@ abstract class BaseController extends Controller
      *
      * @var list<string>
      */
-    protected $helpers = [];
+    protected $helpers = ['user_permission'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -47,6 +47,7 @@ abstract class BaseController extends Controller
      * @return void
      */
     protected $media;
+    protected $db;
 
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -67,5 +68,33 @@ abstract class BaseController extends Controller
 
 
         helper('auth'); // Tambahkan ini
+    }
+
+    protected function createNotification(string $title, string $message, string $type = 'info', string $icon = 'fas fa-info-circle', string $link = null, array $targetUserIds = null)
+    {
+        $actorId = user()->id;
+
+        $this->db->table('notifications')->insert([
+            'title'      => $title,
+            'message'    => $message,
+            'icon'       => $icon,
+            'type'       => $type,
+            'link'       => $link,
+            'actor_id'   => $actorId,
+            'created_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        $notifId = $this->db->insertID();
+
+        $targets = $targetUserIds ?? $this->db->table('users')->select('id')->get()->getResultArray();
+        foreach ($targets as $t) {
+            $uid = is_array($t) ? $t['id'] : $t;
+            $this->db->table('user_notifications')->insert([
+                'user_id'         => $uid,
+                'notification_id' => $notifId,
+                'is_read'         => 0,
+                'created_at'      => date('Y-m-d H:i:s')
+            ]);
+        }
     }
 }
