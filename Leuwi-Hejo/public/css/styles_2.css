@@ -10,6 +10,17 @@ table#tabel-user td {
     transition: 0.2s;
 }
 
+
+
+.icon-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    font-size: 14px;
+}
+
 .unread-notification {
     background-color: #f0f4ff !important;
     border-left: 4px solid #4e73df;
