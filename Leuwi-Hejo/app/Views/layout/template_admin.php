@@ -422,6 +422,11 @@
                             </div>
                         </li>
 
+                        <a href="<?= base_url('admin/refresh-role') ?>" class="btn btn-sm btn-outline-primary">
+                            🔄 Segarkan Role
+                        </a>
+
+
                     </ul>
 
                 </nav>

@@ -16,6 +16,9 @@ use CodeIgniter\I18n\Time;
     <?php if (session()->getFlashdata('message')): ?>
         <div class="alert alert-success"><?= session('message') ?></div>
     <?php endif ?>
+    <button id="mark-all-read" class="btn btn-sm btn-outline-primary mb-2">
+        Tandai Semua Dibaca
+    </button>
 
     <div class="list-group">
         <?php if (empty($notifications)): ?>
@@ -64,5 +67,22 @@ use CodeIgniter\I18n\Time;
         <?php endif ?>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).on('click', '#mark-all-read', function() {
+        $.post("<?= base_url('admin/notifications/mark-all-read') ?>", function(response) {
+            if (response.status === 'success') {
+                location.reload();
+            } else {
+                alert('Gagal menandai notifikasi.');
+            }
+        }).fail(function(xhr) {
+            console.error(xhr.responseText);
+            alert('Terjadi error saat mengirim request.');
+        });
+    });
+</script>
+
 
 <?= $this->endSection() ?>

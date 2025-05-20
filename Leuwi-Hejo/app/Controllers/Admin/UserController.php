@@ -243,13 +243,15 @@ class UserController extends BaseController
         $targetGroups     = $this->groupModel->getGroupsForUser($userId);
         $targetGroupNames = array_column($targetGroups, 'name');
 
+        // Cek izin
         if (! $this->canModify($currentUser, $userId, $targetGroupNames, $newRoles)) {
             return redirect()->back()->with('error', 'Anda tidak diizinkan mengubah role ini.');
         }
 
+        // Hapus semua role lama
         $this->groupModel->removeUserFromAllGroups($userId);
 
-        // Catat log perubahan role
+        // Log perubahan role
         $this->db->table('role_change_logs')->insert([
             'changed_by'   => $currentUser->id,
             'target_user'  => $userId,
@@ -258,9 +260,7 @@ class UserController extends BaseController
             'changed_at'   => date('Y-m-d H:i:s'),
         ]);
 
-        $targetUser = $this->userModel->find($userId);
-
-        // Format cantik teks perubahan
+        // Format teks log notifikasi
         $fromRoles = implode(', ', $targetGroupNames);
         $toRoles   = implode(', ', $newRoles);
 
@@ -272,6 +272,7 @@ class UserController extends BaseController
             esc($toRoles)
         );
 
+        // Kirim notifikasi
         $this->createNotification(
             'Perubahan Role Pengguna',
             $message,
@@ -280,6 +281,7 @@ class UserController extends BaseController
             base_url('admin/users/manage-roles')
         );
 
+        // Tambahkan role baru
         foreach ($newRoles as $roleName) {
             $group = $this->groupModel->where('name', $roleName)->first();
             if ($group) {
@@ -287,8 +289,25 @@ class UserController extends BaseController
             }
         }
 
+        $wasAdmin = in_array('admin', $targetGroupNames) || in_array('super_admin', $targetGroupNames);
+        $nowAdmin = in_array('admin', $newRoles) || in_array('super_admin', $newRoles);
+
+        // Kalau role admin dicabut
+        if ($wasAdmin && !$nowAdmin) {
+            // Login ulang target user (meskipun tidak aktif saat ini)
+            $user = $this->userModel->find($userId);
+            $auth = service('authentication');
+            if (method_exists($auth, 'startLogin')) {
+                $auth->startLogin($user);
+            }
+
+            // Tandai session global agar user tersebut nanti dapat popup
+            session()->set('was_admin_' . $userId, true);
+            log_message('debug', 'Session was_admin_' . $userId . ' diset karena kehilangan hak admin.');
+        }
         return redirect()->back()->with('message', 'Role berhasil diperbarui.');
     }
+
 
 
 
@@ -386,6 +405,34 @@ class UserController extends BaseController
 
         return redirect()->back()->with('message', 'User berhasil dihapus.');
     }
+
+    public function refreshRole()
+    {
+        $userId = user_id();
+
+        $user = model('UserModel')->find($userId);
+
+        if (! $user) {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
+
+        // 🔁 Muat ulang role & permission dari database
+        $groupModel = new \Myth\Auth\Models\GroupModel();
+        $groups = $groupModel->getGroupsForUser($userId);
+
+        // 🔄 Update session secara manual
+        session()->set('logged_in', true);
+        session()->set('user', $user);
+        session()->set('user_id', $user->id);
+        session()->set('groups', $groups); // pastikan view pakai session()->get('groups') atau user()->groups
+
+        return redirect()->back()->with('message', 'Role Anda telah disegarkan.');
+    }
+    public function forbidden()
+    {
+        return view('errors/forbidden'); // buat view dengan pesan "Akses ditolak"
+    }
+
 
 
 

@@ -29,11 +29,15 @@ $routes->get('/Jendela/(:segment)', 'Jendela::load/$1');
 // PopUP
 $routes->get('/form/(:segment)', 'form::load/$1');
 
+$routes->get('forbidden', 'Home::forbidden');
+
+
 
 // admin
 $routes->group('admin', [
     'namespace' => 'App\Controllers\Admin',
-    // 'filter' => 'role:admin,super_admin'
+    // 'filter' => 'role:admin,super_admin',
+    'filter' => 'liveadmin'
 ], function ($routes) {
     // beranda
     $routes->get('/', 'Dashboard::index',);
@@ -76,14 +80,20 @@ $routes->group('admin', [
     $routes->post('users/toggle-status', 'UserController::toggleStatus');
     $routes->get('users/role-logs', 'UserController::roleLogs');
     $routes->get('users/delete/(:num)', 'UserController::deleteUser/$1', ['filter' => 'role:admin,super_admin']);
+    $routes->get('refresh-role', 'UserController::refreshRole', ['filter' => 'login']);
 });
 
 
-$routes->group('admin/notifications', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+$routes->group('admin/notifications', [
+    'namespace' => 'App\Controllers\Admin',
+    'filter' => 'liveadmin',
+    // 'filter' => 'role:admin,super_admin',
+], function ($routes) {
     $routes->get('/', 'NotificationController::index');
     $routes->get('read/(:num)', 'NotificationController::read/$1');
     $routes->get('cleanup', 'NotificationController::cleanup');
     $routes->get('ajax/get', 'NotificationController::getUserNotifications');       // 🔔 Get notifikasi AJAX
     $routes->post('ajax/mark-read', 'NotificationController::markUserNotifications'); // 🧼 Mark as read
     $routes->post('mark-read', 'NotificationController::markRead');
+    $routes->post('mark-all-read', 'NotificationController::markAllRead');
 });
