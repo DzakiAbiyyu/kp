@@ -170,55 +170,61 @@ class UserController extends BaseController
         $group = $groupModel->where('name', 'user')->first();
         $groupModel->addUserToGroup($userId, (int) $group->id);
 
-        $this->createNotification(
-            'User Baru Ditambahkan',
-            "Admin {$user->username} berhasil ditambahkan ke sistem.",
-            'success',
-            'fas fa-user-plus'
+        // Ambil kembali data user dan admin sekarang
+        $newUser = $this->userModel->find($userId);
+        $currentUser = user();
+
+        $message = sprintf(
+            '<strong>%s</strong> telah menambahkan pengguna baru dengan nama <strong>%s</strong> dan email <strong>%s</strong>',
+            esc($currentUser->username),
+            esc($newUser->username),
+            esc($newUser->email)
         );
+
+        $this->createNotification(
+            'Pengguna Baru Ditambahkan',
+            $message,
+            'success',
+            'fas fa-user-plus',
+            base_url('admin/daftar_user')
+        );
+
 
         return redirect()->to('/admin/daftar_user')->with('message', 'Pengguna berhasil ditambahkan!');
     }
 
     public function manageRoles()
     {
-        $users = $this->userModel->findAll();
-        $currentUser = user();
-        $currentGroups = $this->groupModel->getGroupsForUser($currentUser->id);
-        $currentUser->groups = array_column($currentGroups, 'name');
+        $allUsers = $this->userModel->findAll();
+        $currentId = user()->id;
 
-        $currentUserId = $currentUser->id;
+        $users = [];
 
-        foreach ($users as &$user) {
+        foreach ($allUsers as $user) {
             $userGroups = $this->groupModel->getGroupsForUser($user->id);
             $user->groups = array_column($userGroups, 'name');
+            $users[] = $user;
         }
 
-        $currentUserData = null;
-        $otherUsers = [];
-
-        foreach ($users as $user) {
-            if ($user->id == $currentUserId) {
-                $currentUserData = $user;
-            } else {
-                $otherUsers[] = $user;
-            }
-        }
-
-        $sortedUsers = [];
-        if ($currentUserData) {
-            $sortedUsers[] = $currentUserData;
-        }
-        $sortedUsers = array_merge($sortedUsers, $otherUsers);
+        // Urutkan: user yang sedang login diletakkan di atas tanpa menduplikasi
+        usort($users, function ($a, $b) use ($currentId) {
+            return ($a->id === $currentId) ? -1 : (($b->id === $currentId) ? 1 : 0);
+        });
 
         $allGroups = $this->groupModel->findAll();
 
+        $currentUser = user();
+        $currentUserGroups = $this->groupModel->getGroupsForUser($currentUser->id);
+        $currentUser->groups = array_column($currentUserGroups, 'name');
+
+
         return view('admin/users/manage_roles', [
-            'users' => $sortedUsers,
+            'users' => $users,
             'currentUser' => $currentUser,
             'allGroups' => $allGroups
         ]);
     }
+
 
 
 
@@ -252,11 +258,26 @@ class UserController extends BaseController
             'changed_at'   => date('Y-m-d H:i:s'),
         ]);
 
+        $targetUser = $this->userModel->find($userId);
+
+        // Format cantik teks perubahan
+        $fromRoles = implode(', ', $targetGroupNames);
+        $toRoles   = implode(', ', $newRoles);
+
+        $message = sprintf(
+            '<strong>%s</strong> telah mengubah role <strong>%s</strong><br>Dari: <span class="text-danger">[%s]</span><br>Menjadi: <span class="text-success">[%s]</span>',
+            esc($currentUser->username),
+            esc($targetUser->username),
+            esc($fromRoles),
+            esc($toRoles)
+        );
+
         $this->createNotification(
-            'Perubahan Role',
-            "{$currentUser->username} mengubah role {$targetUser->username} dari [" . implode(', ', $targetGroupNames) . "] menjadi [" . implode(', ', $newRoles) . "]",
+            'Perubahan Role Pengguna',
+            $message,
             'warning',
-            'fas fa-user-shield'
+            'fas fa-user-shield',
+            base_url('admin/users/manage-roles')
         );
 
         foreach ($newRoles as $roleName) {
@@ -338,9 +359,39 @@ class UserController extends BaseController
         return $this->response->setJSON(['status' => 'success']);
     }
 
+    public function deleteUser($userId)
+    {
+        $currentUser = user();
+        $targetUser = $this->userModel->find($userId);
+
+        if (!$targetUser) {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
+
+        if (!canDeleteUser($currentUser, $targetUser)) {
+            return redirect()->back()->with('error', 'Kamu tidak diizinkan menghapus user ini.');
+        }
+
+        $username = $targetUser->username;
+        $this->userModel->delete($userId);
+
+        // 🔔 Notifikasi dinamis
+        $this->createNotification(
+            'Pengguna Dihapus',
+            "<strong>{$currentUser->username}</strong> menghapus akun <strong>{$username}</strong>.",
+            'danger',
+            'fas fa-user-times',
+            base_url('admin/daftar_user')
+        );
+
+        return redirect()->back()->with('message', 'User berhasil dihapus.');
+    }
 
 
 
+
+
+    // private function
 
     private function canModify($currentUser, $targetId, $targetGroups, $newRoles)
     {
@@ -377,15 +428,37 @@ class UserController extends BaseController
 
         return true;
     }
-    private function createNotification(string $title, string $message, string $type = 'info', string $icon = 'fas fa-info-circle')
+
+    private function canDelete($currentUser, $targetUser): bool
     {
-        $this->db->table('notifications')->insert([
-            'title'      => $title,
-            'message'    => $message,
-            'icon'       => $icon,
-            'type'       => $type,
-            'is_read'    => false,
-            'created_at' => date('Y-m-d H:i:s'),
-        ]);
+        if ($currentUser->id == $targetUser->id) {
+            return false; // Tidak bisa hapus diri sendiri
+        }
+
+        // Ambil grup current dan target
+        $groupModel = new \Myth\Auth\Models\GroupModel();
+        $currentGroups = array_column($groupModel->getGroupsForUser($currentUser->id), 'name');
+        $targetGroups  = array_column($groupModel->getGroupsForUser($targetUser->id), 'name');
+
+        // Fungsi bantu: ambil level tertinggi
+        $getLevel = function ($groups) {
+            if (in_array('super_admin', $groups)) return 3;
+            if (in_array('admin', $groups)) return 2;
+            return 1; // user
+        };
+
+        $currentLevel = $getLevel($currentGroups);
+        $targetLevel  = $getLevel($targetGroups);
+
+        // User biasa tidak bisa hapus siapa pun
+        if ($currentLevel === 1) return false;
+
+        // Admin hanya boleh hapus user biasa
+        if ($currentLevel === 2 && $targetLevel === 1) return true;
+
+        // Super admin bisa hapus siapa pun kecuali sesama super admin
+        if ($currentLevel === 3 && $targetLevel < 3) return true;
+
+        return false;
     }
 }

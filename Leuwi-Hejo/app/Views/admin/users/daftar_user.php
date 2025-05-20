@@ -25,6 +25,7 @@
                         <th>Grup</th>
                         <th>Status</th>
                         <th>Terdaftar</th>
+                        <th>Aksi</th>
                     </tr>
                 </thead>
                 <tfoot class="text-center">
@@ -36,6 +37,7 @@
                         <th>Grup</th>
                         <th>Status</th>
                         <th>Terdaftar</th>
+                        <th>Aksi</th>
                     </tr>
                 </tfoot>
                 <tbody class="text-center">
@@ -93,6 +95,15 @@
 
                             <!-- Tanggal Daftar -->
                             <td><?= date('d M Y', strtotime($user->created_at)) ?></td>
+                            <td><?php if ($user->id !== user()->id && canDeleteUser(user(), $user)): ?>
+                                    <button class="btn btn-sm btn-danger btn-hapus-user"
+                                        data-id="<?= $user->id ?>"
+                                        data-nama="<?= esc($user->username) ?>">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                <?php endif; ?>
+
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
@@ -103,4 +114,6 @@
 
 
 
+
 <?= $this->endSection(); ?>
+

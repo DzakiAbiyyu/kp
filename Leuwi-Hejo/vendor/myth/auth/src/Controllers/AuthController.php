@@ -80,24 +80,29 @@ class AuthController extends Controller
         $password = $this->request->getPost('password');
         $remember = (bool) $this->request->getPost('remember');
 
-        // Determine credential type
         $type = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
 
-        // Try to log them in...
         if (! $this->auth->attempt([$type => $login, 'password' => $password], $remember)) {
             return redirect()->back()->withInput()->with('error', $this->auth->error() ?? lang('Auth.badAttempt'));
         }
 
-        // Is the user being forced to reset their password?
         if ($this->auth->user()->force_pass_reset === true) {
             return redirect()->to(route_to('reset-password') . '?token=' . $this->auth->user()->reset_hash)->withCookies();
         }
 
+        // 🧠 Tambahkan ini untuk redirect admin
+        $user = $this->auth->user();
+        if (in_groups(['admin', 'super_admin'], $user)) {
+            return redirect()->to('/admin')->withCookies()->with('message', lang('Auth.loginSuccess'));
+        }
+
+        // Redirect default
         $redirectURL = session('redirect_url') ?? site_url('/');
         unset($_SESSION['redirect_url']);
 
         return redirect()->to($redirectURL)->withCookies()->with('message', lang('Auth.loginSuccess'));
     }
+
 
     /**
      * Log the user out.

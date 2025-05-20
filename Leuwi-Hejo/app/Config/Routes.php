@@ -75,6 +75,15 @@ $routes->group('admin', [
     $routes->post('users/update-role', 'UserController::updateRole');
     $routes->post('users/toggle-status', 'UserController::toggleStatus');
     $routes->get('users/role-logs', 'UserController::roleLogs');
-    $routes->get('notifications', 'UserController::getNotifications');
-    $routes->post('notifications/mark-read', 'UserController::markNotificationsRead');
+    $routes->get('users/delete/(:num)', 'UserController::deleteUser/$1', ['filter' => 'role:admin,super_admin']);
+});
+
+
+$routes->group('admin/notifications', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+    $routes->get('/', 'NotificationController::index');
+    $routes->get('read/(:num)', 'NotificationController::read/$1');
+    $routes->get('cleanup', 'NotificationController::cleanup');
+    $routes->get('ajax/get', 'NotificationController::getUserNotifications');       // 🔔 Get notifikasi AJAX
+    $routes->post('ajax/mark-read', 'NotificationController::markUserNotifications'); // 🧼 Mark as read
+    $routes->post('mark-read', 'NotificationController::markRead');
 });
