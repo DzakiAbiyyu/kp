@@ -1,27 +1,27 @@
 <!-- Navbar Start -->
 <nav class="navbar">
     <a href="#" class="navbar-logo">Lembah<span>Pangaduan</span></a>
-    <div class="navbar-nav" id="navbarNav">
-        <a href="/" style="font-size: 1.25rem;">Beranda</a>
-        <a href="/pages/about" style="font-size: 1.25rem;">Tentang Kami</a>
-        <a href="/pages/galery" style="font-size: 1.25rem;">Galeri</a>
-        <a href="/pages/pesanTiket" style="font-size: 1.25rem;">Produk & Paket</a>
+    <div class="navbar-nav">
+        <a href="/">Beranda</a>
+        <a href="/pages/about">Tentang Kami</a>
+        <a href="/pages/galery">Galeri</a>
+        <a href="/pages/pesanTiket">Produk & Paket</a>
 
         <!-- Tombol Login/Logout ditambahkan di sini untuk tampilan mobile -->
         <?php if (logged_in()) : ?>
-        <a href="<?= site_url('/logout') ?>" style="font-size: 1.25rem;" id="Logout-none">Logout</a>
+            <a href="<?= site_url('/logout') ?>" id="Logout-none">Logout</a>
         <?php else : ?>
-        <a href="<?= site_url('/register') ?>" style="font-size: 1.25rem;" id="Daftar-none">Daftar</a>
-        <a href="<?= site_url('/login') ?>" style="font-size: 1.25rem;" id="Masuk-none">Masuk</a>
+            <a href="<?= site_url('/register') ?>" id="Daftar-none">Daftar</a>
+            <a href="<?= site_url('/login') ?>" id="Masuk-none">Masuk</a>
         <?php endif ?>
     </div>
     <div class="navbar-extra" id="navbarNav">
         <!-- Tombol Login/Logout ditambahkan di sini untuk tampilan mobile -->
         <?php if (logged_in()) : ?>
-        <a href="<?= site_url('/logout') ?>" style="font-size: 1.25rem;" id="Logout">Logout</a>
+            <a href="<?= site_url('/logout') ?>" id="Logout">Logout</a>
         <?php else : ?>
-        <a href="<?= site_url('/register') ?>" style="font-size: 1.25rem;" id="Daftar">Daftar</a>
-        <a href="<?= site_url('/login') ?>" style="font-size: 1.25rem;" id="Masuk">Masuk</a>
+            <a href="<?= site_url('/register') ?>" id="Daftar">Daftar</a>
+            <a href="<?= site_url('/login') ?>" id="Masuk">Masuk</a>
         <?php endif ?>
 
 

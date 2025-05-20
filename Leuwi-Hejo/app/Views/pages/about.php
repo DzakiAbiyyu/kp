@@ -9,8 +9,12 @@
 
 <section class="tentangKami-section tentangKami-intro">
     <div class="tentangKami-container siapa-kami">
-        <h2><?= esc($konten['title']); ?></h2>
+        <!-- <h2><?= esc($konten['title']); ?></h2> -->
         <p><?= esc($konten['body']); ?></p>
+        <p>Kami berkomitmen untuk memberikan fasilitas camping yang nyaman dan terjangkau, tanpa menghilangkan keaslian
+            nuansa alam. Mulai dari area tenda yang luas, fasilitas umum yang bersih, hingga berbagai aktivitas outdoor
+            seperti hiking/treking, outbound, dan api unggun malam hari, semuanya kami rancang untuk menciptakan momen
+            tak terlupakan bagi setiap pengunjung.</p>
         <!-- <p>Kami adalah komunitas pecinta alam yang berdedikasi untuk menghadirkan pengalaman wisata yang mendalam,
             berkelanjutan, dan berdampak positif.</p> -->
     </div>

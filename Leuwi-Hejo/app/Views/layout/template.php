@@ -21,7 +21,7 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet"> -->
 
     <!-- My Style -->
     <link rel="stylesheet" href="/css/style.css">
@@ -37,7 +37,7 @@
 
     <!-- Feather Init -->
     <script>
-    feather.replace();
+        feather.replace();
     </script>
 
     <!-- My Script -->
