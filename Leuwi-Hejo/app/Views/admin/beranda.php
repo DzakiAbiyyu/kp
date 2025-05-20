@@ -15,14 +15,28 @@
         <div class="card-body">
             <h2>Kelola Konten Halaman Beranda</h2>
 
-            <?php if (session()->getFlashdata('success_content')) : ?>
+            <!-- <?php if (session()->getFlashdata('success_content')) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?= session()->getFlashdata('success_content'); ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            <?php endif; ?>
+            <?php endif; ?> -->
+            <!-- <?php if (session()->getFlashdata('success_content')) : ?>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil!',
+                            text: "<?= session()->getFlashdata('success_content'); ?>",
+                            showConfirmButton: false,
+                            timer: 3000
+                        });
+                    });
+                </script>
+            <?php endif; ?> -->
+
 
             <div class="table-responsive">
                 <table class="table" width="100%" cellspacing="0">
@@ -57,14 +71,14 @@
         <div class="card-body">
             <h2 class="mb-4">Kelola Background Halaman Beranda</h2>
 
-            <?php if (session()->getFlashdata('success_background')) : ?>
+            <!-- <?php if (session()->getFlashdata('success_background')) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?= session()->getFlashdata('success_background'); ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-            <?php endif; ?>
+            <?php endif; ?> -->
 
 
 
@@ -83,8 +97,6 @@
 
                                 <button type="button"
                                     class="btn btn-sm btn-outline-danger btn-confirm-delete"
-                                    data-toggle="modal"
-                                    data-target="#confirmDeleteModal"
                                     data-id="<?= $g['id'] ?>"
                                     data-name="<?= esc($g['slug']) ?>"
                                     data-url="<?= base_url('admin/beranda/hapus-gambar/' . $g['id']) ?>"
@@ -123,14 +135,6 @@
 
 
 
-            <?php if (session()->getFlashdata('success_media')) : ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= session()->getFlashdata('success_media'); ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <?php endif; ?>
 
             <div class="row">
                 <?php foreach ($media as $m) : ?>
@@ -143,7 +147,7 @@
                                         class="btn btn-sm btn-outline-primary">Lihat</a></p>
                                 <a href="<?= base_url('admin/beranda/edit-media/' . $m['id']) ?>"
                                     class="btn btn-sm btn-outline-success me-1"><i class="fa-solid fa-pen"></i></a>
-                                <button type="button"
+                                <!-- <button type="button"
                                     class="btn btn-sm btn-outline-danger btn-confirm-delete"
                                     data-toggle="modal"
                                     data-target="#confirmDeleteModal"
@@ -152,7 +156,19 @@
                                     data-url="<?= base_url('admin/beranda/hapus-media/' . $m['id']) ?>"
                                     data-type="Media Sosial">
                                     <i class="fa fa-trash"></i>
+                                </button> -->
+
+                                <button type="button"
+                                    class="btn btn-sm btn-outline-danger btn-confirm-delete"
+                                    data-id="<?= $m['id'] ?>"
+                                    data-name="<?= esc($m['nama']) ?>"
+                                    data-url="<?= base_url('admin/beranda/hapus-media/' . $m['id']) ?>"
+                                    data-type="Media Sosial">
+                                    <i class="fa fa-trash"></i>
                                 </button>
+
+
+
 
                             </div>
                         </div>
@@ -201,6 +217,8 @@
         </div>
     </div>
 </div>
+<!-- sweet alert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -222,6 +240,42 @@
         });
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const deleteButtons = document.querySelectorAll('.btn-confirm-delete');
+        const deleteForm = document.getElementById('deleteForm');
+
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const name = this.getAttribute('data-name');
+                const type = this.getAttribute('data-type');
+                const url = this.getAttribute('data-url');
+
+                Swal.fire({
+                    title: `Hapus ${type}?`,
+                    text: `${type} "${name}" akan dihapus secara permanen.`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, hapus',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        deleteForm.setAttribute('action', url);
+                        deleteForm.submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
+<form id="deleteForm" method="post" style="display: none;">
+    <?= csrf_field() ?>
+</form>
+
+
+
 
 
 <?= $this->endsection(); ?>

@@ -179,45 +179,6 @@
                 </a>
             </li>
 
-
-
-
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>Pages</span>
-                </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                        <div class="collapse-divider"></div>
-                        <h6 class="collapse-header">Other Pages:</h6>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Charts -->
-            <li class="nav-item">
-                <a class="nav-link" href="charts.html">
-                    <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Charts</span></a>
-            </li>
-
-            <!-- Nav Item - Tables -->
-            <li class="nav-item">
-                <a class="nav-link" href="tables.html">
-                    <i class="fas fa-fw fa-table"></i>
-                    <span>Tables</span></a>
-            </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
@@ -225,6 +186,13 @@
                 <a class="nav-link" href="<?= base_url('logout') ?>" onclick="return confirm('Yakin ingin logout?')">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="<?= base_url('/') ?>">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Utama</span>
                 </a>
             </li>
 
@@ -538,7 +506,13 @@
     <script src="<?= base_url('js/custom.js') ?>"></script>
 
     <script src="<?= base_url('datatables/js/datatables.min.js') ?>"></script>
-    <!-- <script src="<?= base_url('datatables/js/dataTables.bootstrap4.min.js') ?>"></script> -->
+
+
+
+
+    <!-- sweet alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         $(document).ready(function() {
             // Cek dan destroy DataTable sebelumnya jika ada
@@ -605,9 +579,6 @@
                 }
             });
         });
-    </script>
-
-    <script>
         $('#tabel-user').on('click', '.btn-hapus-user', function() {
             const userId = $(this).data('id');
             const userName = $(this).data('nama');
@@ -616,6 +587,55 @@
             $('#formHapusUser').attr('action', `<?= base_url('admin/users/delete/') ?>${userId}`);
             $('#modalHapusUser').modal('show');
         });
+    </script>
+
+    <script>
+        <?php if (session()->getFlashdata('success_content')) : ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "<?= session('success_content') ?>",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        <?php endif; ?>
+
+        <?php if (session()->getFlashdata('success_background')) : ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "<?= session('success_background') ?>",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('success_media')) : ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "<?= session('success_media') ?>",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('success_tentang_kami')) : ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "<?= session('success_tentang_kami') ?>",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        <?php endif; ?>
+        <?php if (session()->getFlashdata('error')) : ?>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: "<?= session('error') ?>",
+                timer: 3000,
+                showConfirmButton: false
+            });
+        <?php endif; ?>
     </script>
 
     <script>
