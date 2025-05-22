@@ -16,8 +16,8 @@ use CodeIgniter\I18n\Time;
     <?php if (session()->getFlashdata('message')): ?>
         <div class="alert alert-success"><?= session('message') ?></div>
     <?php endif ?>
-    <button id="mark-all-read" class="btn btn-sm btn-outline-primary mb-2">
-        Tandai Semua Dibaca
+    <button id="mark-all-read" class="btn btn-sm btn-outline-primary mb-3 enhanced-btn">
+        <i class="bi bi-check2-all me-1"></i> Tandai Semua Dibaca
     </button>
 
     <div class="list-group">

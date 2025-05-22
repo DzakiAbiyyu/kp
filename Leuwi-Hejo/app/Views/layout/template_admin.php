@@ -32,13 +32,12 @@
 
     <link rel="stylesheet" href="<?= base_url('datatables/css/datatables.min.css') ?>">
 
-    <!-- <link href="https://cdn.datatables.net/v/bs4/dt-2.3.1/b-3.2.3/b-html5-3.2.3/b-print-3.2.3/r-3.0.4/datatables.min.css" rel="stylesheet" integrity="sha384-ziUP7CphiQOyLRWBGgHguGowezqgxbac2YOCto4djmvBuZEtg0Gis0wxP5Lut1JA" crossorigin="anonymous"> -->
+    <!-- Bootstrap Icons CDN (jika belum ditambahkan) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- AOS Animation -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
 
 
-    <!-- icon bootsrtap -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
 </head>
 
@@ -52,9 +51,7 @@
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-                <!-- <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div> -->
+
                 <div class="sidebar-brand-text mx-3">Lembah Pangaduan Admin</div>
             </a>
 
@@ -85,7 +82,6 @@
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <!-- <h6 class="collapse-header">Custom Components:</h6> -->
                         <a class="collapse-item" href="<?= base_url('admin/beranda') ?>">Beranda</a>
                         <a class="collapse-item" href="<?= base_url('admin/tentang_kami') ?>">Tentang Kami</a>
                         <a class="collapse-item" href="<?= base_url('admin/galery') ?>">Gallery</a>
@@ -150,7 +146,6 @@
                 </div>
             </li>
             <hr class="sidebar-divider">
-
             <!-- profile user -->
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('admin/profile') ?>">
@@ -158,8 +153,6 @@
                     <span>Profile</span>
                 </a>
             </li>
-
-
             <?php
             $db = \Config\Database::connect();
             $unread = $db->table('user_notifications')
@@ -167,9 +160,8 @@
                 ->where('is_read', false)
                 ->countAllResults();
             ?>
-
             <li class="nav-item <?= service('uri')->getSegment(2) == 'notifications' ? 'active' : '' ?>">
-                <a class="nav-link d-flex justify-content-between align-items-center" href="<?= base_url('admin/notifications') ?>">
+                <a class="nav-link " href="<?= base_url('admin/notifications') ?>">
                     <div>
                         <i class="fas fa-bell"></i> <span>Notifikasi</span>
                     </div>
@@ -178,32 +170,24 @@
                     <?php endif; ?>
                 </a>
             </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('logout') ?>" onclick="return confirm('Yakin ingin logout?')">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Logout</span>
                 </a>
             </li>
-
             <li class="nav-item">
                 <a class="nav-link" href="<?= base_url('/') ?>">
                     <i class="fas fa-sign-out-alt"></i>
                     <span>Utama</span>
                 </a>
             </li>
-
-
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -234,10 +218,8 @@
                             </div>
                         </div>
                     </form>
-
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
-
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
@@ -261,7 +243,6 @@
                                 </form>
                             </div>
                         </li>
-
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -270,7 +251,6 @@
                                     <span class="badge badge-danger badge-counter">0</span>
                                 </i>
                             </a>
-
                             <!-- Dropdown Notifikasi -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="alertsDropdown" style="max-height: 400px; overflow-y: auto; min-width: 330px;">
@@ -286,20 +266,16 @@
                                 </a>
                             </div>
                         </li>
-
-
-
-
                         <!-- Nav Item - Messages -->
-                        <!-- <li class="nav-item dropdown no-arrow mx-1">
+                        <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-envelope fa-fw"></i> -->
-                        <!-- Counter - Messages -->
-                        <!-- <span class="badge badge-danger badge-counter">7</span>
-                            </a> -->
-                        <!-- Dropdown - Messages -->
-                        <!-- <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <!-- Counter - Messages -->
+                                <span class="badge badge-danger badge-counter">7</span>
+                            </a>
+                            <!-- Dropdown - Messages -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="messagesDropdown">
                                 <h6 class="dropdown-header">
                                     Message Center
@@ -354,7 +330,7 @@
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
                             </div>
-                        </li> -->
+                        </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -389,11 +365,6 @@
                                 </a>
                             </div>
                         </li>
-
-                        <a href="<?= base_url('admin/refresh-role') ?>" class="btn btn-sm btn-outline-primary">
-                            🔄 Segarkan Role
-                        </a>
-
 
                     </ul>
 
@@ -468,12 +439,6 @@
         </div>
     </div>
 
-
-
-    <!-- Bootstrap core JavaScript-->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script> -->
-    <!-- jQuery (wajib untuk Bootstrap 4) -->
-
     <!-- jQuery (wajib untuk Bootstrap 4) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 
@@ -506,8 +471,6 @@
     <script src="<?= base_url('js/custom.js') ?>"></script>
 
     <script src="<?= base_url('datatables/js/datatables.min.js') ?>"></script>
-
-
 
 
     <!-- sweet alert -->
@@ -637,6 +600,8 @@
             });
         <?php endif; ?>
     </script>
+
+
 
     <script>
         const baseUrl = "<?= base_url() ?>";

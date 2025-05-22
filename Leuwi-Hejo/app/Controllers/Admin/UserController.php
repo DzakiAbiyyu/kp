@@ -46,7 +46,11 @@ class UserController extends BaseController
         $users = $this->userModel->findAll();
 
         $totalUser     = count($users);
-        $activeUser    = count(array_filter($users, fn($u) => $u->active));
+
+        // Hitung user aktif (login 10 menit terakhir)
+        $thresholdTime = date('Y-m-d H:i:s', strtotime('-10 minutes'));
+        $activeUser    = $this->userModel->where('last_active >=', $thresholdTime)->countAllResults();
+
         $nonActiveUser = $totalUser - $activeUser;
 
         $adminCount = 0;
@@ -79,6 +83,7 @@ class UserController extends BaseController
             'regularUserCount'
         ));
     }
+
 
 
 

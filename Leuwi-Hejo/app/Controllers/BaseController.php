@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Myth\Auth\Models\UserModel;
 
 /**
  * Class BaseController
@@ -56,6 +57,17 @@ abstract class BaseController extends Controller
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
+
+
+        // Di BaseController.php
+        if (logged_in()) {
+            $userModel = new UserModel();
+            $userModel->update(user_id(), [
+                'last_active' => date('Y-m-d H:i:s')
+            ]);
+        }
+
+
 
         // Load model
         $mediaModel = new \App\Models\MediaSosialModel();

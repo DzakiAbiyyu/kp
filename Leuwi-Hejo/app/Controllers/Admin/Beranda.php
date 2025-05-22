@@ -52,6 +52,9 @@ class Beranda extends BaseController
             'body'  => $this->request->getPost('body'),
         ])->update();
 
+
+
+
         return redirect()->to('/admin/beranda')->with('success_content', 'Konten berhasil diperbarui!');
     }
 

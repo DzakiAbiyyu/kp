@@ -11,37 +11,17 @@
     </ol>
 
     <!-- Kelola Konten -->
-    <div class="card mb-4 shadow-sm">
+    <div class="card mb-4 shadow-sm" data-aos="fade-up">
         <div class="card-body">
             <h2>Kelola Konten Halaman Beranda</h2>
-
-            <!-- <?php if (session()->getFlashdata('success_content')) : ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= session()->getFlashdata('success_content'); ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <?php endif; ?> -->
-            <!-- <?php if (session()->getFlashdata('success_content')) : ?>
-                <script>
-                    document.addEventListener("DOMContentLoaded", function() {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Berhasil!',
-                            text: "<?= session()->getFlashdata('success_content'); ?>",
-                            showConfirmButton: false,
-                            timer: 3000
-                        });
-                    });
-                </script>
-            <?php endif; ?> -->
+            <div class="table-responsive-sm">
 
 
-            <div class="table-responsive">
-                <table class="table" width="100%" cellspacing="0">
+
+
+                <table class="table table-bordered table-hover text-nowrap" width="100%" cellspacing="0">
                     <thead class="bg-gradient-primary">
-                        <tr>
+                        <tr data-aos="fade-right" data-aos-delay="100">
                             <th class="text-center">Judul</th>
                             <th class="text-center">Deskripsi</th>
                             <th class="text-center">Aksi</th>
@@ -49,9 +29,9 @@
                     </thead>
                     <tbody>
                         <?php foreach ($konten as $k) : ?>
-                            <tr>
-                                <td class="text-center"><?= esc($k['title']); ?></td>
-                                <td class="text-center"><?= esc($k['body']); ?></td>
+                            <tr data-aos="fade-right" data-aos-delay="100">
+                                <td class="text-center text-truncate" style="max-width: 150px;"><?= esc($k['title']); ?></td>
+                                <td class="text-center text-truncate" style="max-width: 200px;"><?= esc($k['body']); ?></td>
                                 <td class="text-center">
                                     <a href="/admin/beranda/edit/<?= esc($k['slug']); ?>"
                                         class="btn btn-outline-primary btn-sm">
@@ -62,74 +42,69 @@
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+
+
+
             </div>
         </div>
     </div>
 
     <!-- Kelola Background -->
-    <div class="card mb-4 shadow-sm">
+    <div class="card mb-4 shadow-sm" data-aos="fade-up">
+
         <div class="card-body">
             <h2 class="mb-4">Kelola Background Halaman Beranda</h2>
-
-            <!-- <?php if (session()->getFlashdata('success_background')) : ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= session()->getFlashdata('success_background'); ?>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-            <?php endif; ?> -->
-
-
-
             <div class="row d-flex">
                 <?php foreach ($gambar as $g) : ?>
-                    <div class="col-md-4 mb-3">
-                        <div class="card shadow-sm rounded"
-                            style="background: #f8f9fa; border: 1px solid #ddd; transition: all 0.3s ease;">
-                            <img src="<?= base_url($g['gambar']) ?>" alt="Background" class="card-img-top rounded-top"
+
+
+                    <div class="col-12 col-sm-6 col-md-4 mb-3" data-aos="zoom-in">
+                        <div class="card shadow-sm rounded hover-scale bg-light"
+                            style="transition: transform 0.3s ease;">
+                            <img src="<?= base_url($g['gambar']) ?>" alt="Background"
+                                class="card-img-top rounded-top"
                                 style="width: 100%; height: 200px; object-fit: cover;">
                             <div class="card-body text-center">
                                 <a href="<?= base_url('admin/beranda/edit-gambar/' . $g['id']) ?>"
-                                    class="btn btn-outline-primary btn-sm me-2">
-                                    <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                                    class="btn btn-outline-primary btn-sm mr-2">
+                                    <i class="fa fa-pen fa-lg"></i>
                                 </a>
-
                                 <button type="button"
                                     class="btn btn-sm btn-outline-danger btn-confirm-delete"
                                     data-id="<?= $g['id'] ?>"
                                     data-name="<?= esc($g['slug']) ?>"
                                     data-url="<?= base_url('admin/beranda/hapus-gambar/' . $g['id']) ?>"
                                     data-type="Gambar">
-                                    <i class="fa-solid fa-trash"></i>
+                                    <i class="fa fa-trash"></i>
                                 </button>
-
-
-
                             </div>
                         </div>
                     </div>
+
+
                 <?php endforeach; ?>
 
                 <!-- Card untuk Tambah Gambar -->
-                <div class="col-md-4 mb-3">
+                <div class="col-12 col-sm-6 col-md-4 mb-3" data-aos="zoom-in-up" data-aos-delay="200">
                     <a href="<?= base_url('admin/beranda/tambah-gambar') ?>" class="text-decoration-none">
-                        <div class="card shadow-sm rounded"
-                            style="background: #f8f9fa; border: 1px solid #ddd; cursor: pointer; transition: all 0.3s ease;">
+                        <div class="card shadow-sm rounded bg-light hover-scale"
+                            style="cursor: pointer; transition: all 0.3s ease;">
                             <div class="rounded-top d-flex justify-content-center align-items-center"
                                 style="height: 200px; background-color: #e9ecef;">
-                                <i class="fa-solid fa-plus fa-3x text-primary"></i>
+                                <i class="fa fa-plus fa-3x text-primary"></i>
                             </div>
                         </div>
                     </a>
                 </div>
+
             </div>
         </div>
     </div>
 
     <!-- end kelola background -->
     <!-- kelola media sosial -->
-    <div class="card mb-4">
+    <div class="card mb-4 shadow-sm" data-aos="fade-up">
+
         <div class="card-body">
             <h2 class="mb-4">Kelola Media Sosial</h2>
 
@@ -147,17 +122,6 @@
                                         class="btn btn-sm btn-outline-primary">Lihat</a></p>
                                 <a href="<?= base_url('admin/beranda/edit-media/' . $m['id']) ?>"
                                     class="btn btn-sm btn-outline-success me-1"><i class="fa-solid fa-pen"></i></a>
-                                <!-- <button type="button"
-                                    class="btn btn-sm btn-outline-danger btn-confirm-delete"
-                                    data-toggle="modal"
-                                    data-target="#confirmDeleteModal"
-                                    data-id="<?= $m['id'] ?>"
-                                    data-name="<?= esc($m['nama']) ?>"
-                                    data-url="<?= base_url('admin/beranda/hapus-media/' . $m['id']) ?>"
-                                    data-type="Media Sosial">
-                                    <i class="fa fa-trash"></i>
-                                </button> -->
-
                                 <button type="button"
                                     class="btn btn-sm btn-outline-danger btn-confirm-delete"
                                     data-id="<?= $m['id'] ?>"
@@ -276,6 +240,14 @@
 
 
 
+<!-- AOS Animation -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true
+    });
+</script>
 
 
 <?= $this->endsection(); ?>
