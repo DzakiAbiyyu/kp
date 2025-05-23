@@ -5,7 +5,9 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use Myth\Auth\Models\GroupModel;
 use App\Models\UserModel;
-use Myth\Auth\Entities\User;
+// use Myth\Auth\Entities\User;
+use App\Entities\User;
+
 
 class UserController extends BaseController
 {
@@ -51,6 +53,11 @@ class UserController extends BaseController
         $thresholdTime = date('Y-m-d H:i:s', strtotime('-10 minutes'));
         $activeUser    = $this->userModel->where('last_active >=', $thresholdTime)->countAllResults();
 
+        $activeUsers = $this->userModel
+            ->where('last_active >=', $thresholdTime)
+            ->findAll();
+
+
         $nonActiveUser = $totalUser - $activeUser;
 
         $adminCount = 0;
@@ -80,7 +87,8 @@ class UserController extends BaseController
             'nonActiveUser',
             'adminCount',
             'superAdminCount',
-            'regularUserCount'
+            'regularUserCount',
+            'activeUsers'
         ));
     }
 
@@ -90,10 +98,72 @@ class UserController extends BaseController
     public function profile()
     {
         $userModel = new \Myth\Auth\Models\UserModel();
-        $user = $userModel->find(user()->id); // BUKAN $auth->user()
+        $groupModel = new \Myth\Auth\Models\GroupModel();
 
-        return view('admin/users/profile', ['user' => $user]);
+        $user = $userModel->find(user()->id);
+        $groups = $groupModel->getGroupsForUser($user->id);
+
+        return view('admin/users/profile', [
+            'user' => $user,
+            'groups' => $groups
+        ]);
     }
+
+    public function updateInfo()
+    {
+        $userId = user()->id;
+        $post = $this->request->getPost();
+
+        // Validasi manual: username tidak boleh sama dengan milik user lain
+        $usernameUsed = $this->userModel
+            ->where('username', $post['username'])
+            ->where('id !=', $userId)
+            ->first();
+
+        if ($usernameUsed) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Username sudah digunakan oleh pengguna lain.');
+        }
+
+        // Validasi manual: email tidak boleh sama dengan milik user lain
+        $emailUsed = $this->userModel
+            ->where('email', $post['email'])
+            ->where('id !=', $userId)
+            ->first();
+
+        if ($emailUsed) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Email sudah digunakan oleh pengguna lain.');
+        }
+
+        // Update langsung tanpa entitas
+        $updated = $this->userModel->update($userId, [
+            'username' => $post['username'],
+            'email'    => $post['email'],
+        ]);
+
+        // Cek hasil update
+        if (! $updated) {
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'Gagal memperbarui informasi. Silakan coba lagi.');
+        }
+
+        return redirect()->back()
+            ->with('message', 'Informasi berhasil diperbarui.');
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -293,23 +363,6 @@ class UserController extends BaseController
                 $this->groupModel->addUserToGroup($userId, $group->id);
             }
         }
-
-        $wasAdmin = in_array('admin', $targetGroupNames) || in_array('super_admin', $targetGroupNames);
-        $nowAdmin = in_array('admin', $newRoles) || in_array('super_admin', $newRoles);
-
-        // Kalau role admin dicabut
-        if ($wasAdmin && !$nowAdmin) {
-            // Login ulang target user (meskipun tidak aktif saat ini)
-            $user = $this->userModel->find($userId);
-            $auth = service('authentication');
-            if (method_exists($auth, 'startLogin')) {
-                $auth->startLogin($user);
-            }
-
-            // Tandai session global agar user tersebut nanti dapat popup
-            session()->set('was_admin_' . $userId, true);
-            log_message('debug', 'Session was_admin_' . $userId . ' diset karena kehilangan hak admin.');
-        }
         return redirect()->back()->with('message', 'Role berhasil diperbarui.');
     }
 
@@ -327,8 +380,6 @@ class UserController extends BaseController
 
         $targetGroups = $this->groupModel->getGroupsForUser($userId);
         $targetGroupNames = array_column($targetGroups, 'name');
-
-        $isCurrentSuperAdmin = in_groups('super_admin');
         $isTargetSuperAdmin  = in_array('super_admin', $targetGroupNames);
 
         // 🚫 Tidak boleh nonaktifkan super_admin siapa pun
@@ -397,9 +448,10 @@ class UserController extends BaseController
         }
 
         $username = $targetUser->username;
-        $this->userModel->delete($userId);
 
-        // 🔔 Notifikasi dinamis
+        // Hapus permanen (tanpa soft delete)
+        $this->userModel->delete($userId, true); // 👈 penting!
+
         $this->createNotification(
             'Pengguna Dihapus',
             "<strong>{$currentUser->username}</strong> menghapus akun <strong>{$username}</strong>.",
@@ -408,8 +460,9 @@ class UserController extends BaseController
             base_url('admin/daftar_user')
         );
 
-        return redirect()->back()->with('message', 'User berhasil dihapus.');
+        return redirect()->back()->with('message', 'User berhasil dihapus secara permanen.');
     }
+
 
     public function refreshRole()
     {

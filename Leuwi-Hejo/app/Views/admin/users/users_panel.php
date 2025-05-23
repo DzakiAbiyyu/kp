@@ -24,7 +24,7 @@
 
         <?php foreach ($cards as $card): ?>
             <div class="col-xl-4 col-md-6 mb-4">
-                <div class="card border-left-<?= $card['color'] ?> shadow h-100 py-2 animate__animated animate__fadeInUp">
+                <div class="card border-left-<?= $card['color'] ?> shadow h-100 py-2 animate__animated animate__fadeInUp position-relative">
                     <div class="card-body">
                         <div class="text-center">
                             <div class="text-xs font-weight-bold text-<?= $card['color'] ?> text-uppercase mb-2"><?= $card['label'] ?></div>
@@ -34,12 +34,71 @@
                             <i class="fas fa-<?= $card['icon'] ?> fa-2x text-gray-300"></i>
                         </div>
                     </div>
+                    <?php if ($card['label'] === 'User Aktif'): ?>
+                        <div class="position-absolute d-flex"
+                            style="bottom: 0.75rem; right: 0.75rem;">
+                            <?php
+                            $maxShown = 4;
+                            $shownUsers = array_slice($activeUsers, 0, $maxShown);
+                            $remaining = count($activeUsers) - $maxShown;
+                            ?>
+
+                            <?php foreach ($shownUsers as $u): ?>
+                                <img src="<?= base_url('uploads/profile/' . ($u->image ?: 'default.svg')) ?>"
+                                    class="rounded-circle border border-white shadow-sm"
+                                    style="width: 30px; height: 30px; object-fit: cover; margin-left: -8px;"
+                                    title="<?= esc($u->username) ?>">
+                            <?php endforeach; ?>
+
+                            <?php if ($remaining > 0): ?>
+                                <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center border border-white shadow-sm"
+                                    style="width: 30px; height: 30px; margin-left: -8px; font-size: 0.75rem; cursor: pointer;"
+                                    data-toggle="modal" data-target="#activeUsersModal"
+                                    title="<?= $remaining ?> lainnya">
+                                    +<?= $remaining ?>
+                                </div>
+
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+
                 </div>
             </div>
         <?php endforeach ?>
 
     </div>
 </div>
+
+
+<!-- Modal: Daftar User Aktif -->
+<div class="modal fade" id="activeUsersModal" tabindex="-1" role="dialog" aria-labelledby="activeUsersModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="activeUsersModalLabel">User Aktif (<?= count($activeUsers) ?>)</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <?php foreach ($activeUsers as $u): ?>
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="<?= base_url('uploads/profile/' . ($u->image ?: 'default.svg')) ?>"
+                            class="rounded-circle mr-2" style="width: 36px; height: 36px; object-fit: cover;">
+                        <div>
+                            <strong><?= esc($u->username) ?></strong><br>
+                            <small class="text-muted"><?= esc($u->email) ?></small>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- jQuery sudah di-include -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

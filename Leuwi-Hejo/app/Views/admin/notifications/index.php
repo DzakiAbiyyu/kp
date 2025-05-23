@@ -34,7 +34,7 @@ use CodeIgniter\I18n\Time;
                     <!-- Kiri: Foto profil + ikon -->
                     <div class="d-flex align-items-center justify-content-center me-3 position-relative">
                         <!-- Foto Profil -->
-                        <img src="<?= base_url('uploads/profile/' . ($notif->actor_image)) ?>"
+                        <img src="<?= base_url('uploads/profile/' . ($notif->actor_image ?: 'default.svg')) ?>"
                             alt="Foto" width="45" height="45"
                             class="rounded-circle shadow-sm border border-light me-2">
 

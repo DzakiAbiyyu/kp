@@ -70,6 +70,8 @@ $routes->group('admin', [
     // user
     $routes->get('user-panel', 'UserController::userPanel');
     $routes->get('profile', 'UserController::profile', ['filter' => 'login']);
+    $routes->post('profile/update-info', 'UserController::updateInfo', ['filter' => 'login']);
+
     $routes->post('profile/update-image', 'UserController::updateImage', ['filter' => 'login']);
     $routes->post('profile/remove-image', 'UserController::removeImage', ['filter' => 'login']);
     $routes->get('daftar_user', 'UserController::index', ['filter' => 'login']);

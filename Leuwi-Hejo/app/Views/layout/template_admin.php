@@ -161,7 +161,7 @@
                 ->countAllResults();
             ?>
             <li class="nav-item <?= service('uri')->getSegment(2) == 'notifications' ? 'active' : '' ?>">
-                <a class="nav-link " href="<?= base_url('admin/notifications') ?>">
+                <a class="nav-link d-flex justify-content-between align-items-center" href="<?= base_url('admin/notifications') ?>">
                     <div>
                         <i class="fas fa-bell"></i> <span>Notifikasi</span>
                     </div>

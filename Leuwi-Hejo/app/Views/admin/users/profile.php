@@ -8,94 +8,116 @@ $user = $userModel->find(user()->id);
 ?>
 
 <div class="container mt-4">
-    <h2>Profil Pengguna</h2>
+    <h2 class="mb-4">Profil Pengguna</h2>
 
-    <?php if (session()->getFlashdata('message')): ?>
-        <div class="alert alert-success"><?= session('message') ?></div>
-    <?php endif; ?>
+    <?php if ($msg = session()->getFlashdata('message')): ?>
+        <div class="alert alert-success"><?= $msg ?></div>
+    <?php elseif ($err = session()->getFlashdata('error')): ?>
+        <div class="alert alert-danger"><?= $err ?></div>
+    <?php endif ?>
 
-    <div class="row">
+
+
+
+
+    <div class="row align-items-start">
         <!-- CARD FOTO PROFIL -->
-        <div class="col-md-4 mb-3">
-            <div class="card text-center shadow">
-                <div class="card-body">
-                    <!-- Preview Gambar -->
-                    <img id="preview-image" src="<?= base_url('uploads/profile/' . $user->image) . '?v=' . time() ?>"
-                        width="150" height="150" class="rounded-circle shadow mb-3">
+        <div class="col-lg-4 mb-4">
+            <div class="card text-center shadow-sm p-3">
+                <img id="preview-image" src="<?= base_url('uploads/profile/' . $user->image) . '?v=' . time() ?>"
+                    class="rounded-circle border border-3 shadow mb-3" width="160" height="160" style="object-fit: cover;">
 
-                    <!-- Form Upload -->
-                    <form action="<?= base_url('admin/profile/update-image') ?>" method="post" enctype="multipart/form-data" class="mb-2">
+                <form action="<?= base_url('admin/profile/update-image') ?>" method="post" enctype="multipart/form-data">
+                    <?= csrf_field() ?>
+                    <div class="form-group">
+                        <input type="file" name="image" class="form-control" accept="image/*" onchange="previewFile(this)" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-sm mb-2 w-100">
+                        <i class="fas fa-upload"></i> Upload Foto
+                    </button>
+                </form>
+
+                <?php if ($user->image !== 'default.svg') : ?>
+                    <form action="<?= base_url('admin/profile/remove-image') ?>" method="post">
                         <?= csrf_field() ?>
-                        <div class="custom-file mb-2 text-left">
-                            <input type="file" name="image" class="custom-file-input" id="customFile" accept="image/*" onchange="previewFile(this)" required>
-                            <label class="custom-file-label" for="customFile">Pilih Foto</label>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="col">
-                                <button type="submit" class="btn btn-sm btn-primary btn-block">
-                                    <i class="fas fa-upload"></i> Upload Foto
-                                </button>
-                            </div>
-
-                            <?php if ($user->image !== 'default.svg') : ?>
-                                <div class="col">
-                                    <form action="<?= base_url('admin/profile/remove-image') ?>" method="post">
-                                        <?= csrf_field() ?>
-                                        <button type="submit" class="btn btn-sm btn-outline-danger btn-block">
-                                            <i class="fas fa-trash-alt"></i> Hapus Foto
-                                        </button>
-                                    </form>
-                                </div>
-                            <?php endif; ?>
-                        </div>
+                        <button type="submit" class="btn btn-outline-danger btn-sm w-100">
+                            <i class="fas fa-trash-alt"></i> Hapus Foto
+                        </button>
                     </form>
-
-                </div>
+                <?php endif; ?>
             </div>
         </div>
 
         <!-- CARD INFO USER -->
-        <div class="col-md-8">
-            <div class="card shadow">
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
                 <div class="card-body">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th>Username</th>
-                            <td><?= esc($user->username) ?></td>
-                        </tr>
-                        <tr>
-                            <th>Email</th>
-                            <td><?= esc($user->email) ?></td>
-                        </tr>
-                        <tr>
-                            <th>Status</th>
-                            <td>
-                                <?= $user->active ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-secondary">Nonaktif</span>' ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Terdaftar</th>
-                            <td><?= date('d M Y', strtotime($user->created_at)) ?></td>
-                        </tr>
-                        <tr>
-                            <th>Grup</th>
-                            <td>
-                                <?php
-                                $groupModel = new \Myth\Auth\Models\GroupModel();
-                                $groups = $groupModel->getGroupsForUser($user->id);
-                                foreach ($groups as $group) {
-                                    echo '<span class="badge badge-primary mr-1">' . esc(ucwords($group['name'])) . '</span>';
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Username</div>
+                        <div class="col-sm-8"><?= esc($user->username) ?></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Email</div>
+                        <div class="col-sm-8"><?= esc($user->email) ?></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Status</div>
+                        <div class="col-sm-8">
+                            <?= $user->active ? '<span class="badge badge-success">Aktif</span>' : '<span class="badge badge-secondary">Nonaktif</span>' ?>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-sm-4 font-weight-bold">Terdaftar</div>
+                        <div class="col-sm-8"><?= date('d M Y', strtotime($user->created_at)) ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4 font-weight-bold">Grup</div>
+                        <div class="col-sm-8">
+                            <?php
+                            foreach ($groups as $group) {
+                                $name = $group['name'];
+                                switch ($name) {
+                                    case 'admin':
+                                        $color = 'primary';
+                                        break;
+                                    case 'super_admin':
+                                        $color = 'info';
+                                        break;
+                                    case 'user':
+                                        $color = 'success';
+                                        break;
+                                    default:
+                                        $color = 'secondary';
                                 }
-                                ?>
-                            </td>
-                        </tr>
-                    </table>
+
+                                echo '<span class="badge badge-' . $color . ' mr-1">' . esc(ucwords(str_replace('_', ' ', $name))) . '</span>';
+                            }
+                            ?>
+
+                        </div>
+                    </div>
                 </div>
             </div>
+            <hr>
+            <h5>Edit Informasi</h5>
+            <form action="<?= base_url('admin/profile/update-info') ?>" method="post">
+                <?= csrf_field() ?>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" value="<?= esc($user->username) ?>" required>
+                </div>
+                <div class="form-group mt-2">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" value="<?= esc($user->email) ?>" required>
+                </div>
+                <button type="submit" class="btn btn-warning mt-3">
+                    <i class="fas fa-save"></i> Simpan Perubahan
+                </button>
+            </form>
         </div>
     </div>
 </div>
+
 
 <!-- PREVIEW JS -->
 <script>
