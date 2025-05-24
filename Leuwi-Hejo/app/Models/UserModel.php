@@ -31,6 +31,8 @@ class UserModel extends Model
         'permissions',
         'deleted_at',
         'image',
+        'phone_number',
+        'address'
     ];
     protected $useTimestamps   = true;
     protected $validationRules = [

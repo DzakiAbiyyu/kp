@@ -103,69 +103,113 @@ class UserController extends BaseController
         $user = $userModel->find(user()->id);
         $groups = $groupModel->getGroupsForUser($user->id);
 
+
         return view('admin/users/profile', [
             'user' => $user,
             'groups' => $groups
         ]);
     }
 
-    public function updateInfo()
+    // public function updateInfo()
+    // {
+    //     $userId = user()->id;
+    //     $post = $this->request->getPost();
+    //     // dd($userId);
+
+    //     // Validasi manual: username tidak boleh sama dengan milik user lain
+    //     $usernameUsed = $this->userModel
+    //         ->where('username', $post['username'])
+    //         ->where('id !=', $userId)
+    //         ->first();
+
+    //     if ($usernameUsed) {
+    //         return redirect()->back()
+    //             ->withInput()
+    //             ->with('error', 'Username sudah digunakan oleh pengguna lain.');
+    //     }
+
+    //     // Validasi manual: email tidak boleh sama dengan milik user lain
+    //     $emailUsed = $this->userModel
+    //         ->where('email', $post['email'])
+    //         ->where('id !=', $userId)
+    //         ->first();
+
+    //     if ($emailUsed) {
+    //         return redirect()->back()
+    //             ->withInput()
+    //             ->with('error', 'Email sudah digunakan oleh pengguna lain.');
+    //     }
+
+    //     // Update langsung tanpa entitas
+    //     $updated = $this->userModel->update($userId, [
+    //         'username' => $post['username'],
+    //         'email'    => $post['email'],
+    //     ]);
+
+    //     // Cek hasil update
+    //     if (! $updated) {
+    //         return redirect()->back()
+    //             ->withInput()
+    //             ->with('error', 'Gagal memperbarui informasi. Silakan coba lagi.');
+    //     }
+
+    //     return redirect()->back()
+    //         ->with('message', 'Informasi berhasil diperbarui.');
+    // }
+
+
+
+    public function updateProfile()
     {
-        $userId = user()->id;
-        $post = $this->request->getPost();
+        $user = user();
 
-        // Validasi manual: username tidak boleh sama dengan milik user lain
-        $usernameUsed = $this->userModel
-            ->where('username', $post['username'])
-            ->where('id !=', $userId)
-            ->first();
+        $rules = [
+            'username' => "permit_empty|alpha_numeric_space|min_length[3]|is_unique[users.username,id,{$user->id}]",
+            'email'    => "permit_empty|valid_email|is_unique[users.email,id,{$user->id}]"
+        ];
 
-        if ($usernameUsed) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Username sudah digunakan oleh pengguna lain.');
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Validasi manual: email tidak boleh sama dengan milik user lain
-        $emailUsed = $this->userModel
-            ->where('email', $post['email'])
-            ->where('id !=', $userId)
-            ->first();
+        $data = [];
 
-        if ($emailUsed) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Email sudah digunakan oleh pengguna lain.');
+        if ($this->request->getPost('username') && $this->request->getPost('username') != $user->username) {
+            $data['username'] = $this->request->getPost('username');
         }
 
-        // Update langsung tanpa entitas
-        $updated = $this->userModel->update($userId, [
-            'username' => $post['username'],
-            'email'    => $post['email'],
-        ]);
-
-        // Cek hasil update
-        if (! $updated) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal memperbarui informasi. Silakan coba lagi.');
+        if ($this->request->getPost('email') && $this->request->getPost('email') != $user->email) {
+            $data['email'] = $this->request->getPost('email');
+        }
+        if ($this->request->getPost('phone_number') && $this->request->getPost('phone_number') != $user->phone_number) {
+            $data['phone_number'] = $this->request->getPost('phone_number');
+        }
+        if ($this->request->getPost('address') && $this->request->getPost('address') != $user->address) {
+            $data['address'] = $this->request->getPost('address');
         }
 
-        return redirect()->back()
-            ->with('message', 'Informasi berhasil diperbarui.');
+        if (!empty($data)) {
+            $this->userModel->update($user->id, $data);
+            return redirect()->to('admin/profile')->with('success', 'Profil berhasil diperbarui.');
+        }
+
+        $field = $this->request->getPost('field');
+        $value = $this->request->getPost('value');
+
+        $userId = user_id(); // dari Myth\Auth
+        $userModel = new \Myth\Auth\Models\UserModel();
+
+        $userModel->update($userId, [$field => $value]);
+
+        if ($userModel->save($data)) {
+            session()->setFlashdata('success', 'Profil berhasil diperbarui.');
+            session()->setFlashdata('show_edit_card', true); // <-- inilah yang membuat card terbuka
+        } else {
+            session()->setFlashdata('error', 'Gagal memperbarui profil.');
+        }
+
+        return redirect()->to('admin/profile');
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
     public function updateImage()
     {
