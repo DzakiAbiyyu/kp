@@ -49,7 +49,7 @@ class Pages extends BaseController
 
         $konten = $ContentModel->where('slug', 'siapa_kami')->first();
         $data = [
-            'title' => 'About | Leuwi Hejo',
+            'title' => 'About | Lembah Pangaduan',
             'konten' => $konten,
             'media' => $media
 
@@ -63,7 +63,7 @@ class Pages extends BaseController
         $mediaModel = new MediaSosialModel();
         $media = $mediaModel->findAll();
         $data = [
-            'title' => 'Galery | Leuwi Hejo',
+            'title' => 'Galery | Lembah Pangaduan',
             'media' => $media
         ];
         echo view('pages/galery', $data);
@@ -75,7 +75,7 @@ class Pages extends BaseController
         $mediaModel = new MediaSosialModel();
         $media = $mediaModel->findAll();
         $data = [
-            'title' => 'Pesan-Tiket | Leuwi Hejo',
+            'title' => 'Pesan-Tiket | Lembah Pangaduan',
             'media' => $media
         ];
         echo view('pages/pesanTiket', $data);

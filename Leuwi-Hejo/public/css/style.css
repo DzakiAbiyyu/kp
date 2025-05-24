@@ -6,7 +6,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700&display=swap');
-
 :root {
     /* Warna utama */
     --color-bg-dark: #0d1b1e;        /* Dark Forest */
@@ -420,6 +419,7 @@ hr {
     display: flex;
     flex-direction: column;
 }
+
 .tentangKami-hero-content h1 {
     display: inline-block; /* Supaya lebarnya sesuai konten */
     margin: 0 auto; /* Tengahin secara horizontal */
@@ -435,19 +435,21 @@ hr {
     animation: 
     typing-H1-TentangKami 2s steps(20, end), /* Animasi mengetik */
     blink-caret .75s step-end infinite; /* Animasi kursor berkedip */
- 
 }
+
 .tentangKami-hero-content p {
     overflow-wrap: break-word;
     /* background-color: rgb(237, 227, 227); */
     font-size: 1.2rem;
     color: var(--color-text-secondary);
 }
+
 .tentangKami-section {
     background-color: #142f2e;
     padding: 60px 20px;
     color: var(--color-text-main);
 }
+
 .tentangKami-container {
     animation: fadeIn 1s ease-out forwards;
     max-width: 1200px;
@@ -455,6 +457,34 @@ hr {
     /* padding: 50px 20px; */
     /* background-color: red; */
 }
+
+.siapa-kami {
+    margin-top: 60px;
+    /* background-color: red; */
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: red; */
+
+}
+
+.siapa-kami h2 {
+    font-size: 2rem;
+}
+
+.siapa-kami p {
+    letter-spacing: 2px;
+    font-family: 'Raleway','montserrat', 'poppins';
+    margin-bottom: 5px;
+    font-size: 1.3rem;
+    text-align:left;
+}
+
 .unix-tentang-kami {
     padding: 50px 20px;
     background-color: #142f2e;
@@ -504,11 +534,6 @@ hr {
     margin-bottom: 20px;
     color: var(--color-heading);
 }
-.tentangKami-grid {
-    /* display: flex; */
-    /* flex-wrap: wrap; */
-    /* gap: 20px; */
-}
 .tentangKami-box {
     flex: 1;
     /* min-width: 250px; */
@@ -517,7 +542,8 @@ hr {
     /* padding: 20px; */
     border-radius: 10px;
 }
-.Latar-Belakang {
+.apa-yang-membuat-kami-berbeda {
+    /* background-color: red; */
     padding: 10px 0px;
     display: flex;
     flex-wrap: wrap;
@@ -527,11 +553,14 @@ hr {
     /* background-color: red; */
 }
 
-.Latar-Belakang h2 {
+.apa-yang-membuat-kami-berbeda h2 {
     font-size: 2rem;
+    text-transform: capitalize;
 }
 
-.Latar-Belakang p {
+.apa-yang-membuat-kami-berbeda p {
+    text-align: right;
+    text-transform: capitalize;
     /* background-color: red; */
     word-break: break-word;
     overflow-wrap: break-word;
@@ -539,34 +568,69 @@ hr {
     width: 100%;
     font-size: 1.5rem;
 }
-.siapa-kami {
-    /* padding: 10px auto; */
-    word-break: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    padding: 10px 0px;
+
+.tentangKami-gallery-grid {
+    /* width: 80%; */
+    /* background-color: red; */
+    /* height: 500px; */
+    box-sizing: border-box;
+    padding: 10px;
+    /* border: 5px solid black; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: minmax(200px, 300px) minmax(200px, 300px);
+    /* grid-template-rows: repeat(2, 200px); */
+    grid-template-areas:
+    "square-atas  landscape-atas landscape-atas "
+    "landscape-bawah landscape-bawah square-bawah";
+
+    gap: 10px;
+    margin-top: 20px;
+
+}
+
+.landscape-atas {
+    grid-area: landscape-atas;
+}
+
+.square-atas {
+    grid-area: square-atas;
+}
+
+.square-bawah {
+    grid-area: square-bawah;
+}
+
+
+.landscape-bawah{
+    grid-area: landscape-bawah;
+}
+
+
+/* Gambar mengikuti lebar container, tinggi otomatis */
+.img-box img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.img-box {
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* background-color: red; */
-
 }
 
-.siapa-kami h2 {
-    font-size: 2rem;
-}
-.siapa-kami p {
-    letter-spacing: 2px;
-    font-family: 'Raleway','montserrat', 'poppins';
-    margin-bottom: 5px;
-    font-size: 1.3rem;
-    text-align:right;
-}
+
+
 
 .tentangKami-box h3 {
     color: var(--color-accent);
 }
+
 /* Card Paket */
 .tentangKami-tim .tentangKami-cards {
     overflow: auto;
@@ -645,6 +709,7 @@ hr {
 /* Tentang Kami End */
 
 /* Galery Start */
+
 /* Header Galeri */
 .header-galery {
   background-color: var(--color-card);
@@ -680,7 +745,75 @@ hr {
   margin-bottom: 40px;
 }
 
-/* Galeri Gambar */
+.container-foto {
+    margin-bottom: 40px;
+    /* background-color: grey; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tentang-kita {
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    background-color: black;
+    /* padding: 10px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 10%; */
+    padding: 10px 0;
+    /* gap: 20px; */
+}
+
+.tentang-kita h5 {
+    cursor: pointer;
+    /* background-color: blue; */
+    text-align: center;
+    /* text-decoration: underline; */
+    padding-right: 2px;
+    text-transform: capitalize;
+    padding: 0 10px;
+    display: inline-block;
+    border-right: 2px solid #555;
+}
+
+.tentang-kita h5:last-child {
+    border-right: none;
+}
+
+.tentang-kita h5::after {
+    content: "";
+    display: block;
+    height: 2px;
+    background-color: #555;
+    margin-top: 3px;
+}
+
+.tentang-kita h5.active::after {
+    background-color: transparent;
+}
+
+
+.Bingkai {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    /* padding: 10px; */
+    display: grid;
+    background-color: grey;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.Bingkai img {
+    object-fit: cover;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+}
+
 .gallery {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -1064,7 +1197,7 @@ hr {
     text-align: center;
     color: #2e7d32;
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 1rem;
     margin-bottom: 25px;
 }
 
@@ -1162,7 +1295,8 @@ hr {
     width: 100%;
     padding: 10px 15px;
     border-radius: 15px;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
+    border: 1px solid #ff0000;
     margin-bottom: 15px;
     font-size: 1rem;
     outline: none;
@@ -1220,6 +1354,7 @@ hr {
 }
 
 .container-perlengkapan {
+    background-color: #a19b9b;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(2, 1fr); /* 2 kolom */
@@ -1229,7 +1364,11 @@ hr {
 
 .container-perlengkapan .form-check {
     display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    text-align: center;
     gap: 10px;
+    background-color: #23cae0;
 }
 
 .booking-form input:focus,
@@ -1419,7 +1558,6 @@ hr {
         padding: 10px 0;
         overflow-x: hidden;
         overflow-y: auto;
-        /* width: 600px; */
         height: 500px;
     }
     
@@ -1442,8 +1580,17 @@ hr {
         grid-template-columns: repeat(2, 1fr);
         max-height: calc(2 * 315px + 20px); /* card-nya biasanya lebih tinggi di mobile */
     }
-    
+
+    .tentangKami-gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        /* grid-template-rows: minmax(100px, 200px) minmax(100px, 200px); */
+        grid-template-rows: minmax(80px, 200px) minmax(80px, 200px);
+        grid-template-areas:
+            "square-atas landscape-atas landscape-atas landscape-atas"
+            "landscape-bawah landscape-bawah landscape-bawah square-bawah";
+    }    
     /* tentang kami end */
+
     /* popup content start*/
     /* .popup-containerForm .popup-content { */
         /* width: 90vw; */
@@ -1492,9 +1639,17 @@ hr {
         transition: font-size 0.5s ease;
         font-size: 1rem;
     }
-    /* Tentang Kami End */
 
+    .tentangKami-gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: minmax(100px, 150px) minmax(100px, 150px);
+        /* grid-template-rows: repeat(2, 80px); */
+        grid-template-areas:
+            "square-atas landscape-atas landscape-atas landscape-atas"
+            "landscape-bawah landscape-bawah landscape-bawah square-bawah";
+    }    
 }
+/* Tentang Kami End */
 
 @media (max-width: 480px) {
 
@@ -1590,19 +1745,24 @@ hr {
 
 
     /* Tentang Kami Start */
-    .tentangKami-hero .tentangKami-hero-content h1 {
-        transition: font-size 0.5s ease;
-        font-size: 1.8rem;
-    }
-    .tentangKami-hero .tentangKami-hero-content p {
-        transition: font-size 0.5s ease;
+    .apa-yang-membuat-kami-berbeda h2 {
         font-size: 1.5rem;
+        text-transform: capitalize;
     }
 
-     .tentangKami-tim .tentangKami-cards {
-        grid-template-columns: 1fr;
-        max-height: calc(2 * 200px + 20px);
+    .apa-yang-membuat-kami-berbeda p {
+        font-size: 1.2rem;
     }
+
+    .tentangKami-gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: minmax(80px, 100px) minmax(80px, 100px);
+        /* grid-template-rows: repeat(2, 80px); */
+        grid-template-areas:
+            "square-atas landscape-atas landscape-atas landscape-atas"
+            "landscape-bawah landscape-bawah landscape-bawah square-bawah";
+    }    
+
     /* Tentang Kami End */
 
     /* Galery Start */
@@ -1740,6 +1900,18 @@ hr {
     /* Home End */
 
     /* Tentang Kami Start */
+
+    .apa-yang-membuat-kami-berbeda h2 {
+        /* background-color: red; */
+        font-size: 1rem;
+        text-transform: capitalize;
+    }
+
+    .apa-yang-membuat-kami-berbeda p {
+        font-size: 0.9rem;
+    }
+
+
     .tentangKami-hero .tentangKami-hero-content h1 {
         transition: font-size 0.5s ease;
         background-color: red;
@@ -1753,8 +1925,14 @@ hr {
     .tentangKami-tim .tentangKami-cards {
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     }
-    
-    /* Tentang Kami End */
 
-    
+    .tentangKami-gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+        /* grid-template-rows: minmax(50px, 80px) minmax(50px, 80px); */
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:
+            "square-atas landscape-atas landscape-atas landscape-atas"
+            "landscape-bawah landscape-bawah landscape-bawah square-bawah";
+    }    
+    /* Tentang Kami End */
 }

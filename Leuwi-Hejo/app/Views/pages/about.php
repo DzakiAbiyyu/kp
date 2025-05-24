@@ -1,11 +1,11 @@
 <?= $this->extend('layout/template'); ?>
 <?php $this->section('content'); ?>
-<header class="tentangKami-hero">
-    <div class="tentangKami-hero-content">
-        <h1>Lembah Pangaduan</h1>
-        <p>Menghadirkan Keindahan Alam Lewat Pengalaman Wisata</p>
-    </div>
-</header>
+<!-- <header class="tentangKami-hero"> -->
+<!-- <div class="tentangKami-hero-content"> -->
+<!-- <h1>Lembah Pangaduan</h1> -->
+<!-- <p>Menghadirkan Keindahan Alam Lewat Pengalaman Wisata</p> -->
+<!-- </div> -->
+<!-- </header> -->
 
 <section class="tentangKami-section tentangKami-intro">
     <div class="tentangKami-container siapa-kami">
@@ -28,7 +28,8 @@
             <div class="unix-col unix-visi">
                 <h2 class="unix-title">Visi</h2>
                 <p>
-                    Menjadi platform lelang terpercaya yang memberikan akses mudah dan transparan bagi semua pihak.
+                    <!-- Menjadi platform lelang terpercaya yang memberikan akses mudah dan transparan bagi semua pihak. -->
+                    Menjadi destinasi camping terfavorit di sentul, yang memadukan petualangan alam dengan kenyamanan
                 </p>
             </div>
 
@@ -36,9 +37,9 @@
             <div class="unix-col unix-misi">
                 <h2 class="unix-title">Misi</h2>
                 <ul>
-                    <li>Menyediakan layanan lelang online yang aman dan mudah digunakan.</li>
-                    <li>Meningkatkan keterlibatan masyarakat dalam proses lelang secara digital.</li>
-                    <li>Menjamin transparansi dan keadilan dalam setiap transaksi lelang.</li>
+                    <li>Menyediakan layanan dan fasilitas camping berkualitas tinggi.</li>
+                    <li>Mendorong kegiatan wisata ramah lingkungan.</li>
+                    <li>Menumbuhkan semangat kebersamaan dan cinta alam bagi semua kalangan.</li>
                 </ul>
             </div>
         </div>
@@ -47,11 +48,30 @@
 </section>
 
 <section class="tentangKami-section">
-    <div class="tentangKami-container Latar-Belakang">
-        <h2>Latar Belakang</h2>
+    <div class="tentangKami-container apa-yang-membuat-kami-berbeda">
+        <h2>apa yang membuat kami berbeda ?</h2>
         <div class="tentangKami-grid">
             <div class="tentangKami-box">
-                <p>Menjadi pelopor wisata alam yang berkelanjutan di Indonesia.</p>
+                <p>Lokasi camping terluas di sentul,</p>
+                <p>Lokasi strategis, mudah dijangkau</p>
+                <p>Fasilitas lengkap (toilet, mushola, listrik, air bersih)</p>
+                <p>Tim profesional dan ramah</p>
+                <p>Tersedia paket khusus untuk acara komunitas dan perusahaan</p>
+                <p>Lingkungan aman dan cocok untuk segala usia</p>
+            </div>
+        </div>
+        <div class="tentangKami-gallery-grid">
+            <div class="img-box landscape-atas">
+                <img src="/img/background/dua.jpg" alt="gambar-1">
+            </div>
+            <div class="img-box square-atas">
+                <img src="/img/background/square-1.jpeg" alt="gambar-2">
+            </div>
+            <div class="img-box landscape-bawah">
+                <img src="/img/background/dua.jpg" alt="gambar-3">
+            </div>
+            <div class="img-box square-bawah">
+                <img src="/img/background/square-2.jpeg" alt="gambar-4">
             </div>
         </div>
     </div>

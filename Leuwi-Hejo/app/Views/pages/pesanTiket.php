@@ -27,16 +27,15 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">CAMPING NON TENDA</h5>
-                    <div class="buttons">
-                        <!-- <button class="Form"><a href="/form/hargaReguler"></a>Pilih</button> -->
-                        <a href="/form/campingNonTenda">Pilih</a>
-                        <button class="Informasi" data-url="/Jendela/informasiCampingNonTenda">Lihat-Informasi</button>
-                    </div>
-                </div>
-            </div>
+            <!-- <div class="card"> -->
+            <!-- <div class="card-body"> -->
+            <!-- <h5 class="card-title">CAMPING NON TENDA</h5> -->
+            <!-- <div class="buttons"> -->
+            <!-- <a href="/form/campingNonTenda">Pilih</a> -->
+            <!-- <button class="Informasi" data-url="/Jendela/informasiCampingNonTenda">Lihat-Informasi</button> -->
+            <!-- </div> -->
+            <!-- </div> -->
+            <!-- </div> -->
 
             <div class="card">
                 <div class="card-body">
@@ -60,23 +59,22 @@
                 </div>
             </div>
 
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">CAMPING + TRAKKING</h5>
-                    <div class="buttons">
-                        <!-- <button class="Form"><a href="/form/hargaReguler"></a>Pilih</button> -->
-                        <a href="/form/campingTrakking">Pilih</a>
-                        <button class="Informasi" data-url="/jendela/Reguler">Lihat-Informasi</button>
-                    </div>
-                </div>
-            </div>
+            <!-- <div class="card"> -->
+            <!-- <div class="card-body"> -->
+            <!-- <h5 class="card-title">CAMPING + TRAKKING</h5> -->
+            <!-- <div class="buttons"> -->
+            <!-- <a href="/form/campingTrakking">Pilih</a> -->
+            <!-- <button class="Informasi" data-url="/jendela/Reguler">Lihat-Informasi</button> -->
+            <!-- </div> -->
+            <!-- </div> -->
+            <!-- </div> -->
 
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">PERLENGKAPAN</h5>
                     <div class="buttons">
                         <!-- <button class="Form"><a href="/form/hargaReguler"></a>Pilih</button> -->
-                        <a href="/form/hargaReguler">Pilih</a>
+                        <a href="/form/perlengkapanCamping">Pilih</a>
                         <button class="Informasi" data-url="/jendela/Reguler">Lihat-Informasi</button>
                     </div>
                 </div>

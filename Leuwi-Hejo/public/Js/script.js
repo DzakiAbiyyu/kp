@@ -18,6 +18,34 @@ document.querySelector('#hamburger-menu').addEventListener('click', function (e)
     navbarNav.classList.toggle('active');
 });
 
+ document.addEventListener("DOMContentLoaded", function () {
+    const tombolKategori = document.querySelectorAll(".tentang-kita h5");
+    const semuaGaleri = document.querySelectorAll(".Bingkai");
+
+    tombolKategori.forEach((tombol) => {
+      tombol.addEventListener("click", () => {
+        // Hapus semua garis bawah (hilangkan .active)
+        tombolKategori.forEach((t) => t.classList.remove("active"));
+
+        // Sembunyikan semua galeri
+        semuaGaleri.forEach((galeri) => galeri.style.display = "none");
+
+        // Tambahkan class active ke tombol yang diklik
+        tombol.classList.add("active");
+
+        // Tampilkan galeri yang sesuai
+        const idTarget = tombol.textContent.trim();
+        const galeriTarget = document.getElementById(idTarget.charAt(0).toUpperCase() + idTarget.slice(1));
+        if (galeriTarget) {
+          galeriTarget.style.display = "grid";
+        }
+      });
+    });
+
+    // Trigger klik pertama secara default (misalnya "gathering")
+    tombolKategori[0].click();
+  });
+
 // slider
 // let images = [
 //     '/img/satujpg',
@@ -67,7 +95,83 @@ document.querySelector('#hamburger-menu').addEventListener('click', function (e)
 //   setInterval(changeBackground, 2000);
 // end slider  
 
-// const nomorPemilik = '6282226221535';
+const nomorPemilik = '6282226221535';
+
+
+function formSewaPerlengkapan (formId, fieldSettings) {
+
+    const form = document.getElementById(formId);
+    if (!form) return;
+
+    const fields = {};
+
+    for (const fieldName in fieldSettings) {
+        fields[fieldName] = document.getElementById(fieldSettings[fieldName]);
+    }
+
+
+
+    let perlengkapanCheckbox = fields.perlengkapanCheckbox;
+    let perlengkapanList = fields.perlengkapanList;
+    let perlengkapanError = fields.perlengkapanError;
+
+    perlengkapanCheckbox.addEventListener('change', () => {
+        if (perlengkapanCheckbox.checked) {
+            perlengkapanList.style.display = 'block';
+        } else {
+            perlengkapanList.style.display = 'none';
+        }
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let nama = fields.nama.value.trim();
+            let nomor = fields.nomor.value.trim();
+            let jumlahOrang = fields.jumlah.value;
+            let namaPaket = fields.namaPaket.value;
+            let tanggal = fields.tanggal.value.trim();
+
+
+
+                    // cek perlengkapan jika dicentang
+            let selectedPackages = [];
+            let perlengkapanTerpilihValue = [];
+            let perlengkapanTerpilihText = [];
+
+            if (perlengkapanCheckbox.checked) {
+                const itemCheckboxes = perlengkapanList.querySelectorAll('input[type="checkbox"]:checked');
+
+                itemCheckboxes.forEach(cb => {
+                    perlengkapanTerpilihValue.push(cb.value);
+
+                    const label = document.querySelector(`label[for="${cb.value}"]`);
+                    if (label) {
+                        perlengkapanTerpilihText.push(label.textContent.trim());
+                    } else {
+                        perlengkapanTerpilihText.push(cb.value);
+                    }
+                });
+
+                if (perlengkapanTerpilihValue.length > 0) {
+                    perlengkapanError.hidden = true;
+                    selectedPackages = perlengkapanTerpilihText;
+                }
+            }
+            
+            let pesan =  `Halo, saya ingin menyewa perlengkapan\nNama\t\t\t: ${nama}\nNomor\t\t\t: ${nomor}\nJumlah Orang\t\t: ${jumlahOrang}`;
+
+            if (selectedPackages.length > 0) {
+                pesan += `\n*Sewa Perlengkapan*\t: ${selectedPackages.join(' - ')}`;
+            }
+
+            alert('Pesan berhasil dikirim. Anda akan diarahkan ke WhatsApp.');
+            const waLink = `https://wa.me/${nomorPemilik}?text=${encodeURIComponent(pesan)}`;
+            window.open(waLink, '_blank');
+        });
+
+    });
+
+}
 
 function initFormReguler(formId, fieldSettings) {
     const form = document.getElementById(formId);
@@ -648,4 +752,16 @@ document.addEventListener('DOMContentLoaded', function () {
         perlengkapanError: 'perlengkapanError',
         tanggal: 'tanggal'
     });
+
+    formSewaPerlengkapan('form-sewa-perlengkapan', {
+        nama: 'name',
+        nomor: 'nomor',
+        jumlah: 'jumlah',
+        namaPaket: 'hiddenInput',
+        perlengkapanCheckbox: 'perlengkapanCheckbox',
+        perlengkapanList: 'perlengkapanList',
+        perlengkapanError: 'perlengkapanError',
+        tanggal: 'tanggal'
+    });
+
 });
