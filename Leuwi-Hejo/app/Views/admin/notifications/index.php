@@ -16,6 +16,9 @@ use CodeIgniter\I18n\Time;
     <?php if (session()->getFlashdata('message')): ?>
         <div class="alert alert-success"><?= session('message') ?></div>
     <?php endif ?>
+    <button id="mark-all-read" class="btn btn-sm btn-outline-primary mb-3 enhanced-btn">
+        <i class="bi bi-check2-all me-1"></i> Tandai Semua Dibaca
+    </button>
 
     <div class="list-group">
         <?php if (empty($notifications)): ?>
@@ -31,7 +34,7 @@ use CodeIgniter\I18n\Time;
                     <!-- Kiri: Foto profil + ikon -->
                     <div class="d-flex align-items-center justify-content-center me-3 position-relative">
                         <!-- Foto Profil -->
-                        <img src="<?= base_url('uploads/profile/' . ($notif->actor_image)) ?>"
+                        <img src="<?= base_url('uploads/profile/' . ($notif->actor_image ?: 'default.svg')) ?>"
                             alt="Foto" width="45" height="45"
                             class="rounded-circle shadow-sm border border-light me-2">
 
@@ -64,5 +67,22 @@ use CodeIgniter\I18n\Time;
         <?php endif ?>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).on('click', '#mark-all-read', function() {
+        $.post("<?= base_url('admin/notifications/mark-all-read') ?>", function(response) {
+            if (response.status === 'success') {
+                location.reload();
+            } else {
+                alert('Gagal menandai notifikasi.');
+            }
+        }).fail(function(xhr) {
+            console.error(xhr.responseText);
+            alert('Terjadi error saat mengirim request.');
+        });
+    });
+</script>
+
 
 <?= $this->endSection() ?>

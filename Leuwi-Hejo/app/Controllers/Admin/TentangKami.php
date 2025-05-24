@@ -43,6 +43,6 @@ class TentangKami extends BaseController
         ])->update();
 
 
-        return redirect()->to('/admin/tentang_kami')->with('success', 'Konten berhasil diperbarui!');
+        return redirect()->to('/admin/tentang_kami')->with('success_tentang_kami', 'Konten berhasil diperbarui!');
     }
 }

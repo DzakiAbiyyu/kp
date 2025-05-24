@@ -11,9 +11,11 @@
           <div class="card mb-4">
               <div class="card-body">
                   <h2>Siapa Kami</h2>
-                  <?php if (session()->getFlashdata('success')) : ?>
-                      <div class="alert alert-success"><?= session()->getFlashdata('success'); ?></div>
-                  <?php endif; ?>
+                  <!-- <?php if (session()->getFlashdata('success_tentang_kami')) : ?>
+                      <div class="alert alert-success"><?= session()->getFlashdata('success_tentang_kami'); ?></div>
+                  <?php endif; ?> -->
+
+
                   <table class="table table-bordered mt-3">
                       <thead class="bg-primary">
                           <tr>
@@ -41,4 +43,6 @@
           </div>
       </div>
   </main>
+
+
   <?= $this->endsection(); ?>

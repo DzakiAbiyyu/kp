@@ -21,7 +21,10 @@ class User extends \Myth\Auth\Entities\User
      *      'db_name' => 'class_name'
      *  ];
      */
-    protected $datamap = [];
+    protected $datamap = [
+        'username' => 'username',
+        'email'    => 'email',
+    ];
 
     /**
      * Define properties that are automatically converted to Time instances.

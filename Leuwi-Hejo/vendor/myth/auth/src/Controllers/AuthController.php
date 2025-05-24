@@ -2,13 +2,15 @@
 
 namespace Myth\Auth\Controllers;
 
-use CodeIgniter\Controller;
+use App\Controllers\BaseController;
+
 use CodeIgniter\Session\Session;
 use Myth\Auth\Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\UserModel;
+use App\Models\UserNoSoftDeleteModel;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
     protected $auth;
 
@@ -143,14 +145,13 @@ class AuthController extends Controller
      */
     public function attemptRegister()
     {
-        // Check if registration is allowed
         if (! $this->config->allowRegistration) {
             return redirect()->back()->withInput()->with('error', lang('Auth.registerDisabled'));
         }
 
-        $users = model(UserModel::class);
+        $users = new UserNoSoftDeleteModel();
 
-        // Validate basics first since some password rules rely on these fields
+        // Step 1: Validasi username & email
         $rules = config('Validation')->registrationRules ?? [
             'username' => 'required|alpha_numeric_space|min_length[3]|max_length[30]|is_unique[users.username]',
             'email'    => 'required|valid_email|is_unique[users.email]',
@@ -160,7 +161,7 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Validate passwords since they can only be validated properly here
+        // Step 2: Validasi password
         $rules = [
             'password'     => 'required|strong_password',
             'pass_confirm' => 'required|matches[password]',
@@ -170,13 +171,15 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        // Save the user
+        // Step 3: Ambil data post yang valid
         $allowedPostFields = array_merge(['password'], $this->config->validFields, $this->config->personalFields);
-        $user              = new User($this->request->getPost($allowedPostFields));
+        $postData = $this->request->getPost($allowedPostFields);
+
+        $user = new User($postData);
 
         $this->config->requireActivation === null ? $user->activate() : $user->generateActivateHash();
 
-        // Ensure default group gets assigned if set
+        // Assign default group jika ada
         if (! empty($this->config->defaultUserGroup)) {
             $users = $users->withGroup($this->config->defaultUserGroup);
         }
@@ -185,20 +188,33 @@ class AuthController extends Controller
             return redirect()->back()->withInput()->with('errors', $users->errors());
         }
 
+        // Ambil ID dan nama user baru
+        $newUserId = $users->getInsertID();
+        $username = $user->username ?? 'UserBaru';
+
+        // Kirim notifikasi ke admin/super_admin
+        $this->createNotification(
+            'User Baru Mendaftar',
+            "User <strong>{$username}</strong> telah berhasil mendaftar.",
+            'info',
+            'fas fa-user-plus',
+            base_url('/admin/daftar_user'),
+            null,           // target user (null = admin & superadmin)
+            $newUserId      // ACTOR-nya adalah user baru
+        );
+
 
         if ($this->config->requireActivation !== null) {
             $activator = service('activator');
-            $sent      = $activator->send($user);
+            $sent = $activator->send($user);
 
             if (! $sent) {
                 return redirect()->back()->withInput()->with('error', $activator->error() ?? lang('Auth.unknownError'));
             }
 
-            // Success!
             return redirect()->route('login')->with('message', lang('Auth.activationSuccess'));
         }
 
-        // Success!
         return redirect()->route('login')->with('message', lang('Auth.registerSuccess'));
     }
 

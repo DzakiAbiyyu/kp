@@ -30,7 +30,6 @@
 </head>
 
 <body>
-
     <?= $this->include('layout/navbar'); ?>
     <?= $this->renderSection('content'); ?>
     <?= $this->include('layout/footer'); ?>
@@ -42,4 +41,31 @@
 
     <!-- My Script -->
     <script src="/js/script.js"></script>
+
+    <!-- SweetAlert2 -->
+    <?php if (session()->getFlashdata('popup_error')): ?>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Akses Dibatasi',
+                text: '<?= esc(session('popup_error')) ?>',
+                confirmButtonText: 'Oke',
+                confirmButtonColor: '#d33',
+                customClass: {
+                    popup: 'swal-compact'
+                }
+            });
+        </script>
+        <style>
+            .swal-compact {
+                width: 300px !important;
+                font-size: 14px;
+            }
+        </style>
+    <?php endif ?>
+
+
+
+
 </body>

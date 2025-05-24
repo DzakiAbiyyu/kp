@@ -29,11 +29,15 @@ $routes->get('/Jendela/(:segment)', 'Jendela::load/$1');
 // PopUP
 $routes->get('/form/(:segment)', 'form::load/$1');
 
+$routes->get('forbidden', 'Home::forbidden');
+
+
 
 // admin
 $routes->group('admin', [
     'namespace' => 'App\Controllers\Admin',
-    // 'filter' => 'role:admin,super_admin'
+    // 'filter' => 'role:admin,super_admin',
+    'filter' => 'liveadmin'
 ], function ($routes) {
     // beranda
     $routes->get('/', 'Dashboard::index',);
@@ -63,9 +67,19 @@ $routes->group('admin', [
     $routes->get('tentang_kami/edit/(:segment)', 'TentangKami::edit/$1');
     $routes->post('tentang_kami/update/(:segment)', 'TentangKami::update/$1');
 
+    // galleri
+    $routes->get('gallery', 'GalleryAdmin::index');
+    $routes->get('gallery/edit/(:num)', 'GalleryAdmin::edit/$1');
+    $routes->post('gallery/update/(:num)', 'GalleryAdmin::update/$1');
+    $routes->get('gallery/delete/(:num)', 'GalleryAdmin::delete/$1');
+    $routes->get('gallery/create', 'GalleryAdmin::create');
+    $routes->post('gallery/store', 'GalleryAdmin::store');
+
     // user
     $routes->get('user-panel', 'UserController::userPanel');
     $routes->get('profile', 'UserController::profile', ['filter' => 'login']);
+    $routes->post('profile/update', 'UserController::updateProfile', ['filter' => 'login']);
+
     $routes->post('profile/update-image', 'UserController::updateImage', ['filter' => 'login']);
     $routes->post('profile/remove-image', 'UserController::removeImage', ['filter' => 'login']);
     $routes->get('daftar_user', 'UserController::index', ['filter' => 'login']);
@@ -76,14 +90,20 @@ $routes->group('admin', [
     $routes->post('users/toggle-status', 'UserController::toggleStatus');
     $routes->get('users/role-logs', 'UserController::roleLogs');
     $routes->get('users/delete/(:num)', 'UserController::deleteUser/$1', ['filter' => 'role:admin,super_admin']);
+    $routes->get('refresh-role', 'UserController::refreshRole', ['filter' => 'login']);
 });
 
 
-$routes->group('admin/notifications', ['namespace' => 'App\Controllers\Admin'], function ($routes) {
+$routes->group('admin/notifications', [
+    'namespace' => 'App\Controllers\Admin',
+    'filter' => 'liveadmin',
+    // 'filter' => 'role:admin,super_admin',
+], function ($routes) {
     $routes->get('/', 'NotificationController::index');
     $routes->get('read/(:num)', 'NotificationController::read/$1');
     $routes->get('cleanup', 'NotificationController::cleanup');
     $routes->get('ajax/get', 'NotificationController::getUserNotifications');       // 🔔 Get notifikasi AJAX
     $routes->post('ajax/mark-read', 'NotificationController::markUserNotifications'); // 🧼 Mark as read
     $routes->post('mark-read', 'NotificationController::markRead');
+    $routes->post('mark-all-read', 'NotificationController::markAllRead');
 });

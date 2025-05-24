@@ -5,7 +5,9 @@ namespace App\Controllers\Admin;
 use App\Controllers\BaseController;
 use Myth\Auth\Models\GroupModel;
 use App\Models\UserModel;
-use Myth\Auth\Entities\User;
+// use Myth\Auth\Entities\User;
+use App\Entities\User;
+
 
 class UserController extends BaseController
 {
@@ -46,7 +48,16 @@ class UserController extends BaseController
         $users = $this->userModel->findAll();
 
         $totalUser     = count($users);
-        $activeUser    = count(array_filter($users, fn($u) => $u->active));
+
+        // Hitung user aktif (login 10 menit terakhir)
+        $thresholdTime = date('Y-m-d H:i:s', strtotime('-10 minutes'));
+        $activeUser    = $this->userModel->where('last_active >=', $thresholdTime)->countAllResults();
+
+        $activeUsers = $this->userModel
+            ->where('last_active >=', $thresholdTime)
+            ->findAll();
+
+
         $nonActiveUser = $totalUser - $activeUser;
 
         $adminCount = 0;
@@ -76,21 +87,129 @@ class UserController extends BaseController
             'nonActiveUser',
             'adminCount',
             'superAdminCount',
-            'regularUserCount'
+            'regularUserCount',
+            'activeUsers'
         ));
     }
+
 
 
 
     public function profile()
     {
         $userModel = new \Myth\Auth\Models\UserModel();
-        $user = $userModel->find(user()->id); // BUKAN $auth->user()
+        $groupModel = new \Myth\Auth\Models\GroupModel();
 
-        return view('admin/users/profile', ['user' => $user]);
+        $user = $userModel->find(user()->id);
+        $groups = $groupModel->getGroupsForUser($user->id);
+
+
+        return view('admin/users/profile', [
+            'user' => $user,
+            'groups' => $groups
+        ]);
     }
 
+    // public function updateInfo()
+    // {
+    //     $userId = user()->id;
+    //     $post = $this->request->getPost();
+    //     // dd($userId);
 
+    //     // Validasi manual: username tidak boleh sama dengan milik user lain
+    //     $usernameUsed = $this->userModel
+    //         ->where('username', $post['username'])
+    //         ->where('id !=', $userId)
+    //         ->first();
+
+    //     if ($usernameUsed) {
+    //         return redirect()->back()
+    //             ->withInput()
+    //             ->with('error', 'Username sudah digunakan oleh pengguna lain.');
+    //     }
+
+    //     // Validasi manual: email tidak boleh sama dengan milik user lain
+    //     $emailUsed = $this->userModel
+    //         ->where('email', $post['email'])
+    //         ->where('id !=', $userId)
+    //         ->first();
+
+    //     if ($emailUsed) {
+    //         return redirect()->back()
+    //             ->withInput()
+    //             ->with('error', 'Email sudah digunakan oleh pengguna lain.');
+    //     }
+
+    //     // Update langsung tanpa entitas
+    //     $updated = $this->userModel->update($userId, [
+    //         'username' => $post['username'],
+    //         'email'    => $post['email'],
+    //     ]);
+
+    //     // Cek hasil update
+    //     if (! $updated) {
+    //         return redirect()->back()
+    //             ->withInput()
+    //             ->with('error', 'Gagal memperbarui informasi. Silakan coba lagi.');
+    //     }
+
+    //     return redirect()->back()
+    //         ->with('message', 'Informasi berhasil diperbarui.');
+    // }
+
+
+
+    public function updateProfile()
+    {
+        $user = user();
+
+        $rules = [
+            'username' => "permit_empty|alpha_numeric_space|min_length[3]|is_unique[users.username,id,{$user->id}]",
+            'email'    => "permit_empty|valid_email|is_unique[users.email,id,{$user->id}]"
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
+        }
+
+        $data = [];
+
+        if ($this->request->getPost('username') && $this->request->getPost('username') != $user->username) {
+            $data['username'] = $this->request->getPost('username');
+        }
+
+        if ($this->request->getPost('email') && $this->request->getPost('email') != $user->email) {
+            $data['email'] = $this->request->getPost('email');
+        }
+        if ($this->request->getPost('phone_number') && $this->request->getPost('phone_number') != $user->phone_number) {
+            $data['phone_number'] = $this->request->getPost('phone_number');
+        }
+        if ($this->request->getPost('address') && $this->request->getPost('address') != $user->address) {
+            $data['address'] = $this->request->getPost('address');
+        }
+
+        if (!empty($data)) {
+            $this->userModel->update($user->id, $data);
+            return redirect()->to('admin/profile')->with('success', 'Profil berhasil diperbarui.');
+        }
+
+        $field = $this->request->getPost('field');
+        $value = $this->request->getPost('value');
+
+        $userId = user_id(); // dari Myth\Auth
+        $userModel = new \Myth\Auth\Models\UserModel();
+
+        $userModel->update($userId, [$field => $value]);
+
+        if ($userModel->save($data)) {
+            session()->setFlashdata('success', 'Profil berhasil diperbarui.');
+            session()->setFlashdata('show_edit_card', true); // <-- inilah yang membuat card terbuka
+        } else {
+            session()->setFlashdata('error', 'Gagal memperbarui profil.');
+        }
+
+        return redirect()->to('admin/profile');
+    }
 
     public function updateImage()
     {
@@ -243,13 +362,15 @@ class UserController extends BaseController
         $targetGroups     = $this->groupModel->getGroupsForUser($userId);
         $targetGroupNames = array_column($targetGroups, 'name');
 
+        // Cek izin
         if (! $this->canModify($currentUser, $userId, $targetGroupNames, $newRoles)) {
             return redirect()->back()->with('error', 'Anda tidak diizinkan mengubah role ini.');
         }
 
+        // Hapus semua role lama
         $this->groupModel->removeUserFromAllGroups($userId);
 
-        // Catat log perubahan role
+        // Log perubahan role
         $this->db->table('role_change_logs')->insert([
             'changed_by'   => $currentUser->id,
             'target_user'  => $userId,
@@ -258,9 +379,7 @@ class UserController extends BaseController
             'changed_at'   => date('Y-m-d H:i:s'),
         ]);
 
-        $targetUser = $this->userModel->find($userId);
-
-        // Format cantik teks perubahan
+        // Format teks log notifikasi
         $fromRoles = implode(', ', $targetGroupNames);
         $toRoles   = implode(', ', $newRoles);
 
@@ -272,6 +391,7 @@ class UserController extends BaseController
             esc($toRoles)
         );
 
+        // Kirim notifikasi
         $this->createNotification(
             'Perubahan Role Pengguna',
             $message,
@@ -280,15 +400,16 @@ class UserController extends BaseController
             base_url('admin/users/manage-roles')
         );
 
+        // Tambahkan role baru
         foreach ($newRoles as $roleName) {
             $group = $this->groupModel->where('name', $roleName)->first();
             if ($group) {
                 $this->groupModel->addUserToGroup($userId, $group->id);
             }
         }
-
         return redirect()->back()->with('message', 'Role berhasil diperbarui.');
     }
+
 
 
 
@@ -303,8 +424,6 @@ class UserController extends BaseController
 
         $targetGroups = $this->groupModel->getGroupsForUser($userId);
         $targetGroupNames = array_column($targetGroups, 'name');
-
-        $isCurrentSuperAdmin = in_groups('super_admin');
         $isTargetSuperAdmin  = in_array('super_admin', $targetGroupNames);
 
         // 🚫 Tidak boleh nonaktifkan super_admin siapa pun
@@ -373,9 +492,10 @@ class UserController extends BaseController
         }
 
         $username = $targetUser->username;
-        $this->userModel->delete($userId);
 
-        // 🔔 Notifikasi dinamis
+        // Hapus permanen (tanpa soft delete)
+        $this->userModel->delete($userId, true); // 👈 penting!
+
         $this->createNotification(
             'Pengguna Dihapus',
             "<strong>{$currentUser->username}</strong> menghapus akun <strong>{$username}</strong>.",
@@ -384,8 +504,37 @@ class UserController extends BaseController
             base_url('admin/daftar_user')
         );
 
-        return redirect()->back()->with('message', 'User berhasil dihapus.');
+        return redirect()->back()->with('message', 'User berhasil dihapus secara permanen.');
     }
+
+
+    public function refreshRole()
+    {
+        $userId = user_id();
+
+        $user = model('UserModel')->find($userId);
+
+        if (! $user) {
+            return redirect()->back()->with('error', 'User tidak ditemukan.');
+        }
+
+        // 🔁 Muat ulang role & permission dari database
+        $groupModel = new \Myth\Auth\Models\GroupModel();
+        $groups = $groupModel->getGroupsForUser($userId);
+
+        // 🔄 Update session secara manual
+        session()->set('logged_in', true);
+        session()->set('user', $user);
+        session()->set('user_id', $user->id);
+        session()->set('groups', $groups); // pastikan view pakai session()->get('groups') atau user()->groups
+
+        return redirect()->back()->with('message', 'Role Anda telah disegarkan.');
+    }
+    public function forbidden()
+    {
+        return view('errors/forbidden'); // buat view dengan pesan "Akses ditolak"
+    }
+
 
 
 

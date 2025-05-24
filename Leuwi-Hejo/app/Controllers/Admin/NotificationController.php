@@ -64,28 +64,38 @@ class NotificationController extends BaseController
      */
     public function cleanup()
     {
+        $userId = user()->id;
         $threshold = date('Y-m-d H:i:s', strtotime('-24 hours'));
 
-        // Dapatkan semua ID dari notifikasi yang bisa dihapus
         $toDelete = $this->db->table('user_notifications')
             ->select('user_notifications.notification_id')
             ->join('notifications', 'notifications.id = user_notifications.notification_id')
-            ->where('user_notifications.is_read', true)
+            ->where('user_notifications.user_id', $userId)
+            ->where('user_notifications.is_read', 1)
             ->where('notifications.created_at <', $threshold)
             ->get()
             ->getResultArray();
 
         if (!empty($toDelete)) {
-            $ids = array_column($toDelete, 'notification_id');
+            $notifIds = array_column($toDelete, 'notification_id');
 
-            $this->db->table('user_notifications')->whereIn('notification_id', $ids)->delete();
+            $this->db->table('user_notifications')
+                ->where('user_id', $userId)
+                ->whereIn('notification_id', $notifIds)
+                ->delete();
         }
 
-        return $this->response->setJSON(['status' => 'success', 'message' => 'Notifikasi lama dibersihkan.']);
+        // Tidak menghapus dari table `notifications` agar user lain tetap bisa baca
     }
+
+
+
 
     public function getUserNotifications()
     {
+        // Bersihkan notifikasi lama untuk user ini (dibaca & > 24 jam)
+        $this->cleanup();
+
         $userId = user()->id;
 
         $notifications = $this->db->table('user_notifications')
@@ -98,7 +108,6 @@ class NotificationController extends BaseController
             ->get()
             ->getResult();
 
-
         $unreadCount = $this->db->table('user_notifications')
             ->where('user_id', $userId)
             ->where('is_read', false)
@@ -109,6 +118,7 @@ class NotificationController extends BaseController
             'unread' => $unreadCount
         ]);
     }
+
 
 
 
@@ -142,5 +152,23 @@ class NotificationController extends BaseController
             ]);
 
         return $this->response->setJSON(['success' => true]);
+    }
+
+    public function markAllRead()
+    {
+        $userId = user()->id;
+
+        $this->db->table('user_notifications')
+            ->where('user_id', $userId)
+            ->where('is_read', false)
+            ->update([
+                'is_read' => 1,
+                'read_at' => date('Y-m-d H:i:s'),
+            ]);
+
+        return $this->response->setJSON([
+            'status' => 'success',
+            'message' => 'Semua notifikasi telah ditandai dibaca.'
+        ]);
     }
 }

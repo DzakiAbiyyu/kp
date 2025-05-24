@@ -8,6 +8,7 @@ use CodeIgniter\HTTP\IncomingRequest;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
+use Myth\Auth\Models\UserModel;
 
 /**
  * Class BaseController
@@ -57,6 +58,18 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
 
+        $this->db = \Config\Database::connect();
+        helper('notification');
+        // Di BaseController.php
+        if (logged_in()) {
+            $userModel = new UserModel();
+            $userModel->update(user_id(), [
+                'last_active' => date('Y-m-d H:i:s')
+            ]);
+        }
+
+
+
         // Load model
         $mediaModel = new \App\Models\MediaSosialModel();
 
@@ -70,9 +83,16 @@ abstract class BaseController extends Controller
         helper('auth'); // Tambahkan ini
     }
 
-    protected function createNotification(string $title, string $message, string $type = 'info', string $icon = 'fas fa-info-circle', string $link = null, array $targetUserIds = null)
-    {
-        $actorId = user()->id;
+    protected function createNotification(
+        string $title,
+        string $message,
+        string $type = 'info',
+        string $icon = 'fas fa-info-circle',
+        string $link = null,
+        array $targetUserIds = null,
+        ?int $actorIdOverride = null // ⬅️ tambahan
+    ) {
+        $actorId = $actorIdOverride ?? (user() ? user()->id : null);
 
         $this->db->table('notifications')->insert([
             'title'      => $title,
@@ -86,9 +106,21 @@ abstract class BaseController extends Controller
 
         $notifId = $this->db->insertID();
 
-        $targets = $targetUserIds ?? $this->db->table('users')->select('id')->get()->getResultArray();
+        $targets = $targetUserIds;
+
+        if ($targets === null) {
+            $targets = $this->db->table('auth_groups_users')
+                ->select('auth_groups_users.user_id')
+                ->join('auth_groups', 'auth_groups.id = auth_groups_users.group_id')
+                ->whereIn('auth_groups.name', ['admin', 'super_admin'])
+                ->groupBy('auth_groups_users.user_id')
+                ->get()
+                ->getResultArray();
+        }
+
         foreach ($targets as $t) {
-            $uid = is_array($t) ? $t['id'] : $t;
+            $uid = is_array($t) ? ($t['user_id'] ?? $t['id']) : $t;
+
             $this->db->table('user_notifications')->insert([
                 'user_id'         => $uid,
                 'notification_id' => $notifId,
