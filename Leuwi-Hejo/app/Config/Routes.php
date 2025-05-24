@@ -67,6 +67,14 @@ $routes->group('admin', [
     $routes->get('tentang_kami/edit/(:segment)', 'TentangKami::edit/$1');
     $routes->post('tentang_kami/update/(:segment)', 'TentangKami::update/$1');
 
+    // galleri
+    $routes->get('gallery', 'GalleryAdmin::index');
+    $routes->get('gallery/edit/(:num)', 'GalleryAdmin::edit/$1');
+    $routes->post('gallery/update/(:num)', 'GalleryAdmin::update/$1');
+    $routes->get('gallery/delete/(:num)', 'GalleryAdmin::delete/$1');
+    $routes->get('gallery/create', 'GalleryAdmin::create');
+    $routes->post('gallery/store', 'GalleryAdmin::store');
+
     // user
     $routes->get('user-panel', 'UserController::userPanel');
     $routes->get('profile', 'UserController::profile', ['filter' => 'login']);

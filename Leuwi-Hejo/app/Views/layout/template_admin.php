@@ -84,7 +84,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="<?= base_url('admin/beranda') ?>">Beranda</a>
                         <a class="collapse-item" href="<?= base_url('admin/tentang_kami') ?>">Tentang Kami</a>
-                        <a class="collapse-item" href="<?= base_url('admin/galery') ?>">Gallery</a>
+                        <a class="collapse-item" href="<?= base_url('admin/gallery') ?>">Gallery</a>
                         <a class="collapse-item" href="<?= base_url('admin/produk_paket') ?>">Produk & Paket</a>
 
                     </div>
